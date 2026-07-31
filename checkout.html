@@ -1,1 +1,59 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Պատվերի ձևակերպում | SEVOYAN Luxury</title>
 
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">SEVOYAN</div>
+
+    <nav>
+        <a href="index.html">Գլխավոր</a>
+        <a href="shop.html">Խանութ</a>
+        <a href="cart.html">Զամբյուղ</a>
+    </nav>
+</header>
+
+<section class="collections">
+
+<h2 class="section-title">Պատվերի ձևակերպում</h2>
+
+<form id="checkout-form" style="max-width:600px;margin:0 auto;display:flex;flex-direction:column;gap:15px;">
+
+<input type="text" id="name" placeholder="Անուն և ազգանուն" required>
+
+<input type="tel" id="phone" placeholder="Հեռախոսահամար" required>
+
+<input type="text" id="address" placeholder="Առաքման հասցե" required>
+
+<select id="payment">
+<option>Կանխիկ առաքման պահին</option>
+<option>Քարտով վճարում</option>
+</select>
+
+<button type="submit">Հաստատել պատվերը</button>
+
+</form>
+
+</section>
+
+<script>
+document.getElementById("checkout-form").addEventListener("submit",function(e){
+e.preventDefault();
+
+alert("🎉 Շնորհակալություն։ Ձեր պատվերն ընդունվել է։");
+
+localStorage.removeItem("cart");
+
+window.location.href="index.html";
+});
+</script>
+
+</body>
+</html>
