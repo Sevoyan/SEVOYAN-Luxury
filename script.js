@@ -1,21 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-const button = document.querySelector("button");
+    // Hero button
+    const heroBtn = document.querySelector(".hero button");
+    if (heroBtn) {
+        heroBtn.addEventListener("click", () => {
+            document.querySelector("#shop").scrollIntoView({
+                behavior: "smooth"
+            });
+        });
+    }
 
-button.addEventListener("click", () => {
-    alert("Բարի գալուստ SEVOYAN Luxury ✨");
-});
+    // Add to cart
+    let cart = 0;
+    const buttons = document.querySelectorAll(".card button");
 
-const cards = document.querySelectorAll(".card");
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            cart++;
+            button.innerHTML = "✅ Ավելացվեց";
+            button.disabled = true;
 
-cards.forEach(card => {
-    card.addEventListener("mouseenter", () => {
-        card.style.boxShadow = "0 0 25px gold";
+            alert("Ապրանքը ավելացվեց զամբյուղ (" + cart + ")");
+        });
     });
 
-    card.addEventListener("mouseleave", () => {
-        card.style.boxShadow = "none";
+    // Card animation
+    const cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+        card.addEventListener("mouseenter", () => {
+            card.style.transform = "translateY(-12px)";
+        });
+
+        card.addEventListener("mouseleave", () => {
+            card.style.transform = "translateY(0)";
+        });
     });
-});
 
 });
