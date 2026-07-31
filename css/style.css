@@ -78,14 +78,23 @@ nav a:hover{
 }
 
 .hero-content h1{
-    font-size:70px;
-    color:#D4AF37;
+    font-size:48px;
+    line-height:1.2;
+    max-width:900px;
+    margin:auto;
+}
 }
 
-.hero-content p{
-    margin:20px 0 35px;
-    font-size:22px;
+.hero-content{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    height:100vh;
 }
+
+
 
 .btn{
     display:inline-block;
