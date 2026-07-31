@@ -291,3 +291,39 @@ nav a:hover{
 .product button:hover{
     background:#f5d76e;
 }
+.categories{
+    padding:70px 40px;
+    text-align:center;
+    background:#0b0b0b;
+}
+
+.categories h2{
+    color:#D4AF37;
+    margin-bottom:40px;
+    font-size:36px;
+}
+
+.category-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+}
+
+.category{
+    background:#111;
+    border:1px solid #D4AF37;
+    border-radius:15px;
+    padding:40px 20px;
+    transition:.3s;
+    cursor:pointer;
+}
+
+.category:hover{
+    transform:translateY(-8px);
+    box-shadow:0 0 20px rgba(212,175,55,.4);
+}
+
+.category h3{
+    color:white;
+    font-size:22px;
+}
