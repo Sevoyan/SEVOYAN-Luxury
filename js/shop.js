@@ -49,17 +49,24 @@ list.forEach(product=>{
 container.innerHTML+=`
 <div class="product">
 
-<img src="${product.image}">
+<img src="${product.image}" alt="${product.nameHY}">
 
 <h3>${product.nameHY}</h3>
 
 <p>${product.price}</p>
 
-<button>Ավելացնել զամբյուղ</button>
+<div class="product-buttons">
+    <button onclick="addToCart(${products.indexOf(product)})">
+        🛒 Ավելացնել զամբյուղ
+    </button>
+
+    <button onclick="addToFavorites(${products.indexOf(product)})">
+        ❤️ Սիրելիներ
+    </button>
+</div>
 
 </div>
 `;
-
 });
 
 }
