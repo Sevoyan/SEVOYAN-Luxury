@@ -159,3 +159,51 @@ nav a:hover{
     border-radius:8px;
     font-weight:bold;
 }
+.header-right{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.language-switcher{
+display:flex;
+gap:8px;
+}
+
+.language-switcher button{
+background:#D4AF37;
+border:none;
+padding:8px 12px;
+border-radius:8px;
+cursor:pointer;
+font-size:16px;
+transition:.3s;
+}
+
+.language-switcher button:hover{
+background:white;
+}
+
+.logo{
+text-decoration:none;
+color:#D4AF37;
+}
+
+nav a{
+position:relative;
+}
+
+nav a::after{
+content:"";
+position:absolute;
+left:0;
+bottom:-6px;
+width:0;
+height:2px;
+background:#D4AF37;
+transition:.3s;
+}
+
+nav a:hover::after{
+width:100%;
+}
