@@ -87,3 +87,24 @@ product.nameEN.toLowerCase().includes(value)
 render(filtered);
 
 });
+function addToFavorites(index){
+
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+    favorites.push(products[index]);
+
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+
+    alert("❤️ Ապրանքը ավելացվեց սիրելիներին");
+}
+
+function addToCart(index){
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    cart.push(products[index]);
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    alert("🛒 Ապրանքը ավելացվեց զամբյուղ");
+}
