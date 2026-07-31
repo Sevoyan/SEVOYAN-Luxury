@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="hy">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SEVOYAN Luxury</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEVOYAN Luxury</title>
 
-  <link rel="stylesheet" href="css/style.css">
-
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
-  langusge.js
-<script src="js/language.js"></script>
-<script src="js/script.js"></script>
+
 <body>
 
 <header class="header">
@@ -19,23 +15,17 @@
 <a href="index.html" class="logo">SEVOYAN</a>
 
 <nav>
-    <a href="index.html">🏠 Գլխավոր</a>
-    <a href="shop.html">🛍️ Խանութ</a>
-    <a href="favorites.html">❤️ Սիրելիներ</a>
-    <a href="cart.html">🛒 Զամբյուղ</a>
-    <a href="about.html">ℹ️ Մեր մասին</a>
-    <a href="contact.html">📞 Կապ</a>
+<a id="nav-home" href="index.html">Գլխավոր</a>
+<a id="nav-shop" href="shop.html">Խանութ</a>
+<a id="nav-favorites" href="favorites.html">Սիրելիներ</a>
+<a id="nav-cart" href="cart.html">Զամբյուղ</a>
+<a id="nav-about" href="about.html">Մեր մասին</a>
+<a id="nav-contact" href="contact.html">Կապ</a>
 </nav>
 
-<div class="header-right">
-
 <div class="language-switcher">
-<button onclick="changeLanguage('hy')">🇦🇲</button>
-<button onclick="changeLanguage('en')">🇬🇧</button>
-</div>
-
-<a href="login.html">👤</a>
-
+<button onclick="changeLanguage('hy')">AM</button>
+<button onclick="changeLanguage('en')">GB</button>
 </div>
 
 </header>
@@ -44,14 +34,14 @@
 
 <div class="hero-content">
 
-<h1>Luxury Redefined</h1>
+<h1 id="hero-title">Շքեղությունը վերաիմաստավորված</h1>
 
-<p>
-Premium Fashion • Black & Gold
+<p id="hero-text">
+Շքեղություն • Ոճ • Որակ
 </p>
 
-<a href="shop.html" class="btn">
-Shop Now
+<a id="hero-button" href="shop.html" class="btn">
+Դիտել հավաքածուն
 </a>
 
 </div>
@@ -84,25 +74,7 @@ Shop Now
 
 </section>
 
-<div class="product">
-<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600" alt="Sneakers">
-<h3>Luxury Sneakers</h3>
-<p>$189</p>
-<button>Add to Cart</button>
-</div>
+<script src="js/language.js"></script>
 
-<div class="product">
-<img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600" alt="Bag">
-<h3>Luxury Bag</h3>
-<p>$220</p>
-<button>Add to Cart</button>
-</div>
-
-<div class="product">
-<img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600" alt="Jacket">
-<h3>Premium Jacket</h3>
-<p>$149</p>
-<button>Add to Cart</button>
-</div>
-
-</div>
+</body>
+</html>
