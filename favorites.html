@@ -1,40 +1,81 @@
-<!DOCTYPE html>
-<html lang="hy">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Սիրելիներ | SEVOYAN Luxury</title>
+// SEVOYAN Luxury - favorites.js
 
-<link rel="stylesheet" href="css/style.css">
-</head>
+function getFavorites() {
+    return JSON.parse(localStorage.getItem("favorites")) || [];
+}
 
-<body>
+function saveFavorites(favorites) {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+}
 
-<header class="header">
+function addToFavorites(name, price, image) {
 
-<a href="index.html" class="logo">SEVOYAN</a>
+    let favorites = getFavorites();
 
-<nav>
-<a href="index.html">🏠 Գլխավոր</a>
-<a href="shop.html">🛍️ Խանութ</a>
-<a href="favorites.html">❤️ Սիրելիներ</a>
-<a href="cart.html">🛒 Զամբյուղ</a>
-<a href="about.html">ℹ️ Մեր մասին</a>
-<a href="contact.html">📞 Կապ</a>
-<a href="login.html">👤 Մուտք</a>
-</nav>
+    const exists = favorites.find(item => item.name === name);
 
-</header>
+    if (exists) {
+        alert("❤️ Այս ապրանքն արդեն ընտրյալներում է");
+        return;
+    }
 
-<section class="collections">
+    favorites.push({
+        name: name,
+        price: price,
+        image: image
+    });
 
-<h2 class="section-title">❤️ Սիրելի ապրանքներ</h2>
+    saveFavorites(favorites);
 
-<div id="favorites" class="products"></div>
+    alert("❤️ Ավելացվեց ընտրյալներին");
+}
 
-</section>
+function renderFavorites() {
 
-<script src="js/favorites.js"></script>
+    const container = document.getElementById("favorites");
 
-</body>
-</html>
+    if (!container) return;
+
+    const favorites = getFavorites();
+
+    if (favorites.length === 0) {
+        container.innerHTML = "<h2>Ընտրյալներ դեռ չկան ❤️</h2>";
+        return;
+    }
+
+    container.innerHTML = "";
+
+    favorites.forEach((item, index) => {
+
+        container.innerHTML += `
+        <div class="product">
+
+            <img src="${item.image}" alt="${item.name}">
+
+            <h3>${item.name}</h3>
+
+            <p>${item.price} ֏</p>
+
+            <button onclick="removeFavorite(${index})">
+                ❌ Հեռացնել
+            </button>
+
+        </div>
+        `;
+
+    });
+
+}
+
+function removeFavorite(index) {
+
+    let favorites = getFavorites();
+
+    favorites.splice(index,1);
+
+    saveFavorites(favorites);
+
+    renderFavorites();
+}
+
+document.addEventListener("DOMContentLoaded", renderFavorites);
