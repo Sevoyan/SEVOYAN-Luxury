@@ -125,3 +125,142 @@ nav a:hover{
     transform:translateY(-10px);
     box-shadow:0 0 20px rgba(212,175,55,.5);
 }
+/* ===== HERO ===== */
+
+.hero{
+    position:relative;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:url("https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600") center/cover no-repeat;
+}
+
+.hero-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.55);
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:800px;
+    padding:20px;
+}
+
+.hero-tag{
+    display:inline-block;
+    color:#D4AF37;
+    border:1px solid #D4AF37;
+    padding:8px 18px;
+    border-radius:30px;
+    margin-bottom:20px;
+    letter-spacing:2px;
+}
+
+.hero-content h1{
+    font-size:64px;
+    color:#fff;
+    margin-bottom:20px;
+}
+
+.hero-content p{
+    font-size:22px;
+    color:#ddd;
+    margin-bottom:35px;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    display:inline-block;
+    padding:14px 30px;
+    border-radius:8px;
+    text-decoration:none;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.btn-gold{
+    background:#D4AF37;
+    color:#111;
+}
+
+.btn-gold:hover{
+    transform:translateY(-3px);
+}
+
+.btn-outline{
+    border:2px solid #D4AF37;
+    color:#D4AF37;
+}
+
+.btn-outline:hover{
+    background:#D4AF37;
+    color:#111;
+}
+
+/* ===== FEATURED ===== */
+
+.featured{
+    padding:80px 40px;
+    background:#0b0b0b;
+}
+
+.section-title{
+    text-align:center;
+    color:#D4AF37;
+    margin-bottom:40px;
+    font-size:36px;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
+}
+
+.product{
+    background:#111;
+    border:1px solid #D4AF37;
+    border-radius:15px;
+    overflow:hidden;
+    text-align:center;
+    transition:.3s;
+}
+
+.product:hover{
+    transform:translateY(-8px);
+}
+
+.product img{
+    width:100%;
+    height:320px;
+    object-fit:cover;
+}
+
+.product h3{
+    color:#D4AF37;
+    margin:15px 0 10px;
+}
+
+.product p{
+    margin-bottom:15px;
+}
+
+.product button{
+    margin-bottom:20px;
+    padding:12px 20px;
+    background:#D4AF37;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
