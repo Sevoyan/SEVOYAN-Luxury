@@ -264,3 +264,69 @@ nav a:hover{
     cursor:pointer;
     font-weight:bold;
 }
+/* HERO */
+
+.hero{
+    position:relative;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:url("https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600") center/cover no-repeat;
+}
+
+.hero-overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.55);
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:850px;
+    padding:20px;
+}
+
+.hero-subtitle{
+    color:#D4AF37;
+    letter-spacing:4px;
+    font-size:18px;
+}
+
+.hero h1{
+    font-size:64px;
+    margin:20px 0;
+    color:white;
+}
+
+.hero p{
+    font-size:22px;
+    color:#ddd;
+    margin-bottom:35px;
+}
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:15px 35px;
+    text-decoration:none;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.btn-gold{
+    background:#D4AF37;
+    color:black;
+}
+
+.btn-outline{
+    border:2px solid #D4AF37;
+    color:#D4AF37;
+}
