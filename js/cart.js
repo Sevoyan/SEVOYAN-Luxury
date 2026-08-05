@@ -1,34 +1,24 @@
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-const cartItems = document.getElementById("cart-items");
-
-function renderCart() {
-    if (!cartItems) return;
-
-    if (cart.length === 0) {
-        cartItems.innerHTML = "<h2>🛒 Ձեր զամբյուղը դատարկ է</h2>";
-        return;
-    }
-
-    let html = "";
-
-    cart.forEach((item, index) => {
-        html += `
-        <div class="cart-item">
-            <h3>${item.name}</h3>
-            <p>$${item.price}</p>
-            <button onclick="removeItem(${index})">❌ Հեռացնել</button>
-        </div>
-        `;
+function addToCart(name, price) {
+    cart.push({
+        name: name,
+        price: price
     });
 
-    cartItems.innerHTML = html;
-}
-
-function removeItem(index) {
-    cart.splice(index, 1);
     localStorage.setItem("cart", JSON.stringify(cart));
-    renderCart();
+
+    updateCartCount();
+
+    alert(name + " ավելացվեց զամբյուղ։");
 }
 
-renderCart();
+function updateCartCount() {
+    const count = document.getElementById("cart-count");
+
+    if (count) {
+        count.textContent = cart.length;
+    }
+}
+
+updateCartCount();
