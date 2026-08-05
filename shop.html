@@ -1,148 +1,193 @@
 <!DOCTYPE html>
 <html lang="hy">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEVOYAN Luxury | Shop</title>
 
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SEVOYAN Luxury | Shop</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
 <header class="header">
 
-    <a href="index.html" class="logo">SEVOYAN</a>
+<a href="index.html" class="logo">SEVOYAN</a>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="shop.html">Shop</a>
-        <a href="favorites.html">Favorites</a>
-        <a href="cart.html">
-            Cart <span id="cart-count">0</span>
-        </a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-    </nav>
+<nav class="navbar">
 
-    <div class="language-switcher">
-        <button onclick="changeLanguage('hy')">🇦🇲</button>
-        <button onclick="changeLanguage('en')">🇬🇧</button>
-    </div>
+<a href="index.html">Գլխավոր</a>
+
+<a href="shop.html">Խանութ</a>
+
+<a href="favorites.html">Սիրելիներ</a>
+
+<a href="cart.html">
+🛒 <span id="cart-count">0</span>
+</a>
+
+<a href="about.html">Մեր մասին</a>
+
+<a href="contact.html">Կապ</a>
+
+</nav>
+
+<div class="header-right">
+
+<button onclick="changeLanguage('hy')">🇦🇲</button>
+
+<button onclick="changeLanguage('en')">🇬🇧</button>
+
+<a href="login.html">👤</a>
+
+</div>
 
 </header>
 
-<section class="collections">
+<section class="featured">
 
-    <h2 class="section-title">
-        Our Collection
-    </h2>
+<h2>Մեր Հավաքածուն</h2>
 
-    <input
-        type="text"
-        id="search"
-        placeholder="🔍 Search..."
-        class="search-box">
+<div class="products">
+    <div class="product">
 
-    <div class="products">
+    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=700" alt="Premium T-Shirt">
 
-        <div class="product-buttons">
+    <h3>Premium T-Shirt</h3>
 
-<button onclick="addToCart(
-'Premium T-Shirt',
-23900,
-'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=700'
-)">
-🛒 Ավելացնել զամբյուղ
-</button>
+    <p>23 900 ֏</p>
 
-<button onclick="addToFavorites(
-'Premium T-Shirt',
-23900,
-'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=700'
-)">
-❤️ Ընտրյալներ
-</button>
+    <div class="product-buttons">
 
-</div>
-        <div class="product-buttons">
+        <button onclick="addToCart('Premium T-Shirt',23900,'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=700')">
+            🛒 Ավելացնել զամբյուղ
+        </button>
 
-<button onclick="addToCart(
-'Luxury Sneakers',
-74900,
-'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700'
-)">
-🛒 Ավելացնել զամբյուղ
-</button>
-
-<button onclick="addToFavorites(
-'Luxury Sneakers',
-74900,
-'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700'
-)">
-❤️ Ընտրյալներ
-</button>
-
-</div>
-
-        <div class="product">
-
-            <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=700" alt="Bag">
-
-            <h3>Luxury Bag</h3>
-
-            <p>89 900 ֏</p>
-
-            <button onclick="addToCart('Luxury Bag',89900,'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=700')">
-                🛒 Add to Cart
-            </button>
-
-        </div>
-        <div class="product">
-
-            <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=700" alt="Jacket">
-
-            <h3>Premium Jacket</h3>
-
-            <p>59 900 ֏</p>
-
-            <button onclick="addToCart('Premium Jacket',59900,'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=700')">
-                🛒 Add to Cart
-            </button>
-
-        </div>
-
-        <div class="product">
-
-            <img src="https://images.unsplash.com/photo-1521369909029-2afed882baee?w=700" alt="Cap">
-
-            <h3>Luxury Cap</h3>
-
-            <p>14 900 ֏</p>
-
-            <button onclick="addToCart('Luxury Cap',14900,'https://images.unsplash.com/photo-1521369909029-2afed882baee?w=700')">
-                🛒 Add to Cart
-            </button>
-
-        </div>
-
-        <div class="product">
-
-            <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=700" alt="Hoodie">
-
-            <h3>Luxury Hoodie</h3>
-
-            <p>39 900 ֏</p>
-
-            <button onclick="addToCart('Luxury Hoodie',39900,'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=700')">
-                🛒 Add to Cart
-            </button>
-
-        </div>
+        <button onclick="addToFavorites('Premium T-Shirt',23900,'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=700')">
+            ❤️ Ընտրյալներ
+        </button>
 
     </div>
+
+</div>
+
+<div class="product">
+
+    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700" alt="Luxury Sneakers">
+
+    <h3>Luxury Sneakers</h3>
+
+    <p>74 900 ֏</p>
+
+    <div class="product-buttons">
+
+        <button onclick="addToCart('Luxury Sneakers',74900,'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700')">
+            🛒 Ավելացնել զամբյուղ
+        </button>
+
+        <button onclick="addToFavorites('Luxury Sneakers',74900,'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700')">
+            ❤️ Ընտրյալներ
+        </button>
+
+    </div>
+
+</div>
+
+<div class="product">
+
+    <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=700" alt="Luxury Bag">
+
+    <h3>Luxury Bag</h3>
+
+    <p>89 900 ֏</p>
+
+    <div class="product-buttons">
+
+        <button onclick="addToCart('Luxury Bag',89900,'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=700')">
+            🛒 Ավելացնել զամբյուղ
+        </button>
+
+        <button onclick="addToFavorites('Luxury Bag',89900,'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=700')">
+            ❤️ Ընտրյալներ
+        </button>
+
+    </div>
+
+</div>
+<div class="product">
+
+    <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=700" alt="Premium Jacket">
+
+    <h3>Premium Jacket</h3>
+
+    <p>59 900 ֏</p>
+
+    <div class="product-buttons">
+
+        <button onclick="addToCart('Premium Jacket',59900,'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=700')">
+            🛒 Ավելացնել զամբյուղ
+        </button>
+
+        <button onclick="addToFavorites('Premium Jacket',59900,'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=700')">
+            ❤️ Ընտրյալներ
+        </button>
+
+    </div>
+
+</div>
+
+<div class="product">
+
+    <img src="https://images.unsplash.com/photo-1521369909029-2afed882baee?w=700" alt="Luxury Cap">
+
+    <h3>Luxury Cap</h3>
+
+    <p>14 900 ֏</p>
+
+    <div class="product-buttons">
+
+        <button onclick="addToCart('Luxury Cap',14900,'https://images.unsplash.com/photo-1521369909029-2afed882baee?w=700')">
+            🛒 Ավելացնել զամբյուղ
+        </button>
+
+        <button onclick="addToFavorites('Luxury Cap',14900,'https://images.unsplash.com/photo-1521369909029-2afed882baee?w=700')">
+            ❤️ Ընտրյալներ
+        </button>
+
+    </div>
+
+</div>
+
+<div class="product">
+
+    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=700" alt="Luxury Hoodie">
+
+    <h3>Luxury Hoodie</h3>
+
+    <p>39 900 ֏</p>
+
+    <div class="product-buttons">
+
+        <button onclick="addToCart('Luxury Hoodie',39900,'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=700')">
+            🛒 Ավելացնել զամբյուղ
+        </button>
+
+        <button onclick="addToFavorites('Luxury Hoodie',39900,'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=700')">
+            ❤️ Ընտրյալներ
+        </button>
+
+    </div>
+
+</div>
+
+</div>
 
 </section>
 
@@ -157,6 +202,7 @@
 </footer>
 
 <script src="js/language.js"></script>
+<script src="js/favorites.js"></script>
 <script src="js/shop.js"></script>
 
 </body>
