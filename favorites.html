@@ -1,81 +1,75 @@
-// SEVOYAN Luxury - favorites.js
+<!DOCTYPE html>
+<html lang="hy">
 
-function getFavorites() {
-    return JSON.parse(localStorage.getItem("favorites")) || [];
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-function saveFavorites(favorites) {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-}
+    <title>Սիրելիներ | SEVOYAN Luxury</title>
 
-function addToFavorites(name, price, image) {
+    <link rel="stylesheet" href="css/style.css">
+</head>
 
-    let favorites = getFavorites();
+<body>
 
-    const exists = favorites.find(item => item.name === name);
+<header class="header">
 
-    if (exists) {
-        alert("❤️ Այս ապրանքն արդեն ընտրյալներում է");
-        return;
-    }
+    <a href="index.html" class="logo">
+        SEVOYAN
+    </a>
 
-    favorites.push({
-        name: name,
-        price: price,
-        image: image
-    });
+    <nav>
 
-    saveFavorites(favorites);
+        <a href="index.html">🏠 Գլխավոր</a>
 
-    alert("❤️ Ավելացվեց ընտրյալներին");
-}
+        <a href="shop.html">🛍 Խանութ</a>
 
-function renderFavorites() {
+        <a href="favorites.html">❤️ Սիրելիներ</a>
 
-    const container = document.getElementById("favorites");
+        <a href="cart.html">
+            🛒 Զամբյուղ
+            <span id="cart-count">0</span>
+        </a>
 
-    if (!container) return;
+        <a href="about.html">ℹ️ Մեր մասին</a>
 
-    const favorites = getFavorites();
+        <a href="contact.html">📞 Կապ</a>
 
-    if (favorites.length === 0) {
-        container.innerHTML = "<h2>Ընտրյալներ դեռ չկան ❤️</h2>";
-        return;
-    }
+        <a href="login.html">👤 Մուտք</a>
 
-    container.innerHTML = "";
+    </nav>
 
-    favorites.forEach((item, index) => {
+</header>
 
-        container.innerHTML += `
-        <div class="product">
 
-            <img src="${item.image}" alt="${item.name}">
+<section class="featured">
 
-            <h3>${item.name}</h3>
+    <h2 class="section-title">
+        ❤️ Իմ սիրելիները
+    </h2>
 
-            <p>${item.price} ֏</p>
+    <div
+        id="favorites"
+        class="products">
+    </div>
 
-            <button onclick="removeFavorite(${index})">
-                ❌ Հեռացնել
-            </button>
+</section>
 
-        </div>
-        `;
 
-    });
+<footer class="footer">
 
-}
+    <h3>SEVOYAN Luxury</h3>
 
-function removeFavorite(index) {
+    <p>Premium Fashion Brand</p>
 
-    let favorites = getFavorites();
+    <p>© 2026 SEVOYAN Luxury. All rights reserved.</p>
 
-    favorites.splice(index,1);
+</footer>
 
-    saveFavorites(favorites);
 
-    renderFavorites();
-}
+<script src="js/favorites.js"></script>
+<script src="js/shop.js"></script>
 
-document.addEventListener("DOMContentLoaded", renderFavorites);
+</body>
+
+</html>
