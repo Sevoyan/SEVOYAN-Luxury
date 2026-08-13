@@ -1,74 +1,91 @@
 <!DOCTYPE html>
 <html lang="hy">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Պատվերի ձևակերպում | SEVOYAN Luxury</title>
 
-<link rel="stylesheet" href="css/style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Պատվեր | SEVOYAN Luxury</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
 <header class="header">
 
-<a href="index.html" class="logo">SEVOYAN</a>
+    <a href="index.html" class="logo">
+        SEVOYAN
+    </a>
 
-<nav>
-    <a href="index.html">🏠 Գլխավոր</a>
-    <a href="shop.html">🛍️ Խանութ</a>
-    <a href="favorites.html">❤️ Սիրելիներ</a>
-    <a href="cart.html">🛒 Զամբյուղ</a>
-    <a href="about.html">ℹ️ Մեր մասին</a>
-    <a href="contact.html">📞 Կապ</a>
-</nav>
-
-<div class="header-right">
-
-<div class="language-switcher">
-<button onclick="changeLanguage('hy')">🇦🇲</button>
-<button onclick="changeLanguage('en')">🇬🇧</button>
-</div>
-
-<a href="login.html">👤</a>
-
-</div>
+    <nav>
+        <a href="index.html">🏠 Գլխավոր</a>
+        <a href="shop.html">🛍 Խանութ</a>
+        <a href="favorites.html">❤️ Սիրելիներ</a>
+        <a href="cart.html">🛒 Զամբյուղ</a>
+        <a href="about.html">ℹ️ Մեր մասին</a>
+        <a href="contact.html">📞 Կապ</a>
+        <a href="login.html">👤 Մուտք</a>
+    </nav>
 
 </header>
+
+
 <section class="collections">
 
-<h2 class="section-title">Պատվերի ձևակերպում</h2>
+    <h2 class="section-title">
+        🛍 Պատվերի ձևավորում
+    </h2>
 
-<form id="checkout-form" style="max-width:600px;margin:0 auto;display:flex;flex-direction:column;gap:15px;">
+    <div class="checkout-box">
 
-<input type="text" id="name" placeholder="Անուն և ազգանուն" required>
+        <h3>Ձեր տվյալները</h3>
 
-<input type="tel" id="phone" placeholder="Հեռախոսահամար" required>
+        <form id="checkout-form">
 
-<input type="text" id="address" placeholder="Առաքման հասցե" required>
+            <input
+                type="text"
+                id="fullname"
+                placeholder="Անուն Ազգանուն"
+                required>
 
-<select id="payment">
-<option>Կանխիկ առաքման պահին</option>
-<option>Քարտով վճարում</option>
-</select>
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Հեռախոսահամար"
+                required>
 
-<button type="submit">Հաստատել պատվերը</button>
+            <input
+                type="text"
+                id="address"
+                placeholder="Հասցե"
+                required>
 
-</form>
+            <button type="submit">
+                ✅ Հաստատել պատվերը
+            </button>
+
+        </form>
+
+    </div>
 
 </section>
 
-<script>
-document.getElementById("checkout-form").addEventListener("submit",function(e){
-e.preventDefault();
 
-alert("🎉 Շնորհակալություն։ Ձեր պատվերն ընդունվել է։");
+<footer class="footer">
 
-localStorage.removeItem("cart");
+    <h3>SEVOYAN Luxury</h3>
 
-window.location.href="index.html";
-});
-</script>
+    <p>Premium Fashion Brand</p>
+
+    <p>© 2026 SEVOYAN Luxury. All rights reserved.</p>
+
+</footer>
+
+
+<script src="js/checkout.js"></script>
 
 </body>
 </html>
