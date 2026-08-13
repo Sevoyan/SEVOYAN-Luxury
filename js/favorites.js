@@ -1,50 +1,132 @@
-let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+// SEVOYAN Luxury - favorites.js
 
-const container = document.getElementById("favorites");
+function getFavorites() {
+    return JSON.parse(localStorage.getItem("favorites")) || [];
+}
 
-function renderFavorites() {
 
-    if (favorites.length === 0) {
-        container.innerHTML = `
-            <h2 style="text-align:center;width:100%;">
-                ❤️ Սիրելի ապրանքներ դեռ չկան
-            </h2>
-        `;
+function saveFavorites(favorites) {
+    localStorage.setItem(
+        "favorites",
+        JSON.stringify(favorites)
+    );
+}
+
+
+function addToFavorites(name, price, image) {
+
+    let favorites = getFavorites();
+
+    const exists = favorites.find(
+        item => item.name === name
+    );
+
+    if (exists) {
+
+        alert("❤️ Այս ապրանքն արդեն սիրելիներում է");
+
         return;
     }
 
+    favorites.push({
+        name: name,
+        price: price,
+        image: image
+    });
+
+    saveFavorites(favorites);
+
+    alert("❤️ Ապրանքը ավելացվեց սիրելիներին");
+}
+
+
+function renderFavorites() {
+
+    const container =
+        document.getElementById("favorites");
+
+    // Shop էջում container չկա
+    if (!container) return;
+
+    const favorites = getFavorites();
+
+    if (favorites.length === 0) {
+
+        container.innerHTML = `
+            <div style="
+                width:100%;
+                text-align:center;
+                padding:60px;
+            ">
+
+                <h2>
+                    ❤️ Սիրելիներ դեռ չկան
+                </h2>
+
+                <br>
+
+                <a href="shop.html" class="btn btn-gold">
+                    Գնալ խանութ
+                </a>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
     container.innerHTML = "";
 
-    favorites.forEach((product, index) => {
+
+    favorites.forEach((item, index) => {
 
         container.innerHTML += `
-        <div class="product">
 
-            <img src="${product.image}" alt="${product.name}">
+            <div class="product">
 
-            <h3>${product.name}</h3>
+                <img
+                    src="${item.image}"
+                    alt="${item.name}"
+                >
 
-            <p>${product.price}</p>
+                <h3>
+                    ${item.name}
+                </h3>
 
-            <button onclick="removeFavorite(${index})">
-                ❌ Հեռացնել
-            </button>
+                <p>
+                    ${Number(item.price).toLocaleString()} ֏
+                </p>
 
-        </div>
+                <button
+                    onclick="removeFavorite(${index})">
+
+                    ❌ Հեռացնել
+
+                </button>
+
+            </div>
+
         `;
 
     });
 
 }
 
-function removeFavorite(index){
 
-    favorites.splice(index,1);
+function removeFavorite(index) {
 
-    localStorage.setItem("favorites", JSON.stringify(favorites));
+    let favorites = getFavorites();
+
+    favorites.splice(index, 1);
+
+    saveFavorites(favorites);
 
     renderFavorites();
-
 }
 
-renderFavorites();
+
+document.addEventListener(
+    "DOMContentLoaded",
+    renderFavorites
+);
