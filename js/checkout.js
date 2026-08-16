@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const phone = document.getElementById("phone").value.trim();
         const address = document.getElementById("address").value.trim();
 
-        if (!fullname  !phone  !address) {
+       if (!fullname  !phone  !address) {
             alert("Խնդրում ենք լրացնել բոլոր դաշտերը։");
             return;
         }
