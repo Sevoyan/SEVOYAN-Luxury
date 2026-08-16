@@ -1,5 +1,3 @@
-// SEVOYAN Luxury - checkout.js
-
 document.addEventListener("DOMContentLoaded", function () {
 
     const form = document.getElementById("checkout-form");
@@ -10,57 +8,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
         event.preventDefault();
 
-        const fullname =
-            document.getElementById("fullname").value.trim();
-
-        const phone =
-            document.getElementById("phone").value.trim();
-
-        const address =
-            document.getElementById("address").value.trim();
+        const fullname = document.getElementById("fullname").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const address = document.getElementById("address").value.trim();
 
         if (!fullname  !phone  !address) {
-
-            alert("⚠️ Խնդրում ենք լրացնել բոլոր դաշտերը");
-
-            return;
-        }
-
-        const cart =
-            JSON.parse(localStorage.getItem("cart")) || [];
-
-        if (cart.length === 0) {
-
-            alert("🛒 Ձեր զամբյուղը դատարկ է");
-
+            alert("Խնդրում ենք լրացնել բոլոր դաշտերը։");
             return;
         }
 
         const order = {
-
             fullname: fullname,
-
             phone: phone,
-
             address: address,
-
-            products: cart,
-
-            date: new Date().toLocaleString("hy-AM")
-
+            cart: JSON.parse(localStorage.getItem("cart")) || [],
+            date: new Date().toLocaleString()
         };
 
-        localStorage.setItem(
-            "lastOrder",
-            JSON.stringify(order)
-        );
+        localStorage.setItem("order", JSON.stringify(order));
 
-        // Մաքրում ենք զամբյուղը
+        alert("✅ Պատվերը հաջողությամբ ընդունվեց։");
+
         localStorage.removeItem("cart");
 
-        // Ուղարկում ենք հաջողության էջ
         window.location.href = "success.html";
-
     });
 
 });
