@@ -12,9 +12,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const phone = document.getElementById("phone").value.trim();
         const address = document.getElementById("address").value.trim();
 
-       if (!fullname || !phone || !address) {
-
+        if (!fullname || !phone || !address) {
             alert("Խնդրում ենք լրացնել բոլոր դաշտերը։");
+            return;
+        }
+
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        if (cart.length === 0) {
+            alert("❌ Զամբյուղը դատարկ է։");
             return;
         }
 
@@ -22,15 +28,15 @@ document.addEventListener("DOMContentLoaded", function () {
             fullname: fullname,
             phone: phone,
             address: address,
-            cart: JSON.parse(localStorage.getItem("cart")) || [],
+            cart: cart,
             date: new Date().toLocaleString()
         };
 
         localStorage.setItem("order", JSON.stringify(order));
 
-        alert("✅ Պատվերը հաջողությամբ ընդունվեց։");
-
         localStorage.removeItem("cart");
+
+        alert("✅ Պատվերը հաջողությամբ ընդունվեց։");
 
         window.location.href = "success.html";
     });
