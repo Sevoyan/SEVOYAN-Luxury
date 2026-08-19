@@ -2,15 +2,116 @@
 <html lang="hy">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Զամբյուղ | SEVOYAN Luxury</title>
 
     <link rel="stylesheet" href="css/style.css">
 
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        .cart-section {
+            min-height: 75vh;
+            padding: 60px 20px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .cart-title {
+            text-align: center;
+            color: #d4af37;
+            font-family: Cinzel, serif;
+            font-size: 38px;
+            margin-bottom: 40px;
+        }
+
+        #cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 25px;
+            border: 1px solid #d4af37;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.04);
+        }
+
+        .cart-item-info h3 {
+            color: white;
+            margin: 0 0 10px;
+            font-size: 22px;
+        }
+
+        .cart-item-info p {
+            color: #d4af37;
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        .remove-btn {
+            border: none;
+            background: #d4af37;
+            color: #111;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .remove-btn:hover {
+            opacity: 0.8;
+        }
+
+        .cart-total {
+            text-align: right;
+            color: #d4af37;
+            font-size: 25px;
+            margin-top: 30px;
+            font-weight: 600;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: fit-content;
+            margin: 25px 0 0 auto;
+            padding: 14px 25px;
+            background: #d4af37;
+            color: #111;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            padding: 50px;
+        }
+
+        @media (max-width: 600px) {
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .remove-btn {
+                width: 100%;
+            }
+
+            .cart-title {
+                font-size: 28px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -22,29 +123,21 @@
     </a>
 
     <nav>
-
         <a href="index.html">🏠 Գլխավոր</a>
-
         <a href="shop.html">🛍 Խանութ</a>
-
         <a href="favorites.html">❤️ Սիրելիներ</a>
-
         <a href="cart.html">🛒 Զամբյուղ</a>
-
         <a href="about.html">ℹ️ Մեր մասին</a>
-
         <a href="contact.html">📞 Կապ</a>
-
         <a href="login.html">👤 Մուտք</a>
-
     </nav>
 
 </header>
 
 
-<section class="collections">
+<section class="cart-section">
 
-    <h2 class="section-title">
+    <h2 class="cart-title">
         🛒 Ձեր զամբյուղը
     </h2>
 
@@ -67,5 +160,4 @@
 <script src="js/cart.js"></script>
 
 </body>
-
 </html>
