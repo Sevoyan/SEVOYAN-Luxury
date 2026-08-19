@@ -1,19 +1,20 @@
-function loadCart() {
+// SEVOYAN Luxury - cart.js
 
+function loadCart() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     const container = document.getElementById("cart-items");
 
     if (!container) return;
 
     if (cart.length === 0) {
-
         container.innerHTML = `
-            <div class="empty-cart">
+            <div class="product-card">
                 <h2>🛒 Զամբյուղը դատարկ է</h2>
-                <a href="shop.html">Գնալ խանութ</a>
+                <a href="shop.html">
+                    <button>🛍 Գնալ խանութ</button>
+                </a>
             </div>
         `;
-
         return;
     }
 
@@ -22,27 +23,29 @@ function loadCart() {
 
     cart.forEach((item, index) => {
 
-        const qty = item.qty || 1;
-        const price = Number(item.price) || 0;
-        const itemTotal = price * qty;
+        const price = Number(item.price);
+        const qty = Number(item.qty) || 1;
 
-        total += itemTotal;
+        total += price * qty;
 
         html += `
             <div class="product-card">
 
                 ${item.image ? `
-                    <img src="${item.image}" alt="${item.name}">
+                    <img 
+                        src="${item.image}" 
+                        alt="${item.name}"
+                        style="width:120px; border-radius:10px;">
                 ` : ""}
 
                 <h3>${item.name}</h3>
 
-                <p>${price.toLocaleString()} ֏</p>
+                <p>Գին՝ ${price.toLocaleString("hy-AM")} ֏</p>
 
                 <p>Քանակ՝ ${qty}</p>
 
                 <p>
-                    Ընդհանուր՝ ${itemTotal.toLocaleString()} ֏
+                    Ընդհանուր՝ ${(price * qty).toLocaleString("hy-AM")} ֏
                 </p>
 
                 <button onclick="removeItem(${index})">
@@ -54,14 +57,16 @@ function loadCart() {
     });
 
     html += `
-        <div class="cart-total">
+        <div class="product-card">
 
             <h2>
-                Ընդհանուր՝ ${total.toLocaleString()} ֏
+                💰 Ընդհանուր՝ ${total.toLocaleString("hy-AM")} ֏
             </h2>
 
             <a href="checkout.html">
-                Գնալ վճարման
+                <button>
+                    ✅ Ձևակերպել պատվերը
+                </button>
             </a>
 
         </div>
@@ -83,4 +88,6 @@ function removeItem(index) {
 }
 
 
-document.addEventListener("DOMContentLoaded", loadCart);
+document.addEventListener("DOMContentLoaded", function () {
+    loadCart();
+});
