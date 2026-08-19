@@ -1,8 +1,16 @@
 // SEVOYAN Luxury - cart.js
 
+function getCart() {
+    return JSON.parse(localStorage.getItem("cart")) || [];
+}
+
+function saveCart(cart) {
+    localStorage.setItem("cart", JSON.stringify(cart));
+}
+
 function loadCart() {
 
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = getCart();
     const container = document.getElementById("cart-items");
 
     if (!container) return;
@@ -10,11 +18,10 @@ function loadCart() {
     if (cart.length === 0) {
 
         container.innerHTML = `
-            <div class="product-card">
+            <div class="cart-empty">
                 <h2>🛒 Զամբյուղը դատարկ է</h2>
-
-                <a href="shop.html">
-                    <button>🛍 Գնալ խանութ</button>
+                <a href="shop.html" class="cart-checkout-btn">
+                    🛍 Գնալ խանութ
                 </a>
             </div>
         `;
@@ -27,76 +34,74 @@ function loadCart() {
 
     cart.forEach((item, index) => {
 
-        const price = Number(item.price);
+        const price = Number(item.price) || 0;
         const qty = Number(item.qty) || 1;
-
         const itemTotal = price * qty;
 
         total += itemTotal;
 
         html += `
-            <div class="product-card">
+            <div class="cart-item">
 
-                ${
-                    item.image
-                    ? `
-                        <img
-                            src="${item.image}"
-                            alt="${item.name}"
-                            style="width:120px; border-radius:10px;">
-                    `
-                    : ""
-                }
+                <div class="cart-image">
+                    ${
+                        item.image
+                        ? <img src="${item.image}" alt="${item.name}">
+                        : <div class="no-image">🛍</div>
+                    }
+                </div>
 
-                <h3>${item.name}</h3>
+                <div class="cart-info">
 
-                <p>
-                    Գին՝ ${price.toLocaleString("hy-AM")} ֏
-                </p>
+                    <h3>${item.name}</h3>
 
-                <div style="margin:15px 0;">
+                    <p class="cart-price">
+                        Գին՝ ${price.toLocaleString("hy-AM")} ֏
+                    </p>
 
-                    <button onclick="decreaseQty(${index})">
-                        −
-                    </button>
+                    <div class="quantity">
 
-                    <span style="margin:0 15px; font-size:20px;">
-                        ${qty}
-                    </span>
+                        <button onclick="decreaseQty(${index})">
+                            −
+                        </button>
 
-                    <button onclick="increaseQty(${index})">
-                        +
+                        <span>${qty}</span>
+
+                        <button onclick="increaseQty(${index})">
+                            +
+                        </button>
+
+                    </div>
+
+                    <p class="cart-item-total">
+                        Ընդհանուր՝
+                        <strong>
+                            ${itemTotal.toLocaleString("hy-AM")} ֏
+                        </strong>
+                    </p>
+
+                    <button
+                        class="remove-btn"
+                        onclick="removeItem(${index})">
+                        ❌ Ջնջել
                     </button>
 
                 </div>
-
-                <p>
-                    Ապրանքի ընդհանուր գինը՝
-                    <strong>
-                        ${itemTotal.toLocaleString("hy-AM")} ֏
-                    </strong>
-                </p>
-
-                <button onclick="removeItem(${index})">
-                    ❌ Ջնջել
-                </button>
 
             </div>
         `;
     });
 
     html += `
-        <div class="product-card">
+        <div class="cart-total">
 
-            <h2 style="color:#d4af37;">
+            <h2>
                 💰 Ընդհանուր՝
                 ${total.toLocaleString("hy-AM")} ֏
             </h2>
 
-            <a href="checkout.html">
-                <button>
-                    ✅ Ձևակերպել պատվերը
-                </button>
+            <a href="checkout.html" class="cart-checkout-btn">
+                ✅ Ձևակերպել պատվերը
             </a>
 
         </div>
@@ -106,23 +111,21 @@ function loadCart() {
 }
 
 
-// Ավելացնել քանակը
 function increaseQty(index) {
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = getCart();
 
     cart[index].qty = (Number(cart[index].qty) || 1) + 1;
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    saveCart(cart);
 
     loadCart();
 }
 
 
-// Նվազեցնել քանակը
 function decreaseQty(index) {
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = getCart();
 
     cart[index].qty = (Number(cart[index].qty) || 1) - 1;
 
@@ -130,25 +133,22 @@ function decreaseQty(index) {
         cart.splice(index, 1);
     }
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    saveCart(cart);
 
     loadCart();
 }
 
 
-// Ջնջել ապրանքը
 function removeItem(index) {
 
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const cart = getCart();
 
     cart.splice(index, 1);
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    saveCart(cart);
 
     loadCart();
 }
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    loadCart();
-});
+document.addEventListener("DOMContentLoaded", loadCart);
