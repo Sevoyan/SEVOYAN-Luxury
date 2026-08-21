@@ -9,9 +9,9 @@ function saveFavorites(favorites) {
 function addToFavorites(name, price, image = "") {
     const favorites = getFavorites();
 
-    const exists = favorites.find(item => item.name === name);
+    const index = favorites.findIndex(item => item.name === name);
 
-    if (!exists) {
+    if (index === -1) {
         favorites.push({
             name: name,
             price: price,
@@ -19,10 +19,16 @@ function addToFavorites(name, price, image = "") {
         });
 
         saveFavorites(favorites);
-        alert("❤️ Ապրանքը ավելացվեց սիրելիների մեջ");
+
+        alert("❤️ Ապրանքը ավելացվեց ընտրյալների մեջ");
+    } else {
+        favorites.splice(index, 1);
+
+        saveFavorites(favorites);
+
+        alert("💔 Ապրանքը հեռացվեց ընտրյալներից");
     }
 }
-
 function removeFavorite(index) {
     const favorites = getFavorites();
 
