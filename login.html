@@ -1,62 +1,97 @@
 <!DOCTYPE html>
 <html lang="hy">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Մուտք | SEVOYAN Luxury</title>
 
-<link rel="stylesheet" href="css/style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Մուտք | SEVOYAN Luxury</title>
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
 <header class="header">
 
-<a href="index.html" class="logo">SEVOYAN</a>
+    <a href="index.html" class="logo">
+        SEVOYAN
+    </a>
 
-<nav>
-    <a href="index.html">🏠 Գլխավոր</a>
-    <a href="shop.html">🛍️ Խանութ</a>
-    <a href="favorites.html">❤️ Սիրելիներ</a>
-    <a href="cart.html">🛒 Զամբյուղ</a>
-    <a href="about.html">ℹ️ Մեր մասին</a>
-    <a href="contact.html">📞 Կապ</a>
-</nav>
+    <nav>
+        <a href="index.html">🏠 Գլխավոր</a>
+        <a href="shop.html">🛍 Խանութ</a>
+        <a href="favorites.html">❤️ Սիրելիներ</a>
+        <a href="cart.html">🛒 Զամբյուղ</a>
+        <a href="about.html">ℹ️ Մեր մասին</a>
+        <a href="contact.html">📞 Կապ</a>
+    </nav>
 
-<div class="header-right">
+    <div class="header-right">
 
-<div class="language-switcher">
-<button onclick="changeLanguage('hy')">🇦🇲</button>
-<button onclick="changeLanguage('en')">🇬🇧</button>
-</div>
+        <div class="language-switcher">
+            <button onclick="changeLanguage('hy')">🇦🇲</button>
+            <button onclick="changeLanguage('en')">🇬🇧</button>
+        </div>
 
-<a href="login.html">👤</a>
+        <a href="login.html">👤</a>
 
-</div>
+    </div>
 
 </header>
 
-<form id="login-form" style="max-width:450px;margin:0 auto;display:flex;flex-direction:column;gap:15px;">
 
-<input
-type="text"
-id="username"
-placeholder="Օգտանուն"
-required>
+<section class="collections">
 
-<input
-type="password"
-id="password"
-placeholder="Գաղտնաբառ"
-required>
+    <h2 class="section-title">
+        👤 Մուտք
+    </h2>
 
-<button type="submit">
-Մուտք գործել
-</button>
+    <div class="checkout-box">
 
-</form>
+        <h3>Մուտք գործեք հաշիվ</h3>
+
+        <form id="login-form">
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Օգտանուն"
+                required
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Գաղտնաբառ"
+                required
+            >
+
+            <button type="submit">
+                🔐 Մուտք գործել
+            </button>
+
+        </form>
+
+        <p id="login-message"></p>
+
+    </div>
 
 </section>
 
+
+<footer class="footer">
+
+    <h3>SEVOYAN Luxury</h3>
+
+    <p>Premium Fashion Brand</p>
+
+    <p>© 2026 SEVOYAN Luxury. All rights reserved.</p>
+
+</footer>
+
+
+<script src="js/language.js"></script>
 <script src="js/login.js"></script>
 
 </body>
