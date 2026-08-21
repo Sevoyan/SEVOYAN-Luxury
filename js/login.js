@@ -1,13 +1,29 @@
-document.getElementById("login-form").addEventListener("submit", function(e){
+document.addEventListener("DOMContentLoaded", function () {
 
-    e.preventDefault();
+    const form = document.getElementById("login-form");
+    const message = document.getElementById("login-message");
 
-    const username = document.getElementById("username").value;
+    if (!form) return;
 
-    localStorage.setItem("user", username);
+    form.addEventListener("submit", function (event) {
 
-    alert("Բարի գալուստ, " + username + "!");
+        event.preventDefault();
 
-    window.location.href = "index.html";
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        if (username === "" || password === "") {
+            message.textContent = "❌ Լրացրեք բոլոր դաշտերը";
+            return;
+        }
+
+        localStorage.setItem("user", username);
+
+        message.textContent = "✅ Մուտքը հաջողությամբ կատարվեց";
+
+        setTimeout(function () {
+            window.location.href = "index.html";
+        }, 800);
+    });
 
 });
