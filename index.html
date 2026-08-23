@@ -19,38 +19,22 @@
 <header class="header">
 
     <a href="index.html" class="logo">
-        SEVOYAN
-    </a>
+    SEVOYAN
+</a>
 
-    <nav class="navbar">
+<nav>
+    <a href="index.html">🏠 Գլխավոր</a>
+    <a href="shop.html">🛍 Խանութ</a>
+    <a href="favorites.html">❤️ Սիրելիներ</a>
+    <a href="cart.html">🛒 Զամբյուղ</a>
+    <a href="about.html">ℹ️ Մեր մասին</a>
+    <a href="contact.html">📞 Կապ</a>
+</nav>
 
-        <a id="nav-home" href="index.html">Գլխավոր</a>
-
-        <a id="nav-shop" href="shop.html">Խանութ</a>
-
-        <a id="nav-favorites" href="favorites.html">Սիրելիներ</a>
-
-        <a id="nav-cart" href="cart.html">
-            🛒 <span id="cart-count">0</span>
-        </a>
-
-        <a id="nav-about" href="about.html">Մեր մասին</a>
-
-        <a id="nav-contact" href="contact.html">Կապ</a>
-
-    </nav>
-
-    <div class="header-right">
-
-        <button onclick="changeLanguage('hy')">🇦🇲</button>
-
-        <button onclick="changeLanguage('en')">🇬🇧</button>
-
-       <div id="user-area">
-    <a href="login.html">👤 Մուտք</a>
+<div id="user-area">
+    👤 Մուտք
 </div>
 
-</header>
 
 <section class="hero">
 
@@ -151,6 +135,36 @@
 <script src="js/script.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/user.js"></script>
+
+</body>
+</html>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const user = localStorage.getItem("user");
+    const userArea = document.getElementById("user-area");
+
+    if (user) {
+
+        userArea.innerHTML =
+            "👤 " + user +
+            ' <button onclick="logout()">🚪 Դուրս գալ</button>';
+
+    } else {
+
+        userArea.innerHTML =
+            '<a href="login.html">👤 Մուտք</a>';
+    }
+
+});
+
+function logout() {
+
+    localStorage.removeItem("user");
+
+    window.location.href = "index.html";
+}
+</script>
 
 </body>
 </html>
