@@ -682,3 +682,52 @@ section{
     }
 
 }
+/* HEADER FIX */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: nowrap;
+}
+
+.header nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: nowrap;
+}
+
+.header nav a {
+    white-space: nowrap;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
+}
+
+#user-area {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+#user-area span {
+    color: #D4AF37;
+    font-weight: 600;
+}
+
+#user-area button {
+    padding: 7px 10px;
+    border: none;
+    border-radius: 6px;
+    background: #D4AF37;
+    color: #111;
+    cursor: pointer;
+    font-weight: 600;
+}
