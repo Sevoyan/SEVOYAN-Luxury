@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", function () {
 const user = localStorage.getItem("user");
 const userArea = document.getElementById("user-area");
 
@@ -26,3 +27,5 @@ if (user) {
         <a href="login.html">👤 Մուտք</a>
     `;
 }
+});
+function logout() { localStorage.removeItem("user"); window.location.href = "index.html"; }
