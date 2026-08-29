@@ -121,58 +121,68 @@ button {
 ========================= */
 
 .hero {
-    width: 100%;
-    min-height: 650px;
-
+    position: relative;
+    min-height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
-
     text-align: center;
 
-    padding: 80px 20px;
+    background-image:
+        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.65)),
+        url("https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600");
 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
-    position: relative;
 }
 
-.hero::before {
-    content: "";
+.hero-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.48);
+    background: rgba(0,0,0,0.15);
 }
 
 .hero-content {
-    width: 100%;
-    max-width: 950px;
-    margin: 0 auto;
     position: relative;
     z-index: 2;
+    max-width: 1000px;
+    padding: 40px 20px;
+}
+
+.hero-subtitle {
+    color: #D4AF37;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 3px;
 }
 
 .hero h1 {
     color: white;
-    font-family: 'Cinzel', serif;
-    font-size: 58px;
-    line-height: 1.2;
-    margin-bottom: 20px;
+    font-size: 60px;
+    margin: 20px 0;
 }
 
 .hero p {
     color: white;
-    font-size: 20px;
-    margin-bottom: 35px;
+    font-size: 22px;
 }
 
 .hero-buttons {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
 }
 
 
