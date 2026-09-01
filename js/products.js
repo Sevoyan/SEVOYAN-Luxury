@@ -1,6 +1,6 @@
 const SUPABASE_URL = "https://ultbqgkrckapevjllqwe.supabase.co";
 
-const SUPABASE_KEY = "ՔՈ_SUPABASE_PUBLISHABLE_KEY";
+const SUPABASE_KEY = "sb_publishable_N0wWlRo2NFdT_ifDgJhAYQ_Ol5yeIfW";
 
 const API_URL = ${SUPABASE_URL}/rest/v1/products?select=*&order=id.desc;
 
