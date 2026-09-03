@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="hy">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Խանութ | SEVOYAN Luxury</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -29,19 +25,6 @@
         <a href="contact.html">📞 Կապ</a>
     </nav>
 
-    <div class="header-right">
-
-        <div class="language-switcher">
-            <button onclick="changeLanguage('hy')">🇦🇲</button>
-            <button onclick="changeLanguage('en')">🇬🇧</button>
-        </div>
-
-        <div id="user-area">
-            <a href="login.html">👤 Մուտք</a>
-        </div>
-
-    </div>
-
 </header>
 
 
@@ -49,19 +32,41 @@
 
     <h2>Մեր ապրանքները</h2>
 
-    <div class="products" id="products">
-        <p style="text-align:center; width:100%;">
-            Ապրանքները բեռնվում են...
-        </p>
-    </div>
+    <div class="products" id="products"></div>
 
 </section>
 
 
-<script src="js/language.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/user.js"></script>
 <script src="js/products.js"></script>
+
+<script>
+    const container = document.getElementById("products");
+
+    products.forEach(product => {
+
+        container.innerHTML += `
+            <div class="product-card">
+
+                <img
+                    src="${product.image}"
+                    alt="${product.name}"
+                >
+
+                <h3>${product.name}</h3>
+
+                <p>${product.price} ֏</p>
+
+                <button onclick="addToCart('${product.name}', ${product.price}, '${product.image}')">
+                    🛒 Ավելացնել զամբյուղ
+                </button>
+
+            </div>
+        `;
+
+    });
+</script>
+
+<script src="js/cart.js"></script>
 
 </body>
 </html>
