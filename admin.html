@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="hy">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +9,6 @@
     <link rel="stylesheet" href="css/style.css">
 
     <style>
-        body {
-            background: #0b0b0b;
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-
         .admin-container {
             max-width: 900px;
             margin: 120px auto 50px;
@@ -40,23 +33,27 @@
 
         .admin-form input {
             padding: 15px;
-            border-radius: 8px;
             border: 1px solid #444;
+            border-radius: 8px;
             background: #111;
             color: white;
         }
 
-        .admin-form button {
-            padding: 15px;
-            background: #D4AF37;
+        .admin-form button,
+        .delete-btn {
+            padding: 12px;
             border: none;
             border-radius: 8px;
-            font-weight: bold;
             cursor: pointer;
+            font-weight: bold;
+        }
+
+        .admin-form button {
+            background: #D4AF37;
         }
 
         #admin-products {
-            margin-top: 40px;
+            margin-top: 30px;
         }
 
         .admin-product {
@@ -77,14 +74,20 @@
             border-radius: 10px;
         }
 
-        .admin-product button {
-            margin-left: auto;
-            padding: 10px 15px;
+        .admin-product-info {
+            flex: 1;
+        }
+
+        .delete-btn {
             background: #d9534f;
             color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .admin-product {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
@@ -95,7 +98,7 @@
     <a href="index.html" class="logo">SEVOYAN</a>
 </header>
 
-<div class="admin-container">
+<main class="admin-container">
 
     <h1 class="admin-title">⚙️ Ապրանքների կառավարում</h1>
 
@@ -105,18 +108,21 @@
             type="text"
             id="product-name"
             placeholder="Ապրանքի անունը"
-            required>
+            required
+        >
 
         <input
             type="number"
             id="product-price"
             placeholder="Գինը"
-            required>
+            required
+        >
 
         <input
-            type="text"
+            type="url"
             id="product-image"
-            placeholder="Նկարի հղումը">
+            placeholder="Նկարի հղումը"
+        >
 
         <button type="submit">
             ➕ Ավելացնել ապրանք
@@ -124,9 +130,11 @@
 
     </form>
 
-    <div id="admin-products"></div>
+    <div id="admin-products">
+        <p>Ապրանքները բեռնվում են...</p>
+    </div>
 
-</div>
+</main>
 
 <script src="js/admin.js"></script>
 
