@@ -4,45 +4,64 @@ const SUPABASE_KEY = "sb_publishable_N0wWlRo2NFdT_ifDgJhAYQ_Ol5yeIfW";
 
 const API_URL = ${SUPABASE_URL}/rest/v1/products;
 
+const headers = {
+    "apikey": SUPABASE_KEY,
+    "Authorization": Bearer ${SUPABASE_KEY},
+    "Content-Type": "application/json"
+};
+
+
+// ԱՊՐԱՆՔՆԵՐԻ ԲԵՌՆՈՒՄ
 async function loadAdminProducts() {
+
     const container = document.getElementById("admin-products");
 
     try {
+
         const response = await fetch(
             ${API_URL}?select=*&order=id.desc,
             {
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization": Bearer ${SUPABASE_KEY}
-                }
+                headers: headers
             }
         );
+
+        if (!response.ok) {
+            throw new Error("Չհաջողվեց բեռնել ապրանքները");
+        }
 
         const products = await response.json();
 
         container.innerHTML = "";
 
-        if (!products || products.length === 0) {
+        if (products.length === 0) {
             container.innerHTML = "<p>Ապրանքներ դեռ չկան։</p>";
             return;
         }
 
         products.forEach(product => {
+
             container.innerHTML += `
                 <div class="admin-product">
 
-                    <img 
-                        src="${product.image || 'https://via.placeholder.com/100'}"
+                    <img
+                        src="${product.image || ''}"
                         alt="${product.name}"
                     >
 
-                    <div>
+                    <div class="admin-product-info">
                         <h3>${product.name}</h3>
                         <p>${product.price} ֏</p>
                     </div>
 
-                    <button onclick="deleteProduct(${product.id})">
-                        🗑 Ջնջել
+                    <button onclick="editProduct(${product.id})">
+                        ✏️ Փոխել
+                    </button>
+
+                    <button
+                        class="delete-btn"
+                        onclick="deleteProduct(${product.id})"
+                    >
+                        🗑️ Ջնջել
                     </button>
 
                 </div>
@@ -50,65 +69,80 @@ async function loadAdminProducts() {
         });
 
     } catch (error) {
+
         console.error(error);
-        container.innerHTML = "<p>❌ Ապրանքները չհաջողվեց բեռնել</p>";
+
+        container.innerHTML =
+            <p>❌ ${error.message}</p>;
     }
 }
 
 
-document.getElementById("product-form").addEventListener("submit", async function (e) {
+// ԱՊՐԱՆՔ ԱՎԵԼԱՑՆԵԼ
+document
+    .getElementById("product-form")
+    .addEventListener("submit", async function (e) {
 
-    e.preventDefault();
+        e.preventDefault();
 
-    const name = document.getElementById("product-name").value;
-    const price = document.getElementById("product-price").value;
-    const image = document.getElementById("product-image").value;
+        const name =
+            document.getElementById("product-name").value.trim();
 
-    try {
+        const price =
+            Number(document.getElementById("product-price").value);
 
-        const response = await fetch(API_URL, {
-            method: "POST",
+        const image =
+            document.getElementById("product-image").value.trim();
 
-            headers: {
-                "apikey": SUPABASE_KEY,
-                "Authorization": Bearer ${SUPABASE_KEY},
-                "Content-Type": "application/json",
-                "Prefer": "return=representation"
-            },
+        try {
 
-            body: JSON.stringify({
-                name: name,
-                price: Number(price),
-                image: image
-            })
-        });
+            const response = await fetch(API_URL, {
 
-        if (!response.ok) {
-            throw new Error("Չհաջողվեց ավելացնել");
+                method: "POST",
+
+                headers: {
+                    ...headers,
+                    "Prefer": "return=representation"
+                },
+
+                body: JSON.stringify({
+                    name: name,
+                    price: price,
+                    image: image
+                })
+
+            });
+
+            if (!response.ok) {
+
+                const errorText = await response.text();
+
+                throw new Error(errorText);
+            }
+
+            alert("✅ Ապրանքը ավելացվեց");
+
+            document.getElementById("product-form").reset();
+
+            loadAdminProducts();
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("❌ Չհաջողվեց ավելացնել ապրանքը");
+
         }
 
-        alert("✅ Ապրանքը հաջողությամբ ավելացվեց");
-
-        document.getElementById("product-form").reset();
-
-        loadAdminProducts();
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert("❌ Ապրանքը չհաջողվեց ավելացնել");
-
-    }
-
-});
+    });
 
 
+// ԱՊՐԱՆՔ ՋՆՋԵԼ
 async function deleteProduct(id) {
 
-    const confirmDelete = confirm("Վստա՞հ ես, որ ուզում ես ջնջել այս ապրանքը");
-
-    if (!confirmDelete) return;
+    if (!confirm("Վստա՞հ ես, որ ուզում ես ջնջել այս ապրանքը")) {
+        return;
+    }
 
     try {
 
@@ -116,11 +150,7 @@ async function deleteProduct(id) {
             ${API_URL}?id=eq.${id},
             {
                 method: "DELETE",
-
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization": Bearer ${SUPABASE_KEY}
-                }
+                headers: headers
             }
         );
 
@@ -128,7 +158,7 @@ async function deleteProduct(id) {
             throw new Error("Չհաջողվեց ջնջել");
         }
 
-        alert("🗑 Ապրանքը ջնջվեց");
+        alert("🗑️ Ապրանքը ջնջվեց");
 
         loadAdminProducts();
 
@@ -136,11 +166,69 @@ async function deleteProduct(id) {
 
         console.error(error);
 
-        alert("❌ Ջնջելը չհաջողվեց");
+        alert("❌ Չհաջողվեց ջնջել");
 
     }
-
 }
 
 
-document.addEventListener("DOMContentLoaded", loadAdminProducts);
+// ԱՊՐԱՆՔ ՓՈԽԵԼ
+async function editProduct(id) {
+
+    const name = prompt("Նոր ապրանքի անունը");
+
+    if (name === null) return;
+
+    const price = prompt("Նոր գինը");
+
+    if (price === null) return;
+
+    const image = prompt("Նոր նկարի հղումը");
+
+    if (image === null) return;
+
+    try {
+
+        const response = await fetch(
+            ${API_URL}?id=eq.${id},
+            {
+
+                method: "PATCH",
+
+                headers: {
+                    ...headers,
+                    "Prefer": "return=representation"
+                },
+
+                body: JSON.stringify({
+                    name: name,
+                    price: Number(price),
+                    image: image
+                })
+
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Չհաջողվեց փոխել");
+        }
+
+        alert("✅ Ապրանքը փոխվեց");
+
+        loadAdminProducts();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("❌ Չհաջողվեց փոխել ապրանքը");
+
+    }
+}
+
+
+// ԷՋԸ ԲԱՑԵԼԻՍ
+document.addEventListener(
+    "DOMContentLoaded",
+    loadAdminProducts
+);
