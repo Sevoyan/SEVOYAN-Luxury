@@ -3,7 +3,7 @@ const SUPABASE_URL = "https://ultbqgkrckapevjllqwe.supabase.co";
 const SUPABASE_KEY = "sb_publishable_N0wWlRo2NFdT_ifDgJhAYQ_Ol5yeIfW";
 
 const API_URL =
-    ${SUPABASE_URL}/rest/v1/products?select=*&order=id.desc;
+    ${SUPABASE_URL}/rest/v1/products?select=*;
 
 async function loadProducts() {
     const container = document.getElementById("products");
@@ -17,7 +17,7 @@ async function loadProducts() {
         });
 
         if (!response.ok) {
-            throw new Error("Չհաջողվեց բեռնել ապրանքները");
+            throw new Error(Error: ${response.status});
         }
 
         const products = await response.json();
@@ -47,8 +47,9 @@ async function loadProducts() {
 
     } catch (error) {
         console.error(error);
+
         container.innerHTML =
-            "<p>❌ Ապրանքները չհաջողվեց բեռնել</p>";
+            <p>❌ Սխալ՝ ${error.message}</p>;
     }
 }
 
