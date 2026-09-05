@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="hy">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Admin | SEVOYAN</title>
 
     <link rel="stylesheet" href="css/style.css">
@@ -10,48 +12,58 @@
 
 <body>
 
-<header class="header">
-    <a href="index.html" class="logo">SEVOYAN</a>
-</header>
+    <header class="header">
+        <a href="index.html" class="logo">SEVOYAN</a>
+    </header>
 
-<div class="admin-container">
 
-    <h1>⚙️ Ապրանքների կառավարում</h1>
+    <div class="admin-container">
 
-    <form id="product-form">
+        <h1>⚙️ Ապրանքների կառավարում</h1>
 
-        <input
-            type="text"
-            id="product-name"
-            placeholder="Ապրանքի անունը"
-            required
-        >
 
-        <input
-            type="number"
-            id="product-price"
-            placeholder="Գինը"
-            required
-        >
+        <!-- ԱՊՐԱՆՔ ԱՎԵԼԱՑՆԵԼ -->
 
-        <input
-            type="text"
-            id="product-image"
-            placeholder="Նկարի հղումը"
-        >
+        <form id="product-form">
 
-        <button type="submit">
-            ➕ Ավելացնել ապրանք
-        </button>
+            <input
+                type="text"
+                id="product-name"
+                placeholder="Ապրանքի անունը"
+                required
+            >
 
-    </form>
+            <input
+                type="number"
+                id="product-price"
+                placeholder="Գինը"
+                required
+            >
 
-    <div id="admin-products"></div>
-    <script src="admin.js"></script>
+            <input
+                type="text"
+                id="product-image"
+                placeholder="Նկարի հղումը"
+            >
 
-</div>
+            <button type="submit">
+                ➕ Ավելացնել ապրանք
+            </button>
 
-<script src="js/admin.js"></script>
+        </form>
+
+
+        <!-- ԱՊՐԱՆՔՆԵՐԻ ՑԱՆԿ -->
+
+        <div id="admin-products"></div>
+
+    </div>
+
+
+    <!-- ADMIN JAVASCRIPT -->
+
+    <script src="js/admin.js"></script>
 
 </body>
+
 </html>
