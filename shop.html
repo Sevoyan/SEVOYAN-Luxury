@@ -12,61 +12,38 @@
 
 <body>
 
-<header class="header">
+    <header class="header">
 
-    <a href="index.html" class="logo">SEVOYAN</a>
+        <a href="index.html" class="logo">SEVOYAN</a>
 
-    <nav>
-        <a href="index.html">🏠 Գլխավոր</a>
-        <a href="shop.html">🛍 Խանութ</a>
-        <a href="favorites.html">❤️ Սիրելիներ</a>
-        <a href="cart.html">🛒 Զամբյուղ</a>
-        <a href="about.html">ℹ️ Մեր մասին</a>
-        <a href="contact.html">📞 Կապ</a>
-    </nav>
+        <nav>
+            <a href="index.html">🏠 Գլխավոր</a>
+            <a href="shop.html">🛍 Խանութ</a>
+            <a href="favorites.html">❤️ Սիրելիներ</a>
+            <a href="cart.html">🛒 Զամբյուղ</a>
+            <a href="about.html">💎 Մեր մասին</a>
+            <a href="contact.html">📞 Կապ</a>
+        </nav>
 
-</header>
-
-
-<section class="featured">
-
-    <h2>Մեր ապրանքները</h2>
-
-    <div class="products" id="products"></div>
-
-</section>
+    </header>
 
 
-<script src="js/products.js"></script>
+    <section class="featured">
 
-<script>
-    const container = document.getElementById("products");
+        <h2>Մեր ապրանքները</h2>
 
-    products.forEach(product => {
+        <div class="products" id="products">
 
-        container.innerHTML += `
-            <div class="product-card">
+            <p>Ապրանքները բեռնվում են...</p>
 
-                <img
-                    src="${product.image}"
-                    alt="${product.name}"
-                >
+        </div>
 
-                <h3>${product.name}</h3>
+    </section>
 
-                <p>${product.price} ֏</p>
 
-                <button onclick="addToCart('${product.name}', ${product.price}, '${product.image}')">
-                    🛒 Ավելացնել զամբյուղ
-                </button>
-
-            </div>
-        `;
-
-    });
-</script>
-
-<script src="js/cart.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
 
 </body>
+
 </html>
