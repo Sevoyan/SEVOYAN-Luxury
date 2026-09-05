@@ -15,6 +15,8 @@ const headers = {
 async function loadAdminProducts() {
     const container = document.getElementById("admin-products");
 
+    if (!container) return;
+
     try {
         const response = await fetch(
             ${API_URL}?select=*&order=id.desc,
@@ -24,7 +26,8 @@ async function loadAdminProducts() {
         );
 
         if (!response.ok) {
-            throw new Error("Չհաջողվեց բեռնել ապրանքները");
+            const errorText = await response.text();
+            throw new Error(errorText || "Չհաջողվեց բեռնել ապրանքները");
         }
 
         const products = await response.json();
@@ -62,15 +65,22 @@ async function loadAdminProducts() {
 
     } catch (error) {
         console.error(error);
-        container.innerHTML = <p>❌ ${error.message}</p>;
+
+        container.innerHTML = `
+            <p>❌ ${error.message}</p>
+        `;
     }
 }
 
 
 // ԱՊՐԱՆՔ ԱՎԵԼԱՑՆԵԼ
-document
-    .getElementById("product-form")
-    .addEventListener("submit", async function (e) {
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById("product-form");
+
+    if (!form) return;
+
+    form.addEventListener("submit", async function (e) {
 
         e.preventDefault();
 
@@ -106,7 +116,7 @@ document
 
             alert("✅ Ապրանքը ավելացվեց");
 
-            document.getElementById("product-form").reset();
+            form.reset();
 
             loadAdminProducts();
 
@@ -114,7 +124,10 @@ document
             console.error(error);
             alert("❌ Չհաջողվեց ավելացնել ապրանքը");
         }
+
     });
+
+});
 
 
 // ԱՊՐԱՆՔ ՋՆՋԵԼ
