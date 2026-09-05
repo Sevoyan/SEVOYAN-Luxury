@@ -13,11 +13,9 @@ const headers = {
 
 // ԱՊՐԱՆՔՆԵՐԻ ԲԵՌՆՈՒՄ
 async function loadAdminProducts() {
-
     const container = document.getElementById("admin-products");
 
     try {
-
         const response = await fetch(
             ${API_URL}?select=*&order=id.desc,
             {
@@ -39,14 +37,9 @@ async function loadAdminProducts() {
         }
 
         products.forEach(product => {
-
             container.innerHTML += `
                 <div class="admin-product">
-
-                    <img
-                        src="${product.image || ''}"
-                        alt="${product.name}"
-                    >
+                    <img src="${product.image || ''}" alt="${product.name}">
 
                     <div class="admin-product-info">
                         <h3>${product.name}</h3>
@@ -63,17 +56,13 @@ async function loadAdminProducts() {
                     >
                         🗑️ Ջնջել
                     </button>
-
                 </div>
             `;
         });
 
     } catch (error) {
-
         console.error(error);
-
-        container.innerHTML =
-            <p>❌ ${error.message}</p>;
+        container.innerHTML = <p>❌ ${error.message}</p>;
     }
 }
 
@@ -95,9 +84,7 @@ document
             document.getElementById("product-image").value.trim();
 
         try {
-
             const response = await fetch(API_URL, {
-
                 method: "POST",
 
                 headers: {
@@ -110,13 +97,10 @@ document
                     price: price,
                     image: image
                 })
-
             });
 
             if (!response.ok) {
-
                 const errorText = await response.text();
-
                 throw new Error(errorText);
             }
 
@@ -127,13 +111,9 @@ document
             loadAdminProducts();
 
         } catch (error) {
-
             console.error(error);
-
             alert("❌ Չհաջողվեց ավելացնել ապրանքը");
-
         }
-
     });
 
 
@@ -145,7 +125,6 @@ async function deleteProduct(id) {
     }
 
     try {
-
         const response = await fetch(
             ${API_URL}?id=eq.${id},
             {
@@ -163,11 +142,8 @@ async function deleteProduct(id) {
         loadAdminProducts();
 
     } catch (error) {
-
         console.error(error);
-
         alert("❌ Չհաջողվեց ջնջել");
-
     }
 }
 
@@ -176,23 +152,18 @@ async function deleteProduct(id) {
 async function editProduct(id) {
 
     const name = prompt("Նոր ապրանքի անունը");
-
     if (name === null) return;
 
     const price = prompt("Նոր գինը");
-
     if (price === null) return;
 
     const image = prompt("Նոր նկարի հղումը");
-
     if (image === null) return;
 
     try {
-
         const response = await fetch(
             ${API_URL}?id=eq.${id},
             {
-
                 method: "PATCH",
 
                 headers: {
@@ -205,7 +176,6 @@ async function editProduct(id) {
                     price: Number(price),
                     image: image
                 })
-
             }
         );
 
@@ -218,11 +188,8 @@ async function editProduct(id) {
         loadAdminProducts();
 
     } catch (error) {
-
         console.error(error);
-
         alert("❌ Չհաջողվեց փոխել ապրանքը");
-
     }
 }
 
