@@ -3,93 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Admin | SEVOYAN Luxury</title>
+    <title>Admin | SEVOYAN</title>
 
     <link rel="stylesheet" href="css/style.css">
-
-    <style>
-        .admin-container {
-            max-width: 900px;
-            margin: 120px auto 50px;
-            padding: 20px;
-        }
-
-        .admin-title {
-            text-align: center;
-            color: #D4AF37;
-            margin-bottom: 30px;
-        }
-
-        .admin-form {
-            background: #181818;
-            padding: 30px;
-            border: 1px solid #D4AF37;
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .admin-form input {
-            padding: 15px;
-            border: 1px solid #444;
-            border-radius: 8px;
-            background: #111;
-            color: white;
-        }
-
-        .admin-form button,
-        .delete-btn {
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .admin-form button {
-            background: #D4AF37;
-        }
-
-        #admin-products {
-            margin-top: 30px;
-        }
-
-        .admin-product {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: #181818;
-            border: 1px solid #333;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 12px;
-        }
-
-        .admin-product img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .admin-product-info {
-            flex: 1;
-        }
-
-        .delete-btn {
-            background: #d9534f;
-            color: white;
-        }
-
-        @media (max-width: 600px) {
-            .admin-product {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -98,11 +14,11 @@
     <a href="index.html" class="logo">SEVOYAN</a>
 </header>
 
-<main class="admin-container">
+<div class="admin-container">
 
-    <h1 class="admin-title">⚙️ Ապրանքների կառավարում</h1>
+    <h1>⚙️ Ապրանքների կառավարում</h1>
 
-    <form id="product-form" class="admin-form">
+    <form id="product-form">
 
         <input
             type="text"
@@ -119,7 +35,7 @@
         >
 
         <input
-            type="url"
+            type="text"
             id="product-image"
             placeholder="Նկարի հղումը"
         >
@@ -130,11 +46,9 @@
 
     </form>
 
-    <div id="admin-products">
-        <p>Ապրանքները բեռնվում են...</p>
-    </div>
+    <div id="admin-products"></div>
 
-</main>
+</div>
 
 <script src="js/admin.js"></script>
 
