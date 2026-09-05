@@ -5,19 +5,21 @@ const SUPABASE_KEY = "sb_publishable_N0wWlRo2NFdT_ifDgJhAYQ_Ol5yeIfW";
 const API_URL = ${SUPABASE_URL}/rest/v1/products;
 
 const headers = {
-    "apikey": SUPABASE_KEY,
-    "Authorization": Bearer ${SUPABASE_KEY},
+    apikey: SUPABASE_KEY,
+    Authorization: Bearer ${SUPABASE_KEY},
     "Content-Type": "application/json"
 };
 
 
 // ԱՊՐԱՆՔՆԵՐԻ ԲԵՌՆՈՒՄ
 async function loadAdminProducts() {
+
     const container = document.getElementById("admin-products");
 
     if (!container) return;
 
     try {
+
         const response = await fetch(
             ${API_URL}?select=*&order=id.desc,
             {
@@ -40,9 +42,14 @@ async function loadAdminProducts() {
         }
 
         products.forEach(product => {
+
             container.innerHTML += `
                 <div class="admin-product">
-                    <img src="${product.image || ''}" alt="${product.name}">
+
+                    <img
+                        src="${product.image || ""}"
+                        alt="${product.name}"
+                    >
 
                     <div class="admin-product-info">
                         <h3>${product.name}</h3>
@@ -59,75 +66,93 @@ async function loadAdminProducts() {
                     >
                         🗑️ Ջնջել
                     </button>
+
                 </div>
             `;
+
         });
 
     } catch (error) {
+
         console.error(error);
 
         container.innerHTML = `
             <p>❌ ${error.message}</p>
         `;
+
     }
+
 }
 
 
 // ԱՊՐԱՆՔ ԱՎԵԼԱՑՆԵԼ
-document.addEventListener("DOMContentLoaded", function () {
+async function addProduct(event) {
 
-    const form = document.getElementById("product-form");
+    event.preventDefault();
 
-    if (!form) return;
+    const name = document
+        .getElementById("product-name")
+        .value
+        .trim();
 
-    form.addEventListener("submit", async function (e) {
+    const price = Number(
+        document.getElementById("product-price").value
+    );
 
-        e.preventDefault();
+    const image = document
+        .getElementById("product-image")
+        .value
+        .trim();
 
-        const name =
-            document.getElementById("product-name").value.trim();
 
-        const price =
-            Number(document.getElementById("product-price").value);
+    try {
 
-        const image =
-            document.getElementById("product-image").value.trim();
+        const response = await fetch(API_URL, {
 
-        try {
-            const response = await fetch(API_URL, {
-                method: "POST",
+            method: "POST",
 
-                headers: {
-                    ...headers,
-                    "Prefer": "return=representation"
-                },
+            headers: {
+                ...headers,
+                Prefer: "return=representation"
+            },
 
-                body: JSON.stringify({
-                    name: name,
-                    price: price,
-                    image: image
-                })
-            });
+            body: JSON.stringify({
+                name: name,
+                price: price,
+                image: image
+            })
 
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(errorText);
-            }
+        });
 
-            alert("✅ Ապրանքը ավելացվեց");
 
-            form.reset();
+        if (!response.ok) {
 
-            loadAdminProducts();
+            const errorText = await response.text();
 
-        } catch (error) {
-            console.error(error);
-            alert("❌ Չհաջողվեց ավելացնել ապրանքը");
+            throw new Error(
+                errorText || "Չհաջողվեց ավելացնել ապրանքը"
+            );
+
         }
 
-    });
 
-});
+        alert("✅ Ապրանքը ավելացվեց");
+
+        document
+            .getElementById("product-form")
+            .reset();
+
+        loadAdminProducts();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("❌ Չհաջողվեց ավելացնել ապրանքը");
+
+    }
+
+}
 
 
 // ԱՊՐԱՆՔ ՋՆՋԵԼ
@@ -138,6 +163,7 @@ async function deleteProduct(id) {
     }
 
     try {
+
         const response = await fetch(
             ${API_URL}?id=eq.${id},
             {
@@ -155,9 +181,13 @@ async function deleteProduct(id) {
         loadAdminProducts();
 
     } catch (error) {
+
         console.error(error);
+
         alert("❌ Չհաջողվեց ջնջել");
+
     }
+
 }
 
 
@@ -165,23 +195,31 @@ async function deleteProduct(id) {
 async function editProduct(id) {
 
     const name = prompt("Նոր ապրանքի անունը");
+
     if (name === null) return;
 
+
     const price = prompt("Նոր գինը");
+
     if (price === null) return;
 
+
     const image = prompt("Նոր նկարի հղումը");
+
     if (image === null) return;
 
+
     try {
+
         const response = await fetch(
             ${API_URL}?id=eq.${id},
             {
+
                 method: "PATCH",
 
                 headers: {
                     ...headers,
-                    "Prefer": "return=representation"
+                    Prefer: "return=representation"
                 },
 
                 body: JSON.stringify({
@@ -189,26 +227,40 @@ async function editProduct(id) {
                     price: Number(price),
                     image: image
                 })
+
             }
         );
+
 
         if (!response.ok) {
             throw new Error("Չհաջողվեց փոխել");
         }
+
 
         alert("✅ Ապրանքը փոխվեց");
 
         loadAdminProducts();
 
     } catch (error) {
+
         console.error(error);
+
         alert("❌ Չհաջողվեց փոխել ապրանքը");
+
     }
+
 }
-<script src="js/admin.js"></script>
+
 
 // ԷՋԸ ԲԱՑԵԼԻՍ
-document.addEventListener(
-    "DOMContentLoaded",
-    loadAdminProducts
-);
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById("product-form");
+
+    if (form) {
+        form.addEventListener("submit", addProduct);
+    }
+
+    loadAdminProducts();
+
+});
