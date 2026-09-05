@@ -205,7 +205,7 @@ async function editProduct(id) {
         alert("❌ Չհաջողվեց փոխել ապրանքը");
     }
 }
-
+<script src="js/admin.js"></script>
 
 // ԷՋԸ ԲԱՑԵԼԻՍ
 document.addEventListener(
