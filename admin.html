@@ -4,25 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Admin | SEVOYAN</title>
-
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-    <header class="header">
-        <a href="index.html" class="logo">SEVOYAN</a>
-    </header>
+<header class="header">
+    <a href="index.html" class="logo">SEVOYAN</a>
+</header>
+
+<div class="admin-container">
+
+    <!-- LOGIN -->
+    <div id="admin-login">
+
+        <h1>🔐 Admin մուտք</h1>
+
+        <form id="login-form">
+
+            <input
+                type="email"
+                id="admin-email"
+                placeholder="Email"
+                required
+            >
+
+            <input
+                type="password"
+                id="admin-password"
+                placeholder="Գաղտնաբառ"
+                required
+            >
+
+            <button type="submit">
+                🔑 Մուտք գործել
+            </button>
+
+        </form>
+
+    </div>
 
 
-    <div class="admin-container">
+    <!-- ADMIN PANEL -->
+    <div id="admin-panel" style="display:none;">
 
         <h1>⚙️ Ապրանքների կառավարում</h1>
 
-
-        <!-- ԱՊՐԱՆՔ ԱՎԵԼԱՑՆԵԼ -->
+        <button id="logout-btn">
+            🚪 Դուրս գալ
+        </button>
 
         <form id="product-form">
 
@@ -52,18 +83,13 @@
 
         </form>
 
-
-        <!-- ԱՊՐԱՆՔՆԵՐԻ ՑԱՆԿ -->
-
         <div id="admin-products"></div>
 
     </div>
 
+</div>
 
-    <!-- ADMIN JAVASCRIPT -->
-
-    <script src="js/admin.js"></script>
+<script src="js/admin.js"></script>
 
 </body>
-
 </html>
