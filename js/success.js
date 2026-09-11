@@ -1,69 +1,129 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const container = document.getElementById("order-info");
+    const orderInfo = document.getElementById("order-info");
 
-    const order = JSON.parse(localStorage.getItem("order"));
+    if (!orderInfo) return;
 
-    if (!order) {
-        container.innerHTML = `
-            <p>Պատվերի տվյալները չեն գտնվել։</p>
+    const savedOrder = localStorage.getItem("order");
+
+    if (!savedOrder) {
+        orderInfo.innerHTML = `
+            <p>❌ Պատվերի տվյալները չեն գտնվել։</p>
         `;
         return;
     }
 
-    let total = 0;
-    let productsHTML = "";
+    try {
 
-    order.cart.forEach(item => {
+        const order = JSON.parse(savedOrder);
 
-        const qty = item.qty || 1;
-        const price = Number(item.price) * qty;
+        const fullname = order.fullname || "";
+        const phone = order.phone || "";
+        const address = order.address || "";
+        const cart = Array.isArray(order.cart) ? order.cart : [];
 
-        total += price;
+        if (cart.length === 0) {
+            orderInfo.innerHTML = `
+                <p>❌ Պատվերի ապրանքները չեն գտնվել։</p>
+            `;
+            return;
+        }
 
-        productsHTML += `
-            <div style="
-                padding: 12px;
-                margin: 10px 0;
-                border: 1px solid #d4af37;
-                border-radius: 10px;
-            ">
-                <strong>${item.name}</strong>
-                <br>
-                Քանակ՝ ${qty}
-                <br>
-                Գին՝ ${price.toLocaleString()} ֏
+        let total = 0;
+
+        let productsHTML = "";
+
+        cart.forEach(function (item) {
+
+            // Աջակցում է և՛ quantity-ին, և՛ qty-ին
+            const quantity = Number(
+                item.quantity || item.qty || 1
+            );
+
+            const price = Number(item.price) || 0;
+
+            const itemTotal = price * quantity;
+
+            total += itemTotal;
+
+            productsHTML += `
+                <div class="order-product">
+
+                    <h3>
+                        ${item.name || "Ապրանք"}
+                    </h3>
+
+                    <p>
+                        Քանակ՝ ${quantity}
+                    </p>
+
+                    <p>
+                        Գին՝ ${price.toLocaleString()} ֏
+                    </p>
+
+                    <p>
+                        Ապրանքի ընդհանուր՝
+                        ${itemTotal.toLocaleString()} ֏
+                    </p>
+
+                </div>
+            `;
+        });
+
+
+        orderInfo.innerHTML = `
+
+            <div class="order-customer">
+
+                <p>
+                    👤 Անուն՝
+                    <strong>${fullname}</strong>
+                </p>
+
+                <p>
+                    📞 Հեռախոս՝
+                    <strong>${phone}</strong>
+                </p>
+
+                <p>
+                    📍 Հասցե՝
+                    <strong>${address}</strong>
+                </p>
+
             </div>
+
+
+            <h3>
+                🛍 Պատվերի ապրանքները
+            </h3>
+
+
+            ${productsHTML}
+
+
+            <div class="order-total">
+
+                <h2>
+                    💰 Ընդհանուր՝
+                    ${total.toLocaleString()} ֏
+                </h2>
+
+            </div>
+
         `;
-    });
 
-    container.innerHTML = `
+    } catch (error) {
 
-        <h3>📋 Պատվերի տվյալները</h3>
+        console.error(
+            "Success page error:",
+            error
+        );
 
-        <p>
-            👤 <strong>Անուն՝</strong>
-            ${order.fullname}
-        </p>
+        orderInfo.innerHTML = `
+            <p>
+                ❌ Պատվերի տվյալները կարդալ չհաջողվեց։
+            </p>
+        `;
+    }
 
-        <p>
-            📞 <strong>Հեռախոս՝</strong>
-            ${order.phone}
-        </p>
-
-        <p>
-            📍 <strong>Հասցե՝</strong>
-            ${order.address}
-        </p>
-
-        <hr>
-
-        <h3>🛍 Ապրանքներ</h3>
-
-        ${productsHTML}
-
-        <h2 style="color:#d4af37;">
-            💰 Ընդհանուր՝ ${total.toLocaleString()} ֏
-        </h2>
-    `;
 });
