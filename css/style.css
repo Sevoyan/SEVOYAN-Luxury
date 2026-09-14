@@ -708,25 +708,31 @@ button {
 }
 
 
-/* LEFT / RIGHT */
+/* =========================
+   SLIDER BUTTONS
+========================= */
 
 .slider-prev,
 .slider-next {
     position: absolute;
+
     top: 50%;
     transform: translateY(-50%);
 
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
 
-    border: none;
+    border: 2px solid #D4AF37;
     border-radius: 50%;
 
     background: rgba(0, 0, 0, 0.65);
+
     color: #D4AF37;
 
-    font-size: 35px;
-    line-height: 35px;
+    font-size: 32px;
+    font-weight: bold;
+
+    line-height: 36px;
 
     display: flex;
     align-items: center;
@@ -734,25 +740,42 @@ button {
 
     cursor: pointer;
 
-    z-index: 5;
+    z-index: 10;
+
+    padding: 0;
+
+    opacity: 0.9;
 }
+
+
+/* Ձախ կոճակ */
 
 .slider-prev {
-    left: 12px;
+    left: 18px;
 }
 
+
+/* Աջ կոճակ */
+
 .slider-next {
-    right: 12px;
+    right: 18px;
 }
+
+
+/* Mouse over */
 
 .slider-prev:hover,
 .slider-next:hover {
     background: #D4AF37;
     color: #000;
+
+    transform: translateY(-50%) scale(1.08);
 }
 
 
-/* COUNTER */
+/* =========================
+   IMAGE COUNTER
+========================= */
 
 .slider-counter {
     position: absolute;
@@ -762,21 +785,23 @@ button {
 
     transform: translateX(-50%);
 
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.75);
 
     color: #fff;
 
-    padding: 5px 12px;
+    padding: 5px 13px;
 
     border-radius: 20px;
 
     font-size: 14px;
 
-    z-index: 5;
+    z-index: 10;
 }
 
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 600px) {
 
@@ -788,7 +813,16 @@ button {
     .slider-next {
         width: 38px;
         height: 38px;
+
         font-size: 28px;
+    }
+
+    .slider-prev {
+        left: 12px;
+    }
+
+    .slider-next {
+        right: 12px;
     }
 
 }
