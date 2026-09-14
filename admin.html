@@ -12,21 +12,28 @@
     <style>
         .admin-container {
             max-width: 1100px;
-            margin: 120px auto 50px;
+            margin: 140px auto 60px;
             padding: 20px;
         }
 
-        .admin-container h1 {
+        .admin-box {
+            background: #111;
+            border: 1px solid #D4AF37;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .admin-box h1,
+        .admin-box h2 {
             color: #D4AF37;
-            margin-bottom: 25px;
+            text-align: center;
         }
 
         .admin-form {
-            background: #151515;
-            border: 1px solid #D4AF37;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .admin-form input,
@@ -34,11 +41,10 @@
             width: 100%;
             box-sizing: border-box;
             padding: 14px;
-            margin: 8px 0;
-            border-radius: 8px;
-            border: 1px solid #555;
-            background: #222;
+            background: #181818;
             color: white;
+            border: 1px solid #555;
+            border-radius: 8px;
             font-size: 16px;
         }
 
@@ -47,86 +53,87 @@
             resize: vertical;
         }
 
-        .admin-form button,
-        .admin-product button {
-            padding: 11px 18px;
+        .admin-btn {
+            padding: 14px 20px;
             border: none;
             border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            margin: 5px;
-        }
-
-        .add-btn {
             background: #D4AF37;
             color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .admin-btn:hover {
+            opacity: 0.85;
         }
 
         .logout-btn {
             background: #8b0000;
             color: white;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .admin-product {
             display: flex;
             align-items: center;
             gap: 20px;
-            background: #151515;
+            background: #181818;
             border: 1px solid #444;
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 15px;
-            margin: 15px 0;
-            flex-wrap: wrap;
+            margin-top: 15px;
         }
 
         .admin-product img {
-            width: 120px;
-            height: 120px;
+            width: 110px;
+            height: 130px;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 8px;
             border: 1px solid #D4AF37;
         }
 
         .admin-product-info {
             flex: 1;
-            min-width: 200px;
         }
 
         .admin-product-info h3 {
             color: white;
-            margin: 5px 0;
+            margin: 0 0 8px;
         }
 
         .admin-product-info p {
             color: #D4AF37;
-            font-size: 18px;
-            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .admin-product-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .edit-btn {
             background: #D4AF37;
-            color: #000;
+            color: black;
         }
 
         .delete-btn {
-            background: #8b0000;
+            background: #900;
             color: white;
         }
 
-        .hint {
-            color: #aaa;
-            font-size: 14px;
-            margin-top: 5px;
+        .hidden {
+            display: none;
         }
 
-        @media (max-width: 600px) {
+        .image-help {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.5;
+        }
 
-            .admin-container {
-                margin-top: 90px;
-                padding: 12px;
-            }
-
+        @media (max-width: 700px) {
             .admin-product {
                 flex-direction: column;
                 align-items: stretch;
@@ -143,11 +150,7 @@
 <body>
 
 <header class="header">
-
-    <a href="index.html" class="logo">
-        SEVOYAN
-    </a>
-
+    <a href="index.html" class="logo">SEVOYAN</a>
 </header>
 
 
@@ -155,7 +158,7 @@
 
     <!-- LOGIN -->
 
-    <div id="admin-login">
+    <div id="admin-login" class="admin-box">
 
         <h1>🔐 Admin մուտք</h1>
 
@@ -175,7 +178,7 @@
                 required
             >
 
-            <button type="submit" class="add-btn">
+            <button type="submit" class="admin-btn">
                 🔑 Մուտք գործել
             </button>
 
@@ -186,22 +189,19 @@
 
     <!-- ADMIN PANEL -->
 
-    <div id="admin-panel" style="display:none;">
+    <div id="admin-panel" class="hidden">
 
-        <h1>⚙️ SEVOYAN ապրանքների կառավարում</h1>
+        <div class="admin-box">
 
-        <button id="logout-btn" class="logout-btn">
-            🚪 Դուրս գալ
-        </button>
+            <h1>⚙️ SEVOYAN Admin</h1>
 
-
-        <!-- ADD PRODUCT -->
-
-        <div class="admin-form">
+            <button id="logout-btn" class="admin-btn logout-btn">
+                🚪 Դուրս գալ
+            </button>
 
             <h2>➕ Նոր ապրանք</h2>
 
-            <form id="product-form">
+            <form id="product-form" class="admin-form">
 
                 <input
                     type="text"
@@ -218,28 +218,18 @@
                 >
 
                 <textarea
-                    id="product-image"
-                    placeholder="Նկարների հղումները գրիր այստեղ՝ ամեն մեկը նոր տողով
-
-https://example.com/image1.jpg
-https://example.com/image2.jpg
-https://example.com/image3.jpg"
+                    id="product-images"
+                    placeholder="Նկարների հղումները՝ ամեն մեկը նոր տողում"
+                    required
                 ></textarea>
-                <select id="product-collection">
-    <option value="new">Նոր հավաքածու</option>
-    <option value="classic">Դասական հավաքածու</option>
-    <option value="sale">Sale</option>
-</select>
 
-                <div class="hint">
-                    🖼️ Կարող ես ավելացնել մի քանի նկար։
-                    Ամեն նկարի հղումը գրիր նոր տողով։
+                <div class="image-help">
+                    🖼️ Կարող ես գրել 1, 2, 3 կամ ավելի նկարների հղումներ։<br>
+                    Ամեն նկարը գրիր առանձին տողով։
                 </div>
 
-                <br>
-
-                <button type="submit" class="add-btn">
-                    ➕ Ավելացնել ապրանքը
+                <button type="submit" class="admin-btn">
+                    ➕ Ավելացնել ապրանք
                 </button>
 
             </form>
@@ -247,13 +237,13 @@ https://example.com/image3.jpg"
         </div>
 
 
-        <!-- PRODUCTS -->
+        <div class="admin-box">
 
-        <h2>📦 Ապրանքները</h2>
+            <h2>🛍️ Բոլոր ապրանքները</h2>
 
-        <div id="admin-products">
-
-            <p>Ապրանքները բեռնվում են...</p>
+            <div id="admin-products">
+                Բեռնում...
+            </div>
 
         </div>
 
@@ -265,5 +255,4 @@ https://example.com/image3.jpg"
 <script src="js/admin.js"></script>
 
 </body>
-
 </html>
