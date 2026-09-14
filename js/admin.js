@@ -332,96 +332,49 @@ async function loadAdminProducts() {
 ========================= */
 
 async function addProduct(event) {
-
     event.preventDefault();
 
+    const name = document.getElementById("product-name").value.trim();
+    const price = Number(document.getElementById("product-price").value);
+    const image = document.getElementById("product-image").value.trim();
+    const collection = document.getElementById("product-collection").value;
 
-    const name =
-        document
-            .getElementById("product-name")
-            .value
-            .trim();
-
-
-    const price =
-        Number(
-            document
-                .getElementById("product-price")
-                .value
-        );
-
-
-    const image =
-        document
-            .getElementById("product-image")
-            .value
-            .trim();
-
-
-    if (!name) {
-
-        alert("❌ Գրիր ապրանքի անունը");
-
+    if (!name || !price) {
+        alert("❌ Լրացրու անունը և գինը");
         return;
-
     }
-
-
-    if (!price || price < 0) {
-
-        alert("❌ Գրիր ճիշտ գին");
-
-        return;
-
-    }
-
 
     try {
-
-        const response = await fetch(
-
-            API_URL,
-
-            {
-
-                method: "POST",
-
-                headers: {
-
-                    ...getHeaders(),
-
-                    "Prefer":
-                        "return=representation"
-
-                },
-
-                body: JSON.stringify({
-
-                    name: name,
-
-                    price: price,
-
-                    image: image
-
-                })
-
-            }
-
-        );
-
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                ...getHeaders(),
+                "Prefer": "return=representation"
+            },
+            body: JSON.stringify({
+                name: name,
+                price: price,
+                image: image,
+                collection: collection
+            })
+        });
 
         if (!response.ok) {
-
-            const errorText =
-                await response.text();
-
-            console.error(errorText);
-
-            throw new Error(
-                "Չհաջողվեց ավելացնել ապրանքը"
-            );
-
+            const errorText = await response.text();
+            throw new Error(errorText);
         }
+
+        alert("✅ Ապրանքը ավելացվեց նոր հավաքածուում");
+
+        document.getElementById("product-form").reset();
+
+        loadAdminProducts();
+
+    } catch (error) {
+        console.error(error);
+        alert("❌ Չհաջողվեց ավելացնել ապրանքը");
+    }
+}
 
 
         alert(
