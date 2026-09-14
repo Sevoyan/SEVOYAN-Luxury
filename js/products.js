@@ -413,3 +413,94 @@ document.addEventListener(
     "DOMContentLoaded",
     loadProducts
 );
+/* =========================
+   ZOOM + SWIPE
+========================= */
+
+document.addEventListener("click", function (event) {
+
+    const image = event.target.closest(".main-slider-image");
+
+    if (!image) return;
+
+    const slider = image.closest(".product-image-slider");
+
+    if (!slider) return;
+
+    slider.classList.toggle("zoomed");
+
+});
+
+
+/* =========================
+   SWIPE
+========================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    let startX = 0;
+    let startY = 0;
+
+    document.querySelectorAll(".product-image-slider").forEach(function (slider) {
+
+        slider.addEventListener("touchstart", function (event) {
+
+            if (!event.touches || !event.touches.length) return;
+
+            startX = event.touches[0].clientX;
+            startY = event.touches[0].clientY;
+
+        }, { passive: true });
+
+
+        slider.addEventListener("touchend", function (event) {
+
+            if (!event.changedTouches || !event.changedTouches.length) return;
+
+            const endX = event.changedTouches[0].clientX;
+            const endY = event.changedTouches[0].clientY;
+
+            const diffX = endX - startX;
+            const diffY = endY - startY;
+
+            /* Եթե ուղղահայաց շարժումն ավելի մեծ է՝ ոչինչ չանել */
+
+            if (Math.abs(diffY) > Math.abs(diffX)) {
+                return;
+            }
+
+            /* Փոքր շարժումը չհամարել swipe */
+
+            if (Math.abs(diffX) < 50) {
+                return;
+            }
+
+            /* Swipe left → հաջորդ նկար */
+
+            if (diffX < 0) {
+
+                const nextButton = slider.querySelector(".slider-next");
+
+                if (nextButton) {
+                    nextButton.click();
+                }
+
+            }
+
+            /* Swipe right → նախորդ նկար */
+
+            else {
+
+                const prevButton = slider.querySelector(".slider-prev");
+
+                if (prevButton) {
+                    prevButton.click();
+                }
+
+            }
+
+        }, { passive: true });
+
+    });
+
+});
