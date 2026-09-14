@@ -826,3 +826,31 @@ button {
     }
 
 }
+/* =========================
+   IMAGE ZOOM
+========================= */
+
+.product-image-slider {
+    cursor: zoom-in;
+}
+
+.product-image-slider.zoomed {
+    cursor: zoom-out;
+}
+
+.product-image-slider.zoomed .main-slider-image {
+    transform: scale(1.6);
+    transition: transform 0.3s ease;
+}
+
+.main-slider-image {
+    transition: transform 0.3s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Swipe-ի ժամանակ նկարը չքաշվի browser-ի կողմից */
+.product-image-slider,
+.main-slider-image {
+    touch-action: pan-y;
+}
