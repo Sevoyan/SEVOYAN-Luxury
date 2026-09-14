@@ -5,9 +5,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Admin | SEVOYAN</title>
+    <title>Admin | SEVOYAN Luxury</title>
 
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .admin-container {
+            max-width: 1100px;
+            margin: 120px auto 50px;
+            padding: 20px;
+        }
+
+        .admin-container h1 {
+            color: #D4AF37;
+            margin-bottom: 25px;
+        }
+
+        .admin-form {
+            background: #151515;
+            border: 1px solid #D4AF37;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .admin-form input,
+        .admin-form textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 1px solid #555;
+            background: #222;
+            color: white;
+            font-size: 16px;
+        }
+
+        .admin-form textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .admin-form button,
+        .admin-product button {
+            padding: 11px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .add-btn {
+            background: #D4AF37;
+            color: #000;
+        }
+
+        .logout-btn {
+            background: #8b0000;
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .admin-product {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #151515;
+            border: 1px solid #444;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .admin-product img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid #D4AF37;
+        }
+
+        .admin-product-info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .admin-product-info h3 {
+            color: white;
+            margin: 5px 0;
+        }
+
+        .admin-product-info p {
+            color: #D4AF37;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .edit-btn {
+            background: #D4AF37;
+            color: #000;
+        }
+
+        .delete-btn {
+            background: #8b0000;
+            color: white;
+        }
+
+        .hint {
+            color: #aaa;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 600px) {
+
+            .admin-container {
+                margin-top: 90px;
+                padding: 12px;
+            }
+
+            .admin-product {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .admin-product img {
+                width: 100%;
+                height: 220px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -29,7 +159,7 @@
 
         <h1>🔐 Admin մուտք</h1>
 
-        <form id="login-form">
+        <form id="login-form" class="admin-form">
 
             <input
                 type="email"
@@ -45,7 +175,7 @@
                 required
             >
 
-            <button type="submit">
+            <button type="submit" class="add-btn">
                 🔑 Մուտք գործել
             </button>
 
@@ -56,65 +186,78 @@
 
     <!-- ADMIN PANEL -->
 
-    <div
-        id="admin-panel"
-        style="display:none;"
-    >
+    <div id="admin-panel" style="display:none;">
 
-        <h1>⚙️ Ապրանքների կառավարում</h1>
+        <h1>⚙️ SEVOYAN ապրանքների կառավարում</h1>
 
-        <button id="logout-btn">
+        <button id="logout-btn" class="logout-btn">
             🚪 Դուրս գալ
         </button>
 
 
-        <form id="product-form">
+        <!-- ADD PRODUCT -->
 
-            <input
-                type="text"
-                id="product-name"
-                placeholder="Ապրանքի անունը"
-                required
-            >
+        <div class="admin-form">
 
-            <input
-                type="number"
-                id="product-price"
-                placeholder="Գինը"
-                required
-            >
+            <h2>➕ Նոր ապրանք</h2>
+
+            <form id="product-form">
+
+                <input
+                    type="text"
+                    id="product-name"
+                    placeholder="Ապրանքի անունը"
+                    required
+                >
+
+                <input
+                    type="number"
+                    id="product-price"
+                    placeholder="Գինը ֏"
+                    required
+                >
+
+                <textarea
+                    id="product-image"
+                    placeholder="Նկարների հղումները գրիր այստեղ՝ ամեն մեկը նոր տողով
+
+https://example.com/image1.jpg
+https://example.com/image2.jpg
+https://example.com/image3.jpg"
+                ></textarea>
+
+                <div class="hint">
+                    🖼️ Կարող ես ավելացնել մի քանի նկար։
+                    Ամեն նկարի հղումը գրիր նոր տողով։
+                </div>
+
+                <br>
+
+                <button type="submit" class="add-btn">
+                    ➕ Ավելացնել ապրանքը
+                </button>
+
+            </form>
+
+        </div>
 
 
-            <label>
-                📸 Նկարների հղումներ
-            </label>
+        <!-- PRODUCTS -->
 
-            <p>
-                Ամեն նկարի հղումը գրիր նոր տողում։
-            </p>
+        <h2>📦 Ապրանքները</h2>
 
-            <textarea
-                id="product-image"
-                placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg&#10;https://example.com/image3.jpg"
-                rows="6"
-            ></textarea>
+        <div id="admin-products">
 
+            <p>Ապրանքները բեռնվում են...</p>
 
-            <button type="submit">
-                ➕ Ավելացնել ապրանք
-            </button>
-
-        </form>
-
-
-        <div id="admin-products"></div>
+        </div>
 
     </div>
 
 </div>
 
 
-<script src="js/admin.js?v=20"></script>
+<script src="js/admin.js"></script>
 
 </body>
 
