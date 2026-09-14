@@ -4,19 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Admin | SEVOYAN</title>
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 <header class="header">
-    <a href="index.html" class="logo">SEVOYAN</a>
+
+    <a href="index.html" class="logo">
+        SEVOYAN
+    </a>
+
 </header>
+
 
 <div class="admin-container">
 
     <!-- LOGIN -->
+
     <div id="admin-login">
 
         <h1>🔐 Admin մուտք</h1>
@@ -47,13 +55,18 @@
 
 
     <!-- ADMIN PANEL -->
-    <div id="admin-panel" style="display:none;">
+
+    <div
+        id="admin-panel"
+        style="display:none;"
+    >
 
         <h1>⚙️ Ապրանքների կառավարում</h1>
 
         <button id="logout-btn">
             🚪 Դուրս գալ
         </button>
+
 
         <form id="product-form">
 
@@ -71,11 +84,21 @@
                 required
             >
 
-            <input
-                type="text"
+
+            <label>
+                📸 Նկարների հղումներ
+            </label>
+
+            <p>
+                Ամեն նկարի հղումը գրիր նոր տողում։
+            </p>
+
+            <textarea
                 id="product-image"
-                placeholder="Նկարի հղումը"
-            >
+                placeholder="https://example.com/image1.jpg&#10;https://example.com/image2.jpg&#10;https://example.com/image3.jpg"
+                rows="6"
+            ></textarea>
+
 
             <button type="submit">
                 ➕ Ավելացնել ապրանք
@@ -83,13 +106,16 @@
 
         </form>
 
+
         <div id="admin-products"></div>
 
     </div>
 
 </div>
 
-<script src="js/admin.js"></script>
+
+<script src="js/admin.js?v=20"></script>
 
 </body>
+
 </html>
