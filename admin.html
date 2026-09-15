@@ -9,141 +9,7 @@
 
     <link rel="stylesheet" href="css/style.css">
 
-    <style>
-        .admin-container {
-            max-width: 1000px;
-            margin: 140px auto 60px;
-            padding: 20px;
-        }
-
-        .admin-box {
-            background: #111;
-            border: 1px solid #D4AF37;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-
-        .admin-box h1,
-        .admin-box h2 {
-            color: #D4AF37;
-            text-align: center;
-        }
-
-        .admin-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .admin-form input,
-        .admin-form textarea {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 15px;
-            background: #181818;
-            color: white;
-            border: 1px solid #555;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        .admin-form textarea {
-            min-height: 140px;
-            resize: vertical;
-        }
-
-        .admin-btn {
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            background: #D4AF37;
-            color: #000;
-            font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .admin-btn:hover {
-            opacity: 0.85;
-        }
-
-        .logout-btn {
-            background: #8b0000;
-            color: white;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .admin-product {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background: #181818;
-            border: 1px solid #444;
-            border-radius: 12px;
-            padding: 15px;
-            margin-top: 15px;
-        }
-
-        .admin-product img {
-            width: 100px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-
-        .admin-product-info {
-            flex: 1;
-        }
-
-        .admin-product-info h3 {
-            color: white;
-        }
-
-        .admin-product-info p {
-            color: #D4AF37;
-        }
-
-        .admin-product-buttons {
-            display: flex;
-            gap: 10px;
-        }
-
-        .delete-btn {
-            background: #900;
-            color: white;
-        }
-
-        .edit-btn {
-            background: #D4AF37;
-            color: black;
-        }
-
-        .help {
-            color: #aaa;
-            font-size: 14px;
-        }
-
-        @media (max-width: 700px) {
-
-            .admin-product {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .admin-product img {
-                width: 100%;
-                height: 220px;
-            }
-
-            .admin-product-buttons {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -157,16 +23,17 @@
 </header>
 
 
-<div class="admin-container">
-
+<section class="collections">
 
     <!-- LOGIN -->
 
-    <div id="admin-login" class="admin-box">
+    <div id="admin-login" class="checkout-box">
 
-        <h1>🔐 Admin մուտք</h1>
+        <h2 class="section-title">
+            🔐 Admin մուտք
+        </h2>
 
-        <form id="login-form" class="admin-form">
+        <form id="login-form">
 
             <input
                 type="email"
@@ -182,10 +49,7 @@
                 required
             >
 
-            <button
-                type="submit"
-                class="admin-btn"
-            >
+            <button type="submit">
                 🔑 Մուտք գործել
             </button>
 
@@ -194,31 +58,24 @@
     </div>
 
 
-
     <!-- ADMIN PANEL -->
 
-    <div id="admin-panel" class="hidden">
+    <div id="admin-panel" style="display:none;">
+
+        <button id="logout-btn">
+            🚪 Դուրս գալ
+        </button>
 
 
-        <div class="admin-box">
+        <!-- PRODUCTS -->
 
-            <h1>⚙️ SEVOYAN Admin</h1>
+        <div class="checkout-box">
 
-            <button
-                id="logout-btn"
-                class="admin-btn logout-btn"
-            >
-                🚪 Դուրս գալ
-            </button>
+            <h2 class="section-title">
+                ➕ Ավելացնել նոր ապրանք
+            </h2>
 
-
-            <h2>➕ Ավելացնել նոր ապրանք</h2>
-
-
-            <form
-                id="product-form"
-                class="admin-form"
-            >
+            <form id="product-form">
 
                 <input
                     type="text"
@@ -234,31 +91,13 @@
                     required
                 >
 
-                <textarea
-                    id="product-images"
-                    placeholder="Նկարների հղումները։ Ամեն նկարը գրիր նոր տողով։"
-                    required
-                ></textarea>
-
-
-                <div class="help">
-
-                    🖼️ Կարող ես ավելացնել այնքան նկար,
-                    որքան ուզում ես։<br><br>
-
-                    Օրինակ՝<br>
-
-                    image1.jpg<br>
-                    image2.jpg<br>
-                    image3.jpg
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="admin-btn"
+                <input
+                    type="text"
+                    id="product-image"
+                    placeholder="Նկարի հղումը"
                 >
+
+                <button type="submit">
                     ➕ Ավելացնել ապրանք
                 </button>
 
@@ -267,29 +106,83 @@
         </div>
 
 
+        <h2 class="section-title">
+            📦 Ապրանքներ
+        </h2>
 
-        <!-- PRODUCTS -->
+        <div id="admin-products"></div>
 
-        <div class="admin-box">
 
-            <h2>🛍️ Ապրանքներ</h2>
+        <!-- COLLECTIONS -->
 
-            <div id="admin-products">
-                Բեռնում...
-            </div>
+        <div class="checkout-box">
+
+            <h2 class="section-title">
+                ✨ Ավելացնել նոր հավաքածու
+            </h2>
+
+            <form id="collection-form">
+
+                <input
+                    type="text"
+                    id="collection-name"
+                    placeholder="Հավաքածուի անունը"
+                    required
+                >
+
+                <input
+                    type="number"
+                    id="collection-price"
+                    placeholder="Գինը ֏"
+                    required
+                >
+
+                <textarea
+                    id="collection-images"
+                    placeholder="Նկարների հղումները։ Յուրաքանչյուր նկարը գրիր նոր տողում։
+
+Օրինակ՝
+https://example.com/image1.jpg
+https://example.com/image2.jpg
+https://example.com/image3.jpg"
+                    rows="7"
+                    required
+                ></textarea>
+
+                <button type="submit">
+                    ➕ Ավելացնել հավաքածու
+                </button>
+
+            </form>
 
         </div>
 
 
+        <h2 class="section-title">
+            🖼️ Հավաքածուներ
+        </h2>
+
+        <div id="admin-collections"></div>
+
     </div>
 
-</div>
+</section>
+
+
+<footer class="footer">
+
+    <h3>SEVOYAN Luxury</h3>
+
+    <p>Premium Fashion Brand</p>
+
+    <p>
+        © 2026 SEVOYAN Luxury. All rights reserved.
+    </p>
+
+</footer>
 
 
 <script src="js/admin.js"></script>
 
 </body>
-
 </html>
-Compose
-Write to Artyom Sevoyan
