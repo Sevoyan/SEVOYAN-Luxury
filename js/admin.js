@@ -1,10 +1,14 @@
-const SUPABASE_URL = "https://ultbqgkrckapevjllqwe.supabase.co";
+const SUPABASE_URL =
+    "https://ultbqgkrckapevjllqwe.supabase.co";
 
 const SUPABASE_KEY =
     "sb_publishable_N0wWlRo2NFdT_ifDgJhAYQ_Ol5yeIfW";
 
-const API_URL =
+const PRODUCTS_API =
     SUPABASE_URL + "/rest/v1/products";
+
+const COLLECTIONS_API =
+    SUPABASE_URL + "/rest/v1/collections";
 
 const AUTH_URL =
     SUPABASE_URL +
@@ -24,13 +28,10 @@ async function adminLogin(event) {
     event.preventDefault();
 
     const email =
-        document.getElementById("admin-email")
-        .value
-        .trim();
+        document.getElementById("admin-email").value.trim();
 
     const password =
-        document.getElementById("admin-password")
-        .value;
+        document.getElementById("admin-password").value;
 
     try {
 
@@ -39,13 +40,20 @@ async function adminLogin(event) {
             method: "POST",
 
             headers: {
+
                 "apikey": SUPABASE_KEY,
-                "Content-Type": "application/json"
+
+                "Content-Type":
+                    "application/json"
+
             },
 
             body: JSON.stringify({
+
                 email: email,
+
                 password: password
+
             })
 
         });
@@ -94,22 +102,24 @@ async function adminLogin(event) {
 
 
 // =========================
-// SHOW ADMIN
+// ADMIN PANEL
 // =========================
 
 function showAdminPanel() {
 
     document.getElementById(
         "admin-login"
-    ).classList.add("hidden");
+    ).style.display = "none";
 
 
     document.getElementById(
         "admin-panel"
-    ).classList.remove("hidden");
+    ).style.display = "block";
 
 
     loadAdminProducts();
+
+    loadAdminCollections();
 
 }
 
@@ -129,12 +139,12 @@ function logout() {
 
     document.getElementById(
         "admin-panel"
-    ).classList.add("hidden");
+    ).style.display = "none";
 
 
     document.getElementById(
         "admin-login"
-    ).classList.remove("hidden");
+    ).style.display = "block";
 
 }
 
@@ -160,9 +170,9 @@ function getHeaders() {
 }
 
 
-// =========================
-// LOAD PRODUCTS
-// =========================
+// ==================================================
+// PRODUCTS
+// ==================================================
 
 async function loadAdminProducts() {
 
@@ -179,7 +189,7 @@ async function loadAdminProducts() {
 
         const response =
             await fetch(
-                API_URL +
+                PRODUCTS_API +
                 "?select=*&order=id.desc",
                 {
                     headers:
@@ -190,10 +200,9 @@ async function loadAdminProducts() {
 
         if (!response.ok) {
 
-            const text =
-                await response.text();
-
-            throw new Error(text);
+            throw new Error(
+                "Չհաջողվեց բեռնել ապրանքները"
+            );
 
         }
 
@@ -216,92 +225,76 @@ async function loadAdminProducts() {
 
 
         products.forEach(
-            function(product) {
+            function (product) {
 
                 const item =
                     document.createElement(
                         "div"
                     );
 
+
                 item.className =
                     "admin-product";
-
-
-                // Նկարների ցուցակ
-
-                const images =
-                    (product.image || "")
-                    .split(/\r?\n/)
-                    .map(
-                        function(url) {
-                            return url.trim();
-                        }
-                    )
-                    .filter(Boolean);
-
-
-                const firstImage =
-                    images[0] || "";
 
 
                 item.innerHTML = `
 
                     <img
-                        src="${firstImage}"
-                        alt="${product.name}"
+                        src="${product.image || ""}"
+                        alt=""
                     >
 
-                    <div class="admin-product-info">
+                    <div>
 
                         <h3>
                             ${product.name}
                         </h3>
 
                         <p>
-                            💰 ${product.price} ֏
-                        </p>
-
-                        <p>
-                            🖼️ ${images.length} նկար
+                            ${product.price} ֏
                         </p>
 
                     </div>
 
-                    <div class="admin-product-buttons">
+                    <button class="edit-product">
+                        ✏️ Փոխել
+                    </button>
 
-                        <button
-                            class="admin-btn edit-btn"
-                        >
-                            ✏️ Փոխել
-                        </button>
-
-                        <button
-                            class="admin-btn delete-btn"
-                        >
-                            🗑️ Ջնջել
-                        </button>
-
-                    </div>
+                    <button class="delete-product">
+                        🗑️ Ջնջել
+                    </button>
 
                 `;
 
 
                 item
-                    .querySelector(".edit-btn")
+                    .querySelector(
+                        ".edit-product"
+                    )
                     .addEventListener(
                         "click",
-                        function() {
-                            editProduct(product);
+                        function () {
+
+                            editProduct(
+                                product
+                            );
+
                         }
                     );
 
 
                 item
-                    .querySelector(".delete-btn")
+                    .querySelector(
+                        ".delete-product"
+                    )
                     .addEventListener(
                         "click",
-                        function() {
-                            deleteProduct(product.id);
+                        function () {
+
+                            deleteProduct(
+                                product.id
+                            );
+
                         }
                     );
 
@@ -348,50 +341,17 @@ async function addProduct(event) {
         );
 
 
-    const imageText =
+    const image =
         document.getElementById(
-            "product-images"
+            "product-image"
         ).value.trim();
-
-
-    if (!name) {
-
-        alert(
-            "❌ Գրիր ապրանքի անունը"
-        );
-
-        return;
-
-    }
-
-
-    if (!price || price <= 0) {
-
-        alert(
-            "❌ Գրիր ճիշտ գին"
-        );
-
-        return;
-
-    }
-
-
-    if (!imageText) {
-
-        alert(
-            "❌ Ավելացրու գոնե 1 նկար"
-        );
-
-        return;
-
-    }
 
 
     try {
 
         const response =
             await fetch(
-                API_URL,
+                PRODUCTS_API,
                 {
 
                     method: "POST",
@@ -411,7 +371,7 @@ async function addProduct(event) {
 
                         price: price,
 
-                        image: imageText
+                        image: image
 
                     })
 
@@ -421,12 +381,10 @@ async function addProduct(event) {
 
         if (!response.ok) {
 
-            const errorText =
+            const error =
                 await response.text();
 
-            throw new Error(
-                errorText
-            );
+            throw new Error(error);
 
         }
 
@@ -436,11 +394,9 @@ async function addProduct(event) {
         );
 
 
-        document
-            .getElementById(
-                "product-form"
-            )
-            .reset();
+        document.getElementById(
+            "product-form"
+        ).reset();
 
 
         loadAdminProducts();
@@ -461,28 +417,24 @@ async function addProduct(event) {
 
 
 // =========================
-// DELETE
+// DELETE PRODUCT
 // =========================
 
 async function deleteProduct(id) {
 
-    const answer =
-        confirm(
+    if (
+        !confirm(
             "Վստա՞հ ես, որ ուզում ես ջնջել այս ապրանքը։"
-        );
-
-
-    if (!answer) return;
+        )
+    ) return;
 
 
     try {
 
         const response =
             await fetch(
-                API_URL +
-                "?id=eq." +
-                encodeURIComponent(id),
-
+                PRODUCTS_API +
+                "?id=eq." + id,
                 {
 
                     method: "DELETE",
@@ -497,7 +449,7 @@ async function deleteProduct(id) {
         if (!response.ok) {
 
             throw new Error(
-                "Չհաջողվեց ջնջել"
+                "Delete error"
             );
 
         }
@@ -526,67 +478,47 @@ async function deleteProduct(id) {
 
 
 // =========================
-// EDIT
+// EDIT PRODUCT
 // =========================
 
 async function editProduct(product) {
 
-    const newName =
+    const name =
         prompt(
             "Ապրանքի անունը",
             product.name
         );
 
 
-    if (newName === null) return;
+    if (name === null) return;
 
 
-    const newPrice =
+    const price =
         prompt(
             "Ապրանքի գինը",
             product.price
         );
 
 
-    if (newPrice === null) return;
+    if (price === null) return;
 
 
-    const newImages =
+    const image =
         prompt(
-            "Նկարների հղումները՝ ամեն մեկը նոր տողում",
+            "Նկարի հղումը",
             product.image || ""
         );
 
 
-    if (newImages === null) return;
-
-
-    const price =
-        Number(newPrice);
-
-
-    if (!price || price <= 0) {
-
-        alert(
-            "❌ Գինը սխալ է"
-        );
-
-        return;
-
-    }
+    if (image === null) return;
 
 
     try {
 
         const response =
             await fetch(
-
-                API_URL +
-                "?id=eq." +
-                encodeURIComponent(
-                    product.id
-                ),
-
+                PRODUCTS_API +
+                "?id=eq." + product.id,
                 {
 
                     method: "PATCH",
@@ -603,27 +535,25 @@ async function editProduct(product) {
                     body: JSON.stringify({
 
                         name:
-                            newName.trim(),
+                            name.trim(),
 
                         price:
-                            price,
+                            Number(price),
 
                         image:
-                            newImages.trim()
+                            image.trim()
 
                     })
 
                 }
-
             );
 
 
         if (!response.ok) {
 
-            const text =
-                await response.text();
-
-            throw new Error(text);
+            throw new Error(
+                "Edit error"
+            );
 
         }
 
@@ -650,13 +580,509 @@ async function editProduct(product) {
 }
 
 
+// ==================================================
+// COLLECTIONS
+// ==================================================
+
+async function loadAdminCollections() {
+
+    const container =
+        document.getElementById(
+            "admin-collections"
+        );
+
+
+    if (!container) return;
+
+
+    try {
+
+        const response =
+            await fetch(
+                COLLECTIONS_API +
+                "?select=*&order=id.desc",
+                {
+                    headers:
+                        getHeaders()
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Չհաջողվեց բեռնել հավաքածուները"
+            );
+
+        }
+
+
+        const collections =
+            await response.json();
+
+
+        container.innerHTML = "";
+
+
+        if (collections.length === 0) {
+
+            container.innerHTML =
+                "<p>Հավաքածուներ դեռ չկան։</p>";
+
+            return;
+
+        }
+
+
+        collections.forEach(
+            function (collection) {
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                item.className =
+                    "admin-collection";
+
+
+                let images =
+                    collection.images || [];
+
+
+                if (!Array.isArray(images)) {
+
+                    images = [];
+
+                }
+
+
+                let imageHTML = "";
+
+
+                images.forEach(
+                    function (image) {
+
+                        imageHTML += `
+
+                            <img
+                                src="${image}"
+                                alt=""
+                            >
+
+                        `;
+
+                    }
+                );
+
+
+                item.innerHTML = `
+
+                    <div class="collection-images">
+
+                        ${imageHTML}
+
+                    </div>
+
+                    <h3>
+                        ${collection.name}
+                    </h3>
+
+                    <p>
+                        ${collection.price || 0} ֏
+                    </p>
+
+                    <p>
+                        🖼️ ${images.length} նկար
+                    </p>
+
+                    <button class="edit-collection">
+                        ✏️ Փոխել
+                    </button>
+
+                    <button class="delete-collection">
+                        🗑️ Ջնջել
+                    </button>
+
+                `;
+
+
+                item
+                    .querySelector(
+                        ".edit-collection"
+                    )
+                    .addEventListener(
+                        "click",
+                        function () {
+
+                            editCollection(
+                                collection
+                            );
+
+                        }
+                    );
+
+
+                item
+                    .querySelector(
+                        ".delete-collection"
+                    )
+                    .addEventListener(
+                        "click",
+                        function () {
+
+                            deleteCollection(
+                                collection.id
+                            );
+
+                        }
+                    );
+
+
+                container.appendChild(item);
+
+            }
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        container.innerHTML =
+            "<p>❌ Չհաջողվեց բեռնել հավաքածուները</p>";
+
+    }
+
+}
+
+
 // =========================
+// ADD COLLECTION
+// =========================
+
+async function addCollection(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById(
+            "collection-name"
+        ).value.trim();
+
+
+    const price =
+        Number(
+            document.getElementById(
+                "collection-price"
+            ).value
+        );
+
+
+    const text =
+        document.getElementById(
+            "collection-images"
+        ).value.trim();
+
+
+    const images =
+        text
+            .split("\n")
+            .map(
+                function (url) {
+                    return url.trim();
+                }
+            )
+            .filter(
+                function (url) {
+                    return url !== "";
+                }
+            );
+
+
+    if (images.length === 0) {
+
+        alert(
+            "❌ Ավելացրու գոնե մեկ նկար"
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                COLLECTIONS_API,
+                {
+
+                    method: "POST",
+
+                    headers: {
+
+                        ...getHeaders(),
+
+                        "Prefer":
+                            "return=representation"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        name: name,
+
+                        price: price,
+
+                        images: images
+
+                    })
+
+                }
+            );
+
+
+        if (!response.ok) {
+
+            const error =
+                await response.text();
+
+            console.error(error);
+
+            throw new Error(error);
+
+        }
+
+
+        alert(
+            "✅ Հավաքածուն ավելացվեց"
+        );
+
+
+        document.getElementById(
+            "collection-form"
+        ).reset();
+
+
+        loadAdminCollections();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "❌ Չհաջողվեց ավելացնել հավաքածուն"
+        );
+
+    }
+
+}
+
+
+// =========================
+// DELETE COLLECTION
+// =========================
+
+async function deleteCollection(id) {
+
+    if (
+        !confirm(
+            "Վստա՞հ ես, որ ուզում ես ջնջել այս հավաքածուն։"
+        )
+    ) return;
+
+
+    try {
+
+        const response =
+            await fetch(
+                COLLECTIONS_API +
+                "?id=eq." + id,
+                {
+
+                    method: "DELETE",
+
+                    headers:
+                        getHeaders()
+
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Delete error"
+            );
+
+        }
+
+
+        alert(
+            "🗑️ Հավաքածուն ջնջվեց"
+        );
+
+
+        loadAdminCollections();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "❌ Չհաջողվեց ջնջել հավաքածուն"
+        );
+
+    }
+
+}
+
+
+// =========================
+// EDIT COLLECTION
+// =========================
+
+async function editCollection(collection) {
+
+    const name =
+        prompt(
+            "Հավաքածուի անունը",
+            collection.name
+        );
+
+
+    if (name === null) return;
+
+
+    const price =
+        prompt(
+            "Հավաքածուի գինը",
+            collection.price || 0
+        );
+
+
+    if (price === null) return;
+
+
+    const oldImages =
+        Array.isArray(
+            collection.images
+        )
+            ? collection.images.join("\n")
+            : "";
+
+
+    const imagesText =
+        prompt(
+            "Նկարների հղումները՝ յուրաքանչյուր նկարը նոր տողում",
+            oldImages
+        );
+
+
+    if (imagesText === null) return;
+
+
+    const images =
+        imagesText
+            .split("\n")
+            .map(
+                function (url) {
+                    return url.trim();
+                }
+            )
+            .filter(
+                function (url) {
+                    return url !== "";
+                }
+            );
+
+
+    try {
+
+        const response =
+            await fetch(
+                COLLECTIONS_API +
+                "?id=eq." +
+                collection.id,
+                {
+
+                    method: "PATCH",
+
+                    headers: {
+
+                        ...getHeaders(),
+
+                        "Prefer":
+                            "return=representation"
+
+                    },
+
+                    body: JSON.stringify({
+
+                        name:
+                            name.trim(),
+
+                        price:
+                            Number(price),
+
+                        images:
+                            images
+
+                    })
+
+                }
+            );
+
+
+        if (!response.ok) {
+
+            const error =
+                await response.text();
+
+            console.error(error);
+
+            throw new Error(error);
+
+        }
+
+
+        alert(
+            "✅ Հավաքածուն փոխվեց"
+        );
+
+
+        loadAdminCollections();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "❌ Չհաջողվեց փոխել հավաքածուն"
+        );
+
+    }
+
+}
+
+
+// ==================================================
 // START
-// =========================
+// ==================================================
 
 document.addEventListener(
     "DOMContentLoaded",
-    function() {
+    function () {
 
         const loginForm =
             document.getElementById(
@@ -701,6 +1127,22 @@ document.addEventListener(
             productForm.addEventListener(
                 "submit",
                 addProduct
+            );
+
+        }
+
+
+        const collectionForm =
+            document.getElementById(
+                "collection-form"
+            );
+
+
+        if (collectionForm) {
+
+            collectionForm.addEventListener(
+                "submit",
+                addCollection
             );
 
         }
