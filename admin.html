@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Admin | SEVOYAN Luxury</title>
@@ -93,20 +92,25 @@
             cursor: pointer;
         }
 
-        #admin-products {
+        #admin-products,
+        #admin-collections {
             display: flex;
             flex-direction: column;
             gap: 15px;
+        }
+
+        .admin-product,
+        .admin-collection {
+            background: #181818;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px;
         }
 
         .admin-product {
             display: flex;
             align-items: center;
             gap: 20px;
-            background: #181818;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 15px;
         }
 
         .admin-product-image {
@@ -131,12 +135,14 @@
             flex: 1;
         }
 
-        .admin-product-info h3 {
+        .admin-product-info h3,
+        .admin-collection h3 {
             margin: 0 0 8px;
             color: white;
         }
 
-        .admin-product-info p {
+        .admin-product-info p,
+        .admin-collection p {
             margin: 5px 0;
             color: #D4AF37;
             font-weight: bold;
@@ -146,14 +152,17 @@
             color: #aaa;
         }
 
-        .admin-product-buttons {
+        .admin-product-buttons,
+        .admin-collection-buttons {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
 
         .edit-product,
-        .delete-product {
+        .delete-product,
+        .edit-collection,
+        .delete-collection {
             padding: 10px 15px;
             border: none;
             border-radius: 7px;
@@ -161,20 +170,44 @@
             font-weight: bold;
         }
 
-        .edit-product {
+        .edit-product,
+        .edit-collection {
             background: #D4AF37;
             color: #111;
         }
 
-        .delete-product {
+        .delete-product,
+        .delete-collection {
             background: #8b0000;
             color: white;
+        }
+
+        .collection-images {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .collection-images img {
+            width: 100%;
+            height: 130px;
+            object-fit: cover;
+            border-radius: 8px;
+            background: #222;
         }
 
         .loading {
             text-align: center;
             color: #aaa;
             padding: 20px;
+        }
+
+        .section-description {
+            color: #aaa;
+            text-align: center;
+            margin-top: -15px;
+            margin-bottom: 20px;
         }
 
         @media (max-width: 700px) {
@@ -193,13 +226,20 @@
                 text-align: center;
             }
 
-            .admin-product-buttons {
+            .admin-product-buttons,
+            .admin-collection-buttons {
                 width: 100%;
             }
 
             .edit-product,
-            .delete-product {
+            .delete-product,
+            .edit-collection,
+            .delete-collection {
                 width: 100%;
+            }
+
+            .collection-images {
+                grid-template-columns: repeat(2, 1fr);
             }
 
         }
@@ -208,9 +248,7 @@
 
 </head>
 
-
 <body>
-
 
 <header class="header">
 
@@ -288,7 +326,6 @@
     </div>
 
 
-
     <!-- ADMIN PANEL -->
 
     <div
@@ -298,7 +335,7 @@
     >
 
         <h1>
-            ⚙️ Ապրանքների կառավարում
+            ⚙️ SEVOYAN Admin
         </h1>
 
 
@@ -310,8 +347,9 @@
         </button>
 
 
-
+        <!-- ===================== -->
         <!-- ADD PRODUCT -->
+        <!-- ===================== -->
 
         <div class="admin-box">
 
@@ -331,7 +369,6 @@
                     required
                 >
 
-
                 <input
                     type="number"
                     id="product-price"
@@ -339,7 +376,6 @@
                     min="1"
                     required
                 >
-
 
                 <textarea
                     id="product-image"
@@ -354,7 +390,6 @@ https://example.com/image3.jpg"
                     required
                 ></textarea>
 
-
                 <button
                     type="submit"
                     class="admin-btn"
@@ -367,8 +402,68 @@ https://example.com/image3.jpg"
         </div>
 
 
+        <!-- ===================== -->
+        <!-- ADD COLLECTION -->
+        <!-- ===================== -->
 
+        <div class="admin-box">
+
+            <h2>
+                💎 Ավելացնել նոր հավաքածու
+            </h2>
+
+            <p class="section-description">
+                Հավաքածուի համար կարող ես ավելացնել մի քանի նկար։
+            </p>
+
+            <form
+                id="collection-form"
+                class="admin-form"
+            >
+
+                <input
+                    type="text"
+                    id="collection-name"
+                    placeholder="Հավաքածուի անունը"
+                    required
+                >
+
+                <input
+                    type="number"
+                    id="collection-price"
+                    placeholder="Գինը ֏"
+                    min="1"
+                    required
+                >
+
+                <textarea
+                    id="collection-images"
+                    placeholder="Հավաքածուի նկարների հղումները։
+
+Յուրաքանչյուր նկարը գրիր նոր տողում։
+
+Օրինակ՝
+https://example.com/collection1.jpg
+https://example.com/collection2.jpg
+https://example.com/collection3.jpg"
+                    required
+                ></textarea>
+
+                <button
+                    type="submit"
+                    class="admin-btn"
+                >
+                    💎 Ավելացնել հավաքածու
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- ===================== -->
         <!-- PRODUCTS -->
+        <!-- ===================== -->
 
         <div class="admin-box">
 
@@ -380,6 +475,27 @@ https://example.com/image3.jpg"
 
                 <div class="loading">
                     Ապրանքները բեռնվում են...
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================== -->
+        <!-- COLLECTIONS -->
+        <!-- ===================== -->
+
+        <div class="admin-box">
+
+            <h2>
+                💎 Հավաքածուներ
+            </h2>
+
+            <div id="admin-collections">
+
+                <div class="loading">
+                    Հավաքածուները բեռնվում են...
                 </div>
 
             </div>
