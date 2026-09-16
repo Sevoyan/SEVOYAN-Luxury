@@ -8,7 +8,9 @@ const PRODUCTS_API =
     SUPABASE_URL + "/rest/v1/products";
 
 const AUTH_URL =
-    SUPABASE_URL + "/auth/v1/token?grant_type=password";
+    SUPABASE_URL +
+    "/auth/v1/token?grant_type=password";
+
 
 let accessToken =
     localStorage.getItem("admin_access_token");
@@ -23,52 +25,82 @@ async function adminLogin(event) {
     event.preventDefault();
 
     const email =
-        document.getElementById("admin-email").value.trim();
+        document.getElementById("admin-email")
+        .value
+        .trim();
 
     const password =
-        document.getElementById("admin-password").value;
+        document.getElementById("admin-password")
+        .value;
+
 
     try {
 
-        const response = await fetch(AUTH_URL, {
-            method: "POST",
+        const response =
+            await fetch(AUTH_URL, {
 
-            headers: {
-                "apikey": SUPABASE_KEY,
-                "Content-Type": "application/json"
-            },
+                method: "POST",
 
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
-        });
+                headers: {
 
-        const data = await response.json();
+                    "apikey":
+                        SUPABASE_KEY,
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    email: email,
+
+                    password: password
+
+                })
+
+            });
+
+
+        const data =
+            await response.json();
+
 
         if (!response.ok) {
+
             throw new Error(
                 data.error_description ||
                 data.msg ||
                 "Email-ը կամ գաղտնաբառը սխալ է"
             );
+
         }
 
-        accessToken = data.access_token;
+
+        accessToken =
+            data.access_token;
+
 
         localStorage.setItem(
             "admin_access_token",
             accessToken
         );
 
+
         showAdminPanel();
+
 
     } catch (error) {
 
         console.error(error);
 
-        alert("❌ " + error.message);
+        alert(
+            "❌ " +
+            error.message
+        );
+
     }
+
 }
 
 
@@ -79,20 +111,34 @@ async function adminLogin(event) {
 function showAdminPanel() {
 
     const login =
-        document.getElementById("admin-login");
+        document.getElementById(
+            "admin-login"
+        );
 
     const panel =
-        document.getElementById("admin-panel");
+        document.getElementById(
+            "admin-panel"
+        );
+
 
     if (login) {
-        login.style.display = "none";
+
+        login.style.display =
+            "none";
+
     }
+
 
     if (panel) {
-        panel.style.display = "block";
+
+        panel.style.display =
+            "block";
+
     }
 
+
     loadAdminProducts();
+
 }
 
 
@@ -108,19 +154,33 @@ function logout() {
 
     accessToken = null;
 
-    const panel =
-        document.getElementById("admin-panel");
 
     const login =
-        document.getElementById("admin-login");
+        document.getElementById(
+            "admin-login"
+        );
+
+    const panel =
+        document.getElementById(
+            "admin-panel"
+        );
+
 
     if (panel) {
-        panel.style.display = "none";
+
+        panel.style.display =
+            "none";
+
     }
 
+
     if (login) {
-        login.style.display = "block";
+
+        login.style.display =
+            "block";
+
     }
+
 }
 
 
@@ -131,14 +191,19 @@ function logout() {
 function getHeaders() {
 
     return {
-        "apikey": SUPABASE_KEY,
+
+        "apikey":
+            SUPABASE_KEY,
 
         "Authorization":
-            "Bearer " + accessToken,
+            "Bearer " +
+            accessToken,
 
         "Content-Type":
             "application/json"
+
     };
+
 }
 
 
@@ -149,24 +214,34 @@ function getHeaders() {
 function getProductImages(imageData) {
 
     if (!imageData) {
+
         return [];
+
     }
 
-    // Եթե արդեն array է
+
     if (Array.isArray(imageData)) {
+
         return imageData
             .map(url => String(url).trim())
             .filter(url => url !== "");
+
     }
+
 
     const text =
         String(imageData).trim();
 
+
     if (!text) {
+
         return [];
+
     }
 
-    // Եթե JSON array է
+
+    // JSON ARRAY
+
     if (text.startsWith("[")) {
 
         try {
@@ -174,32 +249,42 @@ function getProductImages(imageData) {
             const parsed =
                 JSON.parse(text);
 
+
             if (Array.isArray(parsed)) {
 
                 return parsed
                     .map(url => String(url).trim())
                     .filter(url => url !== "");
+
             }
 
         } catch (error) {
 
             console.log(
-                "Image JSON parse error"
+                "JSON image error"
             );
+
         }
+
     }
 
-    // Եթե յուրաքանչյուր նկար նոր տողում է
+
+    // NEW LINES
+
     if (text.includes("\n")) {
 
         return text
             .split("\n")
             .map(url => url.trim())
             .filter(url => url !== "");
+
     }
 
-    // Միայն մեկ նկար
+
+    // ONE IMAGE
+
     return [text];
+
 }
 
 
@@ -210,170 +295,227 @@ function getProductImages(imageData) {
 async function loadAdminProducts() {
 
     const container =
-        document.getElementById("admin-products");
+        document.getElementById(
+            "admin-products"
+        );
+
 
     if (!container) {
+
         return;
+
     }
+
 
     try {
 
         const response =
             await fetch(
+
                 PRODUCTS_API +
                 "?select=*&order=id.desc",
-                {
-                    method: "GET",
-                    headers: getHeaders(),
 
-                    cache: "no-store"
+                {
+
+                    method: "GET",
+
+                    headers:
+                        getHeaders(),
+
+                    cache:
+                        "no-store"
+
                 }
+
             );
 
-        const responseText =
+
+        const text =
             await response.text();
+
 
         if (!response.ok) {
 
             console.error(
-                "Supabase error:",
-                responseText
+                "SUPABASE LOAD ERROR:",
+                text
             );
 
             throw new Error(
-                responseText ||
+                text ||
                 "Չհաջողվեց բեռնել ապրանքները"
             );
+
         }
 
+
         const products =
-            JSON.parse(responseText);
+            JSON.parse(text);
+
 
         container.innerHTML = "";
 
-        if (!products.length) {
+
+        if (
+            products.length === 0
+        ) {
 
             container.innerHTML =
                 "<p>Ապրանքներ դեռ չկան։</p>";
 
             return;
+
         }
 
 
-        products.forEach(function (product) {
-
-            const item =
-                document.createElement("div");
-
-            item.className =
-                "admin-product";
+        products.forEach(
+            function(product) {
 
 
-            const images =
-                getProductImages(
-                    product.image
-                );
+                const item =
+                    document.createElement(
+                        "div"
+                    );
 
-            const firstImage =
-                images.length > 0
+
+                item.className =
+                    "admin-product";
+
+
+                const images =
+                    getProductImages(
+                        product.image
+                    );
+
+
+                const firstImage =
+                    images.length
                     ? images[0]
                     : "";
 
 
-            item.innerHTML = `
+                item.innerHTML = `
 
-                <div class="admin-product-image">
+                    <div class="admin-product-image">
 
-                    ${
-                        firstImage
-                        ? `<img
-                            src="${firstImage}"
-                            alt="${product.name || ""}"
-                          >`
-                        : <div>📷 Նկար չկա</div>
-                    }
+                        ${
+                            firstImage
 
-                </div>
+                            ?
 
-                <div class="admin-product-info">
+                            `<img
+                                src="${firstImage}"
+                                alt=""
+                            >`
 
-                    <h3>
-                        ${product.name || "Անանուն ապրանք"}
-                    </h3>
+                            :
 
-                    <p>
-                        ${product.price || 0} ֏
-                    </p>
+                            📷 Նկար չկա
+                        }
 
-                    <small>
-                        🖼️ ${images.length} նկար
-                    </small>
-
-                </div>
-
-                <div class="admin-product-buttons">
-
-                    <button
-                        class="edit-product"
-                        type="button"
-                    >
-                        ✏️ Փոխել
-                    </button>
-
-                    <button
-                        class="delete-product"
-                        type="button"
-                    >
-                        🗑️ Ջնջել
-                    </button>
-
-                </div>
-            `;
+                    </div>
 
 
-            const editButton =
-                item.querySelector(
-                    ".edit-product"
+                    <div class="admin-product-info">
+
+                        <h3>
+                            ${
+                                product.name ||
+                                "Անանուն ապրանք"
+                            }
+                        </h3>
+
+                        <p>
+                            ${
+                                product.price ||
+                                0
+                            } ֏
+                        </p>
+
+                        <small>
+                            🖼️ ${images.length} նկար
+                        </small>
+
+                    </div>
+
+
+                    <div class="admin-product-buttons">
+
+                        <button
+                            class="edit-product"
+                            type="button"
+                        >
+                            ✏️ Փոխել
+                        </button>
+
+
+                        <button
+                            class="delete-product"
+                            type="button"
+                        >
+                            🗑️ Ջնջել
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                item
+                    .querySelector(
+                        ".edit-product"
+                    )
+                    .addEventListener(
+                        "click",
+                        function() {
+
+                            editProduct(
+                                product
+                            );
+
+                        }
+                    );
+
+
+                item
+                    .querySelector(
+                        ".delete-product"
+                    )
+                    .addEventListener(
+                        "click",
+                        function() {
+
+                            deleteProduct(
+                                product.id
+                            );
+
+                        }
+                    );
+
+
+                container.appendChild(
+                    item
                 );
 
-            const deleteButton =
-                item.querySelector(
-                    ".delete-product"
-                );
+            }
+        );
 
-
-            editButton.addEventListener(
-                "click",
-                function () {
-
-                    editProduct(product);
-                }
-            );
-
-
-            deleteButton.addEventListener(
-                "click",
-                function () {
-
-                    deleteProduct(product.id);
-                }
-            );
-
-
-            container.appendChild(item);
-
-        });
 
     } catch (error) {
 
         console.error(error);
 
+
         container.innerHTML = `
+
             <p style="color:red;">
                 ❌ ${error.message}
             </p>
+
         `;
+
     }
+
 }
 
 
@@ -391,10 +533,12 @@ async function addProduct(event) {
             "product-name"
         );
 
+
     const priceInput =
         document.getElementById(
             "product-price"
         );
+
 
     const imageInput =
         document.getElementById(
@@ -402,21 +546,15 @@ async function addProduct(event) {
         );
 
 
-    if (!nameInput || !priceInput || !imageInput) {
-
-        alert(
-            "❌ Ապրանքի դաշտերը չեն գտնվել։"
-        );
-
-        return;
-    }
-
-
     const name =
         nameInput.value.trim();
 
+
     const price =
-        Number(priceInput.value);
+        Number(
+            priceInput.value
+        );
+
 
     const images =
         getProductImages(
@@ -431,26 +569,29 @@ async function addProduct(event) {
         );
 
         return;
+
     }
 
 
     if (!price || price <= 0) {
 
         alert(
-            "❌ Գրիր ճիշտ գին։"
+            "❌ Գրիր ճիշտ գինը։"
         );
 
         return;
+
     }
 
 
     if (images.length === 0) {
 
         alert(
-            "❌ Ավելացրու գոնե մեկ նկարի հղում։"
+            "❌ Գրիր գոնե մեկ նկարի հղում։"
         );
 
         return;
+
     }
 
 
@@ -458,33 +599,43 @@ async function addProduct(event) {
 
         const response =
             await fetch(
+
                 PRODUCTS_API,
+
                 {
+
                     method: "POST",
 
                     headers: {
+
                         ...getHeaders(),
 
                         "Prefer":
                             "return=representation"
+
                     },
 
                     body: JSON.stringify({
 
-                        name: name,
+                        name:
+                            name,
 
-                        price: price,
+                        price:
+                            price,
 
-                        // Պահում ենք որպես JSON
-                        // որպեսզի մի քանի նկար աշխատի
                         image:
-                            JSON.stringify(images)
+                            JSON.stringify(
+                                images
+                            )
+
                     })
+
                 }
+
             );
 
 
-        const responseText =
+        const text =
             await response.text();
 
 
@@ -492,35 +643,33 @@ async function addProduct(event) {
 
             console.error(
                 "ADD PRODUCT ERROR:",
-                responseText
+                text
             );
 
             throw new Error(
-                responseText ||
-                "Supabase-ը չթույլատրեց ավելացնել ապրանքը"
+                text ||
+                "Ապրանքը չավելացավ"
             );
+
         }
 
 
         console.log(
-            "Product added:",
-            responseText
+            "PRODUCT ADDED:",
+            text
         );
 
 
         alert(
-            "✅ Ապրանքը հաջողությամբ ավելացվեց"
+            "✅ Ապրանքը ավելացվեց"
         );
 
 
-        const form =
-            document.getElementById(
+        document
+            .getElementById(
                 "product-form"
-            );
-
-        if (form) {
-            form.reset();
-        }
+            )
+            .reset();
 
 
         await loadAdminProducts();
@@ -530,11 +679,14 @@ async function addProduct(event) {
 
         console.error(error);
 
+
         alert(
             "❌ Չհաջողվեց ավելացնել ապրանքը\n\n" +
             error.message
         );
+
     }
+
 }
 
 
@@ -549,8 +701,11 @@ async function deleteProduct(id) {
             "Վստա՞հ ես, որ ուզում ես ջնջել այս ապրանքը։"
         );
 
+
     if (!answer) {
+
         return;
+
     }
 
 
@@ -558,17 +713,24 @@ async function deleteProduct(id) {
 
         const response =
             await fetch(
+
                 PRODUCTS_API +
                 "?id=eq." +
                 encodeURIComponent(id),
+
                 {
+
                     method: "DELETE",
-                    headers: getHeaders()
+
+                    headers:
+                        getHeaders()
+
                 }
+
             );
 
 
-        const responseText =
+        const text =
             await response.text();
 
 
@@ -576,13 +738,14 @@ async function deleteProduct(id) {
 
             console.error(
                 "DELETE ERROR:",
-                responseText
+                text
             );
 
             throw new Error(
-                responseText ||
-                "Չհաջողվեց ջնջել ապրանքը"
+                text ||
+                "Delete error"
             );
+
         }
 
 
@@ -598,11 +761,14 @@ async function deleteProduct(id) {
 
         console.error(error);
 
+
         alert(
             "❌ Չհաջողվեց ջնջել ապրանքը\n\n" +
             error.message
         );
+
     }
+
 }
 
 
@@ -620,7 +786,9 @@ async function editProduct(product) {
 
 
     if (name === null) {
+
         return;
+
     }
 
 
@@ -632,7 +800,9 @@ async function editProduct(product) {
 
 
     if (price === null) {
+
         return;
+
     }
 
 
@@ -644,13 +814,18 @@ async function editProduct(product) {
 
     const imageText =
         prompt(
+
             "Նկարների հղումները՝ յուրաքանչյուր նկարը նոր տողում",
+
             oldImages.join("\n")
+
         );
 
 
     if (imageText === null) {
+
         return;
+
     }
 
 
@@ -664,17 +839,24 @@ async function editProduct(product) {
 
         const response =
             await fetch(
+
                 PRODUCTS_API +
                 "?id=eq." +
-                encodeURIComponent(product.id),
+                encodeURIComponent(
+                    product.id
+                ),
+
                 {
+
                     method: "PATCH",
 
                     headers: {
+
                         ...getHeaders(),
 
                         "Prefer":
                             "return=representation"
+
                     },
 
                     body: JSON.stringify({
@@ -686,13 +868,18 @@ async function editProduct(product) {
                             Number(price),
 
                         image:
-                            JSON.stringify(images)
+                            JSON.stringify(
+                                images
+                            )
+
                     })
+
                 }
+
             );
 
 
-        const responseText =
+        const text =
             await response.text();
 
 
@@ -700,13 +887,14 @@ async function editProduct(product) {
 
             console.error(
                 "EDIT ERROR:",
-                responseText
+                text
             );
 
             throw new Error(
-                responseText ||
-                "Չհաջողվեց փոխել ապրանքը"
+                text ||
+                "Edit error"
             );
+
         }
 
 
@@ -722,11 +910,14 @@ async function editProduct(product) {
 
         console.error(error);
 
+
         alert(
             "❌ Չհաջողվեց փոխել ապրանքը\n\n" +
             error.message
         );
+
     }
+
 }
 
 
@@ -736,7 +927,8 @@ async function editProduct(product) {
 
 document.addEventListener(
     "DOMContentLoaded",
-    function () {
+    function() {
+
 
         const loginForm =
             document.getElementById(
@@ -750,6 +942,7 @@ document.addEventListener(
                 "submit",
                 adminLogin
             );
+
         }
 
 
@@ -765,6 +958,7 @@ document.addEventListener(
                 "click",
                 logout
             );
+
         }
 
 
@@ -780,12 +974,14 @@ document.addEventListener(
                 "submit",
                 addProduct
             );
+
         }
 
 
         if (accessToken) {
 
             showAdminPanel();
+
         }
 
     }
