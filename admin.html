@@ -2,12 +2,20 @@
 <html lang="hy">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Admin | SEVOYAN Luxury</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
 
     <style>
 
@@ -66,6 +74,23 @@
             border-color: #D4AF37;
         }
 
+        .home-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: #181818;
+            border: 1px solid #444;
+            border-radius: 8px;
+            color: #D4AF37;
+            font-weight: bold;
+        }
+
+        .home-checkbox input {
+            width: 20px;
+            height: 20px;
+        }
+
         .admin-btn {
             padding: 15px;
             background: #D4AF37;
@@ -92,25 +117,20 @@
             cursor: pointer;
         }
 
-        #admin-products,
-        #admin-collections {
+        #admin-products {
             display: flex;
             flex-direction: column;
             gap: 15px;
-        }
-
-        .admin-product,
-        .admin-collection {
-            background: #181818;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 15px;
         }
 
         .admin-product {
             display: flex;
             align-items: center;
             gap: 20px;
+            background: #181818;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px;
         }
 
         .admin-product-image {
@@ -135,34 +155,43 @@
             flex: 1;
         }
 
-        .admin-product-info h3,
-        .admin-collection h3 {
+        .admin-product-info h3 {
             margin: 0 0 8px;
             color: white;
         }
 
-        .admin-product-info p,
-        .admin-collection p {
+        .admin-product-info p {
             margin: 5px 0;
             color: #D4AF37;
             font-weight: bold;
         }
 
-        .admin-product-info small {
+        .home-status {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+
+        .home-yes {
+            background: #176b35;
+            color: white;
+        }
+
+        .home-no {
+            background: #333;
             color: #aaa;
         }
 
-        .admin-product-buttons,
-        .admin-collection-buttons {
+        .admin-product-buttons {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
 
         .edit-product,
-        .delete-product,
-        .edit-collection,
-        .delete-collection {
+        .delete-product {
             padding: 10px 15px;
             border: none;
             border-radius: 7px;
@@ -170,44 +199,20 @@
             font-weight: bold;
         }
 
-        .edit-product,
-        .edit-collection {
+        .edit-product {
             background: #D4AF37;
             color: #111;
         }
 
-        .delete-product,
-        .delete-collection {
+        .delete-product {
             background: #8b0000;
             color: white;
-        }
-
-        .collection-images {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .collection-images img {
-            width: 100%;
-            height: 130px;
-            object-fit: cover;
-            border-radius: 8px;
-            background: #222;
         }
 
         .loading {
             text-align: center;
             color: #aaa;
             padding: 20px;
-        }
-
-        .section-description {
-            color: #aaa;
-            text-align: center;
-            margin-top: -15px;
-            margin-bottom: 20px;
         }
 
         @media (max-width: 700px) {
@@ -226,20 +231,13 @@
                 text-align: center;
             }
 
-            .admin-product-buttons,
-            .admin-collection-buttons {
+            .admin-product-buttons {
                 width: 100%;
             }
 
             .edit-product,
-            .delete-product,
-            .edit-collection,
-            .delete-collection {
+            .delete-product {
                 width: 100%;
-            }
-
-            .collection-images {
-                grid-template-columns: repeat(2, 1fr);
             }
 
         }
@@ -269,11 +267,7 @@
 
 </header>
 
-
 <main class="admin-container">
-
-
-    <!-- LOGIN -->
 
     <div id="admin-login" class="admin-box">
 
@@ -307,15 +301,13 @@
     </div>
 
 
-    <!-- ADMIN PANEL -->
-
     <div
         id="admin-panel"
         class="admin-box"
         style="display:none;"
     >
 
-        <h1>⚙️ SEVOYAN Admin</h1>
+        <h1>⚙️ Ապրանքների կառավարում</h1>
 
         <button
             id="logout-btn"
@@ -324,8 +316,6 @@
             🚪 Դուրս գալ
         </button>
 
-
-        <!-- ADD PRODUCT -->
 
         <div class="admin-box">
 
@@ -353,16 +343,22 @@
 
                 <textarea
                     id="product-image"
-                    placeholder="Նկարների հղումները։
-
-Յուրաքանչյուր նկարը գրիր նոր տողում։
-
-Օրինակ՝
-https://example.com/image1.jpg
-https://example.com/image2.jpg
-https://example.com/image3.jpg"
+                    placeholder="Նկարների հղումները։ Յուրաքանչյուր նկարը գրիր նոր տողում։"
                     required
                 ></textarea>
+
+
+                <label class="home-checkbox">
+
+                    <input
+                        type="checkbox"
+                        id="show-on-home"
+                    >
+
+                    ⭐ Ցուցադրել գլխավոր էջում
+
+                </label>
+
 
                 <button
                     type="submit"
@@ -376,88 +372,14 @@ https://example.com/image3.jpg"
         </div>
 
 
-        <!-- ADD COLLECTION -->
-
         <div class="admin-box">
 
-            <h2>💎 Ավելացնել նոր հավաքածու</h2>
-
-            <p class="section-description">
-                Հավաքածուի համար կարող ես ավելացնել մի քանի նկար։
-            </p>
-
-            <form
-                id="collection-form"
-                class="admin-form"
-            >
-
-                <input
-                    type="text"
-                    id="collection-name"
-                    placeholder="Հավաքածուի անունը"
-                    required
-                >
-
-                <input
-                    type="number"
-                    id="collection-price"
-                    placeholder="Գինը ֏"
-                    min="1"
-                    required
-                >
-
-                <textarea
-                    id="collection-images"
-                    placeholder="Հավաքածուի նկարների հղումները։
-
-Յուրաքանչյուր նկարը գրիր նոր տողում։
-
-Օրինակ՝
-https://example.com/collection1.jpg
-https://example.com/collection2.jpg
-https://example.com/collection3.jpg"
-                    required
-                ></textarea>
-
-                <button
-                    type="submit"
-                    class="admin-btn"
-                >
-                    💎 Ավելացնել հավաքածու
-                </button>
-
-            </form>
-
-        </div>
-
-
-        <!-- PRODUCTS -->
-
-        <div class="admin-box">
-
-            <h2>📦 Ապրանքներ</h2>
+            <h2>📦 Բոլոր ապրանքները</h2>
 
             <div id="admin-products">
 
                 <div class="loading">
                     Ապրանքները բեռնվում են...
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- COLLECTIONS -->
-
-        <div class="admin-box">
-
-            <h2>💎 Հավաքածուներ</h2>
-
-            <div id="admin-collections">
-
-                <div class="loading">
-                    Հավաքածուները բեռնվում են...
                 </div>
 
             </div>
@@ -483,7 +405,7 @@ https://example.com/collection3.jpg"
 </footer>
 
 
-<script src="js/admin.js"></script>
+<script src="js/admin.js?v=30"></script>
 
 </body>
 
