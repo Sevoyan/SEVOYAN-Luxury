@@ -4,64 +4,483 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_N0wWlRo2NFdT_ifDgJhAYQ_Ol5yeIfW";
 
-const API_URL =
+const PRODUCTS_API =
     SUPABASE_URL + "/rest/v1/products";
 
+const COLLECTIONS_API =
+    SUPABASE_URL + "/rest/v1/collections";
 
-function getImages(imageValue) {
 
-    if (!imageValue) return [];
+// ==================================================
+// IMAGE PARSER
+// ==================================================
 
-    return imageValue
-        .split(/\n|,/)
-        .map(function(url) {
-            return url.trim();
-        })
-        .filter(function(url) {
-            return url !== "";
-        });
+function getImages(value) {
+
+    if (!value) {
+        return [];
+    }
+
+
+    if (Array.isArray(value)) {
+
+        return value
+            .map(function(url) {
+                return String(url).trim();
+            })
+            .filter(function(url) {
+                return url !== "";
+            });
+    }
+
+
+    const text =
+        String(value).trim();
+
+
+    if (!text) {
+        return [];
+    }
+
+
+    // JSON ARRAY
+    if (text.startsWith("[")) {
+
+        try {
+
+            const parsed =
+                JSON.parse(text);
+
+
+            if (Array.isArray(parsed)) {
+
+                return parsed
+                    .map(function(url) {
+                        return String(url).trim();
+                    })
+                    .filter(function(url) {
+                        return url !== "";
+                    });
+            }
+
+        } catch (error) {
+
+            console.log(
+                "Image JSON error:",
+                error
+            );
+        }
+    }
+
+
+    // NEW LINES
+    if (text.includes("\n")) {
+
+        return text
+            .split("\n")
+            .map(function(url) {
+                return url.trim();
+            })
+            .filter(function(url) {
+                return url !== "";
+            });
+    }
+
+
+    // COMMA
+    if (text.includes(",")) {
+
+        return text
+            .split(",")
+            .map(function(url) {
+                return url.trim();
+            })
+            .filter(function(url) {
+                return url !== "";
+            });
+    }
+
+
+    return [text];
 }
 
+
+// ==================================================
+// HEADERS
+// ==================================================
+
+function getPublicHeaders() {
+
+    return {
+        "apikey": SUPABASE_KEY,
+        "Authorization":
+            "Bearer " + SUPABASE_KEY,
+        "Content-Type":
+            "application/json"
+    };
+}
+
+
+// ==================================================
+// PRODUCT IMAGE SLIDER
+// ==================================================
+
+function createImageSlider(
+    images,
+    name
+) {
+
+    const imageArea =
+        document.createElement("div");
+
+    imageArea.className =
+        "product-image-slider";
+
+
+    const mainImage =
+        document.createElement("img");
+
+    mainImage.className =
+        "main-slider-image";
+
+    mainImage.alt =
+        name || "Ապրանք";
+
+
+    const prevButton =
+        document.createElement("button");
+
+    prevButton.type =
+        "button";
+
+    prevButton.className =
+        "slider-prev";
+
+    prevButton.innerHTML =
+        "‹";
+
+
+    const nextButton =
+        document.createElement("button");
+
+    nextButton.type =
+        "button";
+
+    nextButton.className =
+        "slider-next";
+
+    nextButton.innerHTML =
+        "›";
+
+
+    const counter =
+        document.createElement("div");
+
+    counter.className =
+        "slider-counter";
+
+
+    let currentImage = 0;
+
+
+    function showImage(index) {
+
+        if (!images.length) {
+
+            mainImage.style.display =
+                "none";
+
+            prevButton.style.display =
+                "none";
+
+            nextButton.style.display =
+                "none";
+
+            counter.style.display =
+                "none";
+
+            return;
+        }
+
+
+        currentImage = index;
+
+
+        if (currentImage < 0) {
+
+            currentImage =
+                images.length - 1;
+        }
+
+
+        if (
+            currentImage >=
+            images.length
+        ) {
+
+            currentImage = 0;
+        }
+
+
+        mainImage.src =
+            images[currentImage];
+
+
+        counter.textContent =
+            (currentImage + 1) +
+            " / " +
+            images.length;
+
+
+        if (images.length <= 1) {
+
+            prevButton.style.display =
+                "none";
+
+            nextButton.style.display =
+                "none";
+
+            counter.style.display =
+                "none";
+
+        } else {
+
+            prevButton.style.display =
+                "flex";
+
+            nextButton.style.display =
+                "flex";
+
+            counter.style.display =
+                "block";
+        }
+    }
+
+
+    prevButton.addEventListener(
+        "click",
+        function(event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            showImage(
+                currentImage - 1
+            );
+        }
+    );
+
+
+    nextButton.addEventListener(
+        "click",
+        function(event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            showImage(
+                currentImage + 1
+            );
+        }
+    );
+
+
+    let startX = 0;
+
+
+    mainImage.addEventListener(
+        "touchstart",
+        function(event) {
+
+            if (
+                event.touches &&
+                event.touches.length
+            ) {
+
+                startX =
+                    event.touches[0].clientX;
+            }
+        },
+        { passive: true }
+    );
+
+
+    mainImage.addEventListener(
+        "touchend",
+        function(event) {
+
+            if (
+                !event.changedTouches ||
+                !event.changedTouches.length
+            ) {
+
+                return;
+            }
+
+
+            const endX =
+                event.changedTouches[0].clientX;
+
+
+            const difference =
+                startX - endX;
+
+
+            if (
+                Math.abs(difference) > 50
+            ) {
+
+                if (difference > 0) {
+
+                    showImage(
+                        currentImage + 1
+                    );
+
+                } else {
+
+                    showImage(
+                        currentImage - 1
+                    );
+                }
+            }
+
+        },
+        { passive: true }
+    );
+
+
+    imageArea.appendChild(
+        mainImage
+    );
+
+    imageArea.appendChild(
+        prevButton
+    );
+
+    imageArea.appendChild(
+        nextButton
+    );
+
+    imageArea.appendChild(
+        counter
+    );
+
+
+    showImage(0);
+
+
+    return imageArea;
+}
+
+
+// ==================================================
+// ADD CART BUTTON
+// ==================================================
+
+function createCartButton(
+    name,
+    price,
+    image
+) {
+
+    const button =
+        document.createElement("button");
+
+
+    button.type =
+        "button";
+
+
+    button.textContent =
+        "🛒 Ավելացնել զամբյուղ";
+
+
+    button.addEventListener(
+        "click",
+        function() {
+
+            if (
+                typeof addToCart ===
+                "function"
+            ) {
+
+                addToCart(
+                    name,
+                    price,
+                    image || ""
+                );
+
+            } else {
+
+                alert(
+                    "❌ Զամբյուղը չի միացել"
+                );
+            }
+
+        }
+    );
+
+
+    return button;
+}
+
+
+// ==================================================
+// LOAD PRODUCTS
+// ==================================================
 
 async function loadProducts() {
 
     const container =
-        document.getElementById("products");
+        document.getElementById(
+            "products"
+        );
 
-    if (!container) return;
+
+    if (!container) {
+        return;
+    }
+
 
     container.innerHTML =
         "<p>Ապրանքները բեռնվում են...</p>";
 
+
     try {
 
-        const response = await fetch(
-            API_URL +
-            "?select=name,price,image",
-            {
-                method: "GET",
+        const response =
+            await fetch(
+                PRODUCTS_API +
+                "?select=*&order=id.desc",
+                {
+                    method: "GET",
+                    headers:
+                        getPublicHeaders(),
+                    cache:
+                        "no-store"
+                }
+            );
 
-                headers: {
-                    "apikey": SUPABASE_KEY,
-                    "Authorization":
-                        "Bearer " + SUPABASE_KEY,
-                    "Content-Type":
-                        "application/json"
-                },
 
-                cache: "no-store"
-            }
-        );
+        const text =
+            await response.text();
 
-        const text = await response.text();
 
         if (!response.ok) {
-            throw new Error(text);
+
+            throw new Error(
+                text
+            );
         }
 
-        const products = JSON.parse(text);
 
-        container.innerHTML = "";
+        const products =
+            JSON.parse(text);
+
+
+        container.innerHTML =
+            "";
+
 
         if (!products.length) {
 
@@ -72,333 +491,97 @@ async function loadProducts() {
         }
 
 
-        products.forEach(function(product) {
+        products.forEach(
+            function(product) {
 
-            const card =
-                document.createElement("div");
-
-            card.className =
-                "product-card";
-
-
-            // =========================
-            // IMAGES
-            // =========================
-
-            const images =
-                getImages(product.image);
+                const card =
+                    document.createElement(
+                        "div"
+                    );
 
 
-            let currentImage = 0;
+                card.className =
+                    "product-card";
 
 
-            const imageArea =
-                document.createElement("div");
-
-            imageArea.className =
-                "product-image-slider";
-
-
-            const mainImage =
-                document.createElement("img");
-
-            mainImage.className =
-                "main-slider-image";
-
-            mainImage.alt =
-                product.name || "Ապրանք";
+                const images =
+                    getImages(
+                        product.image
+                    );
 
 
-            // LEFT BUTTON
-
-            const prevButton =
-                document.createElement("button");
-
-            prevButton.className =
-                "slider-prev";
-
-            prevButton.innerHTML = "‹";
+                const imageArea =
+                    createImageSlider(
+                        images,
+                        product.name
+                    );
 
 
-            // RIGHT BUTTON
-
-            const nextButton =
-                document.createElement("button");
-
-            nextButton.className =
-                "slider-next";
-
-            nextButton.innerHTML = "›";
+                const name =
+                    document.createElement(
+                        "h3"
+                    );
 
 
-            // COUNTER
-
-            const counter =
-                document.createElement("div");
-
-            counter.className =
-                "slider-counter";
+                name.textContent =
+                    product.name ||
+                    "Ապրանք";
 
 
-            function showImage(index) {
-
-                if (!images.length) {
-
-                    mainImage.style.display =
-                        "none";
-
-                    counter.style.display =
-                        "none";
-
-                    prevButton.style.display =
-                        "none";
-
-                    nextButton.style.display =
-                        "none";
-
-                    return;
-                }
+                const price =
+                    document.createElement(
+                        "p"
+                    );
 
 
-                currentImage = index;
+                price.textContent =
+                    (product.price || 0) +
+                    " ֏";
 
 
-                if (currentImage < 0) {
-                    currentImage =
-                        images.length - 1;
-                }
+                const button =
+                    createCartButton(
+                        product.name,
+                        product.price,
+                        product.image
+                    );
 
 
-                if (
-                    currentImage >=
-                    images.length
-                ) {
-                    currentImage = 0;
-                }
+                card.appendChild(
+                    imageArea
+                );
 
 
-                mainImage.src =
-                    images[currentImage];
+                card.appendChild(
+                    name
+                );
 
 
-                counter.textContent =
-                    (currentImage + 1) +
-                    " / " +
-                    images.length;
+                card.appendChild(
+                    price
+                );
 
 
-                if (images.length <= 1) {
+                card.appendChild(
+                    button
+                );
 
-                    prevButton.style.display =
-                        "none";
 
-                    nextButton.style.display =
-                        "none";
+                container.appendChild(
+                    card
+                );
 
-                    counter.style.display =
-                        "none";
-
-                } else {
-
-                    prevButton.style.display =
-                        "flex";
-
-                    nextButton.style.display =
-                        "flex";
-
-                    counter.style.display =
-                        "block";
-                }
             }
-
-
-            prevButton.addEventListener(
-                "click",
-                function(event) {
-
-                    event.stopPropagation();
-
-                    showImage(
-                        currentImage - 1
-                    );
-                }
-            );
-
-
-            nextButton.addEventListener(
-                "click",
-                function(event) {
-
-                    event.stopPropagation();
-
-                    showImage(
-                        currentImage + 1
-                    );
-                }
-            );
-
-
-            // SWIPE PHONE / TOUCHSCREEN
-
-            let startX = 0;
-
-            mainImage.addEventListener(
-                "touchstart",
-                function(event) {
-
-                    startX =
-                        event.touches[0].clientX;
-                }
-            );
-
-
-            mainImage.addEventListener(
-                "touchend",
-                function(event) {
-
-                    const endX =
-                        event.changedTouches[0]
-                            .clientX;
-
-                    const difference =
-                        startX - endX;
-
-
-                    if (
-                        Math.abs(difference) >
-                        50
-                    ) {
-
-                        if (difference > 0) {
-
-                            showImage(
-                                currentImage + 1
-                            );
-
-                        } else {
-
-                            showImage(
-                                currentImage - 1
-                            );
-                        }
-                    }
-                }
-            );
-
-
-            imageArea.appendChild(
-                mainImage
-            );
-
-            imageArea.appendChild(
-                prevButton
-            );
-
-            imageArea.appendChild(
-                nextButton
-            );
-
-            imageArea.appendChild(
-                counter
-            );
-
-
-            // =========================
-            // NAME
-            // =========================
-
-            const name =
-                document.createElement("h3");
-
-            name.textContent =
-                product.name ||
-                "Ապրանք";
-
-
-            // =========================
-            // PRICE
-            // =========================
-
-            const price =
-                document.createElement("p");
-
-            price.textContent =
-                (
-                    product.price || 0
-                ) + " ֏";
-
-
-            // =========================
-            // CART
-            // =========================
-
-            const button =
-                document.createElement("button");
-
-            button.textContent =
-                "🛒 Ավելացնել զամբյուղ";
-
-
-            button.addEventListener(
-                "click",
-                function() {
-
-                    if (
-                        typeof addToCart ===
-                        "function"
-                    ) {
-
-                        addToCart(
-                            product.name,
-                            product.price,
-                            product.image || ""
-                        );
-
-                    } else {
-
-                        alert(
-                            "❌ Զամբյուղը չի միացել"
-                        );
-                    }
-                }
-            );
-
-
-            card.appendChild(
-                imageArea
-            );
-
-            card.appendChild(
-                name
-            );
-
-            card.appendChild(
-                price
-            );
-
-            card.appendChild(
-                button
-            );
-
-
-            container.appendChild(
-                card
-            );
-
-
-            // FIRST IMAGE
-
-            showImage(0);
-
-        });
+        );
 
 
     } catch (error) {
 
         console.error(
-            "Products error:",
+            "PRODUCTS ERROR:",
             error
         );
+
 
         container.innerHTML =
             "<p>❌ Չհաջողվեց բեռնել ապրանքները</p>" +
@@ -409,98 +592,249 @@ async function loadProducts() {
 }
 
 
+// ==================================================
+// LOAD COLLECTIONS
+// ==================================================
+
+async function loadCollections() {
+
+    const container =
+        document.getElementById(
+            "collections"
+        );
+
+
+    if (!container) {
+
+        console.log(
+            "Collections container not found"
+        );
+
+        return;
+    }
+
+
+    container.innerHTML =
+        "<p>Հավաքածուները բեռնվում են...</p>";
+
+
+    try {
+
+        const response =
+            await fetch(
+                COLLECTIONS_API +
+                "?select=*&order=id.desc",
+                {
+                    method: "GET",
+                    headers:
+                        getPublicHeaders(),
+                    cache:
+                        "no-store"
+                }
+            );
+
+
+        const text =
+            await response.text();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                text
+            );
+        }
+
+
+        const collections =
+            JSON.parse(text);
+
+
+        container.innerHTML =
+            "";
+
+
+        if (!collections.length) {
+
+            container.innerHTML =
+                "<p>Հավաքածուներ դեռ չկան։</p>";
+
+            return;
+        }
+
+
+        collections.forEach(
+            function(collection) {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "product-card";
+
+
+                const images =
+                    getImages(
+                        collection.images
+                    );
+
+
+                const imageArea =
+                    createImageSlider(
+                        images,
+                        collection.name
+                    );
+
+
+                const name =
+                    document.createElement(
+                        "h3"
+                    );
+
+
+                name.textContent =
+                    collection.name ||
+                    "Հավաքածու";
+
+
+                const price =
+                    document.createElement(
+                        "p"
+                    );
+
+
+                price.textContent =
+                    (collection.price || 0) +
+                    " ֏";
+
+
+                const imageCount =
+                    document.createElement(
+                        "small"
+                    );
+
+
+                imageCount.textContent =
+                    "🖼️ " +
+                    images.length +
+                    " նկար";
+
+
+                const firstImage =
+                    images.length
+                    ? images[0]
+                    : "";
+
+
+                const button =
+                    createCartButton(
+                        collection.name,
+                        collection.price,
+                        firstImage
+                    );
+
+
+                card.appendChild(
+                    imageArea
+                );
+
+
+                card.appendChild(
+                    name
+                );
+
+
+                card.appendChild(
+                    price
+                );
+
+
+                card.appendChild(
+                    imageCount
+                );
+
+
+                card.appendChild(
+                    button
+                );
+
+
+                container.appendChild(
+                    card
+                );
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "COLLECTIONS ERROR:",
+            error
+        );
+
+
+        container.innerHTML =
+            "<p>❌ Չհաջողվեց բեռնել հավաքածուները</p>" +
+            "<small>" +
+            error.message +
+            "</small>";
+    }
+}
+
+
+// ==================================================
+// ZOOM
+// ==================================================
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const image =
+            event.target.closest(
+                ".main-slider-image"
+            );
+
+
+        if (!image) {
+            return;
+        }
+
+
+        const slider =
+            image.closest(
+                ".product-image-slider"
+            );
+
+
+        if (!slider) {
+            return;
+        }
+
+
+        slider.classList.toggle(
+            "zoomed"
+        );
+    }
+);
+
+
+// ==================================================
+// START
+// ==================================================
+
 document.addEventListener(
     "DOMContentLoaded",
-    loadProducts
+    function() {
+
+        loadProducts();
+
+        loadCollections();
+
+    }
 );
-/* =========================
-   ZOOM + SWIPE
-========================= */
-
-document.addEventListener("click", function (event) {
-
-    const image = event.target.closest(".main-slider-image");
-
-    if (!image) return;
-
-    const slider = image.closest(".product-image-slider");
-
-    if (!slider) return;
-
-    slider.classList.toggle("zoomed");
-
-});
-
-
-/* =========================
-   SWIPE
-========================= */
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    let startX = 0;
-    let startY = 0;
-
-    document.querySelectorAll(".product-image-slider").forEach(function (slider) {
-
-        slider.addEventListener("touchstart", function (event) {
-
-            if (!event.touches || !event.touches.length) return;
-
-            startX = event.touches[0].clientX;
-            startY = event.touches[0].clientY;
-
-        }, { passive: true });
-
-
-        slider.addEventListener("touchend", function (event) {
-
-            if (!event.changedTouches || !event.changedTouches.length) return;
-
-            const endX = event.changedTouches[0].clientX;
-            const endY = event.changedTouches[0].clientY;
-
-            const diffX = endX - startX;
-            const diffY = endY - startY;
-
-            /* Եթե ուղղահայաց շարժումն ավելի մեծ է՝ ոչինչ չանել */
-
-            if (Math.abs(diffY) > Math.abs(diffX)) {
-                return;
-            }
-
-            /* Փոքր շարժումը չհամարել swipe */
-
-            if (Math.abs(diffX) < 50) {
-                return;
-            }
-
-            /* Swipe left → հաջորդ նկար */
-
-            if (diffX < 0) {
-
-                const nextButton = slider.querySelector(".slider-next");
-
-                if (nextButton) {
-                    nextButton.click();
-                }
-
-            }
-
-            /* Swipe right → նախորդ նկար */
-
-            else {
-
-                const prevButton = slider.querySelector(".slider-prev");
-
-                if (prevButton) {
-                    prevButton.click();
-                }
-
-            }
-
-        }, { passive: true });
-
-    });
-
-});
