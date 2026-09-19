@@ -1,51 +1,113 @@
-const translations = {
-  hy: {
-    home: "Գլխավոր",
-    shop: "Խանութ",
-    favorites: "Սիրելիներ",
-    cart: "Զամբյուղ",
-    about: "Մեր մասին",
-    contact: "Կապ",
+// =========================
+// LANGUAGE SYSTEM
+// =========================
 
-    heroTitle: "Շքեղությունը վերաիմաստավորված",
-    heroText: "Շքեղություն • Ոճ • Որակ",
-    shopNow: "Դիտել հավաքածուն"
-  },
+function changeLanguage(language) {
 
-  en: {
-    home: "Home",
-    shop: "Shop",
-    favorites: "Favorites",
-    cart: "Cart",
-    about: "About",
-    contact: "Contact",
+    localStorage.setItem(
+        "language",
+        language
+    );
 
-    heroTitle: "Luxury Redefined",
-    heroText: "Luxury • Style • Quality",
-    shopNow: "View Collection"
-  }
-};
 
-function changeLanguage(lang){
+    document.documentElement.lang =
+        language;
 
-document.querySelector("#nav-home").textContent = translations[lang].home;
-document.querySelector("#nav-shop").textContent = translations[lang].shop;
-document.querySelector("#nav-favorites").textContent = translations[lang].favorites;
-document.querySelector("#nav-cart").textContent = translations[lang].cart;
-document.querySelector("#nav-about").textContent = translations[lang].about;
-document.querySelector("#nav-contact").textContent = translations[lang].contact;
 
-document.querySelector("#hero-title").textContent = translations[lang].heroTitle;
-document.querySelector("#hero-text").textContent = translations[lang].heroText;
-document.querySelector("#hero-button").textContent = translations[lang].shopNow;
+    updateLanguageButtons();
 
-localStorage.setItem("language", lang);
+
+    // Եթե ապրանքների էջ է
+    if (
+        typeof loadProducts ===
+        "function"
+    ) {
+
+        loadProducts();
+
+    }
 
 }
 
-window.onload = function(){
 
-const lang = localStorage.getItem("language") || "hy";
-changeLanguage(lang);
+// =========================
+// LANGUAGE BUTTONS
+// =========================
 
-};
+function updateLanguageButtons() {
+
+    const language =
+        localStorage.getItem("language") ||
+        "hy";
+
+
+    const hy =
+        document.getElementById(
+            "lang-hy"
+        );
+
+    const en =
+        document.getElementById(
+            "lang-en"
+        );
+
+    const ru =
+        document.getElementById(
+            "lang-ru"
+        );
+
+
+    if (hy) {
+
+        hy.style.opacity =
+            language === "hy"
+                ? "1"
+                : "0.5";
+
+    }
+
+
+    if (en) {
+
+        en.style.opacity =
+            language === "en"
+                ? "1"
+                : "0.5";
+
+    }
+
+
+    if (ru) {
+
+        ru.style.opacity =
+            language === "ru"
+                ? "1"
+                : "0.5";
+
+    }
+
+}
+
+
+// =========================
+// START
+// =========================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const language =
+            localStorage.getItem(
+                "language"
+            ) || "hy";
+
+
+        document.documentElement.lang =
+            language;
+
+
+        updateLanguageButtons();
+
+    }
+);
