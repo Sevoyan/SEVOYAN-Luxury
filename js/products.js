@@ -9,6 +9,54 @@ const PRODUCTS_API =
 
 
 // =========================
+// CURRENT LANGUAGE
+// =========================
+
+function getCurrentLanguage() {
+
+    return localStorage.getItem("language") || "hy";
+
+}
+
+
+// =========================
+// PRODUCT NAME
+// =========================
+
+function getProductName(product) {
+
+    const language =
+        getCurrentLanguage();
+
+
+    if (
+        language === "en" &&
+        product.name_en &&
+        product.name_en.trim() !== ""
+    ) {
+
+        return product.name_en;
+
+    }
+
+
+    if (
+        language === "ru" &&
+        product.name_ru &&
+        product.name_ru.trim() !== ""
+    ) {
+
+        return product.name_ru;
+
+    }
+
+
+    return product.name || "";
+
+}
+
+
+// =========================
 // GET IMAGES
 // =========================
 
@@ -18,21 +66,26 @@ function getImages(product) {
         return [];
     }
 
+
     if (Array.isArray(product.image)) {
         return product.image;
     }
 
+
     try {
 
-        const parsed = JSON.parse(product.image);
+        const parsed =
+            JSON.parse(product.image);
 
         if (Array.isArray(parsed)) {
             return parsed;
         }
 
-    } catch (error) {
-        // normal text image
     }
+
+    catch (error) {
+    }
+
 
     return String(product.image)
         .split("\n")
@@ -47,6 +100,68 @@ function getImages(product) {
 
 
 // =========================
+// TRANSLATED TEXT
+// =========================
+
+function getText(key) {
+
+    const language =
+        getCurrentLanguage();
+
+
+    const texts = {
+
+        hy: {
+
+            addCart:
+                "🛒 Ավելացնել զամբյուղ",
+
+            noProducts:
+                "Ապրանքներ դեռ չկան։",
+
+            noHomeProducts:
+                "Գլխավոր էջում ցուցադրվող ապրանքներ դեռ չկան։"
+
+        },
+
+
+        en: {
+
+            addCart:
+                "🛒 Add to cart",
+
+            noProducts:
+                "No products yet.",
+
+            noHomeProducts:
+                "No featured products yet."
+
+        },
+
+
+        ru: {
+
+            addCart:
+                "🛒 Добавить в корзину",
+
+            noProducts:
+                "Товаров пока нет.",
+
+            noHomeProducts:
+                "Избранных товаров пока нет."
+
+        }
+
+    };
+
+
+    return texts[language][key] ||
+           texts.hy[key];
+
+}
+
+
+// =========================
 // LOAD PRODUCTS
 // =========================
 
@@ -55,9 +170,11 @@ async function loadProducts() {
     const container =
         document.getElementById("products");
 
+
     if (!container) {
         return;
     }
+
 
     try {
 
@@ -66,7 +183,9 @@ async function loadProducts() {
                 .toLowerCase()
                 .includes("index.html") ||
             window.location.pathname === "/" ||
-            window.location.pathname.endsWith("/SEVOYAN-Luxury/");
+            window.location.pathname.endsWith(
+                "/SEVOYAN-Luxury/"
+            );
 
 
         let url =
@@ -84,11 +203,15 @@ async function loadProducts() {
 
 
         const response =
-            await fetch(url, {
-                headers: {
-                    "apikey": SUPABASE_KEY
+            await fetch(
+                url,
+                {
+                    headers: {
+                        "apikey":
+                            SUPABASE_KEY
+                    }
                 }
-            });
+            );
 
 
         if (!response.ok) {
@@ -110,19 +233,17 @@ async function loadProducts() {
 
         if (products.length === 0) {
 
-            if (isHome) {
-
-                container.innerHTML =
-                    "<p>Գլխավոր էջում ցուցադրվող ապրանքներ դեռ չկան։";
-
-            } else {
-
-                container.innerHTML =
-                    "<p>Ապրանքներ դեռ չկան։";
-
-            }
+            container.innerHTML =
+                "<p>" +
+                (
+                    isHome
+                        ? getText("noHomeProducts")
+                        : getText("noProducts")
+                ) +
+                "</p>";
 
             return;
+
         }
 
 
@@ -134,10 +255,6 @@ async function loadProducts() {
             card.className =
                 "product-card";
 
-
-            // =========================
-            // IMAGES
-            // =========================
 
             const images =
                 getImages(product);
@@ -153,59 +270,14 @@ async function loadProducts() {
                 "product-image";
 
 
-            // Նկարի շրջանակը
-            imageBox.style.position =
-                "relative";
-
-            imageBox.style.width =
-                "100%";
-
-            imageBox.style.height =
-                "380px";
-
-            imageBox.style.overflow =
-                "hidden";
-
-            imageBox.style.display =
-                "flex";
-
-            imageBox.style.alignItems =
-                "center";
-
-            imageBox.style.justifyContent =
-                "center";
-
-
             const image =
                 document.createElement("img");
-
 
             image.src =
                 images[0] || "";
 
-
             image.alt =
-                product.name || "";
-
-
-            // Նկարը չձգել
-            image.style.width =
-                "100%";
-
-            image.style.height =
-                "100%";
-
-            image.style.objectFit =
-                "cover";
-
-            image.style.objectPosition =
-                "center";
-
-            image.style.display =
-                "block";
-
-            image.style.transition =
-                "opacity 0.2s ease";
+                getProductName(product);
 
 
             imageBox.appendChild(image);
@@ -253,14 +325,9 @@ async function loadProducts() {
                     "1/" + images.length;
 
 
-                // LEFT
                 left.addEventListener(
                     "click",
-                    function (event) {
-
-                        event.preventDefault();
-                        event.stopPropagation();
-
+                    function () {
 
                         currentImage--;
 
@@ -272,19 +339,8 @@ async function loadProducts() {
                         }
 
 
-                        image.style.opacity =
-                            "0";
-
-
-                        setTimeout(function () {
-
-                            image.src =
-                                images[currentImage];
-
-                            image.style.opacity =
-                                "1";
-
-                        }, 100);
+                        image.src =
+                            images[currentImage];
 
 
                         counter.textContent =
@@ -296,17 +352,11 @@ async function loadProducts() {
                 );
 
 
-                // RIGHT
                 right.addEventListener(
                     "click",
-                    function (event) {
-
-                        event.preventDefault();
-                        event.stopPropagation();
-
+                    function () {
 
                         currentImage++;
-
 
                         if (
                             currentImage >=
@@ -318,19 +368,8 @@ async function loadProducts() {
                         }
 
 
-                        image.style.opacity =
-                            "0";
-
-
-                        setTimeout(function () {
-
-                            image.src =
-                                images[currentImage];
-
-                            image.style.opacity =
-                                "1";
-
-                        }, 100);
+                        image.src =
+                            images[currentImage];
 
 
                         counter.textContent =
@@ -342,119 +381,6 @@ async function loadProducts() {
                 );
 
 
-                // Սլաքների տեսք
-                left.style.position =
-                    "absolute";
-
-                left.style.left =
-                    "12px";
-
-                left.style.top =
-                    "50%";
-
-                left.style.transform =
-                    "translateY(-50%)";
-
-                left.style.zIndex =
-                    "5";
-
-                left.style.width =
-                    "42px";
-
-                left.style.height =
-                    "42px";
-
-                left.style.borderRadius =
-                    "50%";
-
-                left.style.border =
-                    "2px solid #D4AF37";
-
-                left.style.background =
-                    "rgba(0,0,0,0.65)";
-
-                left.style.color =
-                    "#D4AF37";
-
-                left.style.fontSize =
-                    "32px";
-
-                left.style.cursor =
-                    "pointer";
-
-
-                right.style.position =
-                    "absolute";
-
-                right.style.right =
-                    "12px";
-
-                right.style.top =
-                    "50%";
-
-                right.style.transform =
-                    "translateY(-50%)";
-
-                right.style.zIndex =
-                    "5";
-
-                right.style.width =
-                    "42px";
-
-                right.style.height =
-                    "42px";
-
-                right.style.borderRadius =
-                    "50%";
-
-                right.style.border =
-                    "2px solid #D4AF37";
-
-                right.style.background =
-                    "rgba(0,0,0,0.65)";
-
-                right.style.color =
-                    "#D4AF37";
-
-                right.style.fontSize =
-                    "32px";
-
-                right.style.cursor =
-                    "pointer";
-
-
-                // Counter
-                counter.style.position =
-                    "absolute";
-
-                counter.style.bottom =
-                    "12px";
-
-                counter.style.left =
-                    "50%";
-
-                counter.style.transform =
-                    "translateX(-50%)";
-
-                counter.style.zIndex =
-                    "5";
-
-                counter.style.padding =
-                    "5px 12px";
-
-                counter.style.borderRadius =
-                    "20px";
-
-                counter.style.background =
-                    "rgba(0,0,0,0.7)";
-
-                counter.style.color =
-                    "#ffffff";
-
-                counter.style.fontSize =
-                    "14px";
-
-
                 imageBox.appendChild(left);
                 imageBox.appendChild(right);
                 imageBox.appendChild(counter);
@@ -463,7 +389,7 @@ async function loadProducts() {
 
 
             // =========================
-            // PRODUCT INFO
+            // INFO
             // =========================
 
             const info =
@@ -477,14 +403,16 @@ async function loadProducts() {
                 document.createElement("h3");
 
             name.textContent =
-                product.name || "";
+                getProductName(product);
 
 
             const price =
                 document.createElement("p");
 
             price.textContent =
-                Number(product.price || 0) +
+                Number(
+                    product.price || 0
+                ) +
                 " ֏";
 
 
@@ -498,7 +426,7 @@ async function loadProducts() {
                 "add-cart";
 
             button.textContent =
-                "🛒 Ավելացնել զամբյուղ";
+                getText("addCart");
 
 
             button.addEventListener(
@@ -511,8 +439,10 @@ async function loadProducts() {
                     ) {
 
                         addToCart(
-                            product.name,
-                            Number(product.price || 0),
+                            getProductName(product),
+                            Number(
+                                product.price || 0
+                            ),
                             images[0] || ""
                         );
 
