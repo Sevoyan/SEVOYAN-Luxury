@@ -30,26 +30,29 @@ async function adminLogin(event) {
     const password =
         document.getElementById("admin-password").value;
 
+
     try {
 
-        const response = await fetch(AUTH_URL, {
+        const response =
+            await fetch(AUTH_URL, {
 
-            method: "POST",
+                method: "POST",
 
-            headers: {
-                "apikey": SUPABASE_KEY,
-                "Content-Type": "application/json"
-            },
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Content-Type": "application/json"
+                },
 
-            body: JSON.stringify({
-                email: email,
-                password: password
-            })
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
 
-        });
+            });
 
 
-        const data = await response.json();
+        const data =
+            await response.json();
 
 
         if (!response.ok) {
@@ -90,34 +93,25 @@ async function adminLogin(event) {
 }
 
 
-
 // =========================
 // SHOW ADMIN
 // =========================
 
 function showAdminPanel() {
 
-    const login =
-        document.getElementById("admin-login");
-
-    const panel =
-        document.getElementById("admin-panel");
+    document.getElementById(
+        "admin-login"
+    ).style.display = "none";
 
 
-    if (login) {
-        login.style.display = "none";
-    }
-
-
-    if (panel) {
-        panel.style.display = "block";
-    }
+    document.getElementById(
+        "admin-panel"
+    ).style.display = "block";
 
 
     loadAdminProducts();
 
 }
-
 
 
 // =========================
@@ -145,7 +139,6 @@ function logout() {
 }
 
 
-
 // =========================
 // HEADERS
 // =========================
@@ -167,27 +160,26 @@ function getHeaders() {
 }
 
 
-
 // =========================
-// IMAGE PARSER
+// IMAGES
 // =========================
 
-function getProductImages(product) {
+function getImages(image) {
 
-    if (!product.image) {
+    if (!image) {
         return [];
     }
 
 
-    if (Array.isArray(product.image)) {
-        return product.image;
+    if (Array.isArray(image)) {
+        return image;
     }
 
 
     try {
 
         const parsed =
-            JSON.parse(product.image);
+            JSON.parse(image);
 
         if (Array.isArray(parsed)) {
             return parsed;
@@ -199,17 +191,16 @@ function getProductImages(product) {
     }
 
 
-    return String(product.image)
+    return String(image)
         .split("\n")
-        .map(function (item) {
-            return item.trim();
+        .map(function (url) {
+            return url.trim();
         })
-        .filter(function (item) {
-            return item !== "";
+        .filter(function (url) {
+            return url !== "";
         });
 
 }
-
 
 
 // =========================
@@ -244,10 +235,9 @@ async function loadAdminProducts() {
 
         if (!response.ok) {
 
-            const errorText =
-                await response.text();
-
-            throw new Error(errorText);
+            throw new Error(
+                await response.text()
+            );
 
         }
 
@@ -259,20 +249,10 @@ async function loadAdminProducts() {
         container.innerHTML = "";
 
 
-        if (products.length === 0) {
-
-            container.innerHTML =
-                "<p>Ապրանքներ դեռ չկան։</p>";
-
-            return;
-
-        }
-
-
         products.forEach(function (product) {
 
             const images =
-                getProductImages(product);
+                getImages(product.image);
 
 
             const item =
@@ -289,19 +269,20 @@ async function loadAdminProducts() {
                 "admin-product-image";
 
 
-            const image =
-                document.createElement("img");
+            if (images.length > 0) {
 
+                const img =
+                    document.createElement("img");
 
-            image.src =
-                images[0] || "";
+                img.src =
+                    images[0];
 
+                img.alt =
+                    product.name || "";
 
-            image.alt =
-                product.name || "";
+                imageBox.appendChild(img);
 
-
-            imageBox.appendChild(image);
+            }
 
 
             const info =
@@ -318,6 +299,22 @@ async function loadAdminProducts() {
                 product.name || "";
 
 
+            const en =
+                document.createElement("p");
+
+            en.textContent =
+                "🇬🇧 " +
+                (product.name_en || "—");
+
+
+            const ru =
+                document.createElement("p");
+
+            ru.textContent =
+                "🇷🇺 " +
+                (product.name_ru || "—");
+
+
             const price =
                 document.createElement("p");
 
@@ -326,39 +323,19 @@ async function loadAdminProducts() {
                 " ֏";
 
 
-            const count =
+            const featured =
                 document.createElement("small");
 
-            count.textContent =
-                "🖼️ " +
-                images.length +
-                " նկար";
-
-
-            const featured =
-                document.createElement("p");
-
-
-            featured.className =
-                "featured-status";
-
-
-            if (product.featured === true) {
-
-                featured.textContent =
-                    "⭐ Ցուցադրվում է գլխավոր էջում";
-
-            } else {
-
-                featured.textContent =
-                    "▫️ Գլխավոր էջում չի ցուցադրվում";
-
-            }
+            featured.textContent =
+                product.featured === true
+                    ? "⭐ Գլխավոր էջում"
+                    : "▫️ Միայն Խանութում";
 
 
             info.appendChild(title);
+            info.appendChild(en);
+            info.appendChild(ru);
             info.appendChild(price);
-            info.appendChild(count);
             info.appendChild(featured);
 
 
@@ -369,50 +346,46 @@ async function loadAdminProducts() {
                 "admin-product-buttons";
 
 
-            const editButton =
+            const edit =
                 document.createElement("button");
 
-            editButton.className =
+            edit.className =
                 "edit-product";
 
-            editButton.type =
+            edit.type =
                 "button";
 
-            editButton.textContent =
+            edit.textContent =
                 "✏️ Փոխել";
 
 
-            editButton.addEventListener(
-                "click",
+            edit.onclick =
                 function () {
                     editProduct(product);
-                }
-            );
+                };
 
 
-            const deleteButton =
+            const del =
                 document.createElement("button");
 
-            deleteButton.className =
+            del.className =
                 "delete-product";
 
-            deleteButton.type =
+            del.type =
                 "button";
 
-            deleteButton.textContent =
+            del.textContent =
                 "🗑️ Ջնջել";
 
 
-            deleteButton.addEventListener(
-                "click",
+            del.onclick =
                 function () {
                     deleteProduct(product.id);
-                }
-            );
+                };
 
 
-            buttons.appendChild(editButton);
-            buttons.appendChild(deleteButton);
+            buttons.appendChild(edit);
+            buttons.appendChild(del);
 
 
             item.appendChild(imageBox);
@@ -424,15 +397,19 @@ async function loadAdminProducts() {
 
         });
 
+
+        if (products.length === 0) {
+
+            container.innerHTML =
+                "<p>Ապրանքներ դեռ չկան։</p>";
+
+        }
+
     }
 
     catch (error) {
 
-        console.error(
-            "PRODUCT LOAD ERROR:",
-            error
-        );
-
+        console.error(error);
 
         container.innerHTML =
             "<p>❌ Չհաջողվեց բեռնել ապրանքները</p>";
@@ -440,7 +417,6 @@ async function loadAdminProducts() {
     }
 
 }
-
 
 
 // =========================
@@ -455,6 +431,18 @@ async function addProduct(event) {
     const name =
         document.getElementById(
             "product-name"
+        ).value.trim();
+
+
+    const nameEn =
+        document.getElementById(
+            "product-name-en"
+        ).value.trim();
+
+
+    const nameRu =
+        document.getElementById(
+            "product-name-ru"
         ).value.trim();
 
 
@@ -489,10 +477,39 @@ async function addProduct(event) {
             });
 
 
+    if (
+        !name ||
+        !nameEn ||
+        !nameRu
+    ) {
+
+        alert(
+            "❌ Լրացրու ապրանքի անունները 3 լեզվով։"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        !price ||
+        price <= 0
+    ) {
+
+        alert(
+            "❌ Գրիր ճիշտ գինը։"
+        );
+
+        return;
+
+    }
+
+
     if (images.length === 0) {
 
         alert(
-            "❌ Ավելացրու գոնե մեկ նկար"
+            "❌ Ավելացրու գոնե մեկ նկար։"
         );
 
         return;
@@ -520,9 +537,17 @@ async function addProduct(event) {
 
                     body: JSON.stringify({
 
-                        name: name,
+                        name:
+                            name,
 
-                        price: price,
+                        name_en:
+                            nameEn,
+
+                        name_ru:
+                            nameRu,
+
+                        price:
+                            price,
 
                         image:
                             JSON.stringify(images),
@@ -541,17 +566,13 @@ async function addProduct(event) {
             const error =
                 await response.text();
 
-            console.error(error);
-
             throw new Error(error);
 
         }
 
 
         alert(
-            featured
-                ? "✅ Ապրանքը ավելացվեց և կերևա գլխավոր էջում"
-                : "✅ Ապրանքը ավելացվեց։ Կերևա Խանութում"
+            "✅ Ապրանքը ավելացվեց"
         );
 
 
@@ -569,13 +590,13 @@ async function addProduct(event) {
         console.error(error);
 
         alert(
-            "❌ Չհաջողվեց ավելացնել ապրանքը"
+            "❌ Չհաջողվեց ավելացնել ապրանքը\n\n" +
+            error.message
         );
 
     }
 
 }
-
 
 
 // =========================
@@ -599,7 +620,7 @@ async function deleteProduct(id) {
             await fetch(
                 PRODUCTS_API +
                 "?id=eq." +
-                id,
+                encodeURIComponent(id),
                 {
 
                     method: "DELETE",
@@ -642,7 +663,6 @@ async function deleteProduct(id) {
 }
 
 
-
 // =========================
 // EDIT
 // =========================
@@ -651,7 +671,7 @@ async function editProduct(product) {
 
     const name =
         prompt(
-            "Ապրանքի անունը",
+            "🇦🇲 Հայերեն անունը",
             product.name || ""
         );
 
@@ -661,9 +681,33 @@ async function editProduct(product) {
     }
 
 
+    const nameEn =
+        prompt(
+            "🇬🇧 English name",
+            product.name_en || ""
+        );
+
+
+    if (nameEn === null) {
+        return;
+    }
+
+
+    const nameRu =
+        prompt(
+            "🇷🇺 Русское название",
+            product.name_ru || ""
+        );
+
+
+    if (nameRu === null) {
+        return;
+    }
+
+
     const price =
         prompt(
-            "Ապրանքի գինը",
+            "Գինը",
             product.price || 0
         );
 
@@ -673,14 +717,14 @@ async function editProduct(product) {
     }
 
 
-    const images =
-        getProductImages(product);
+    const oldImages =
+        getImages(product.image);
 
 
     const imageText =
         prompt(
             "Նկարների հղումները՝ յուրաքանչյուր նկարը նոր տողում",
-            images.join("\n")
+            oldImages.join("\n")
         );
 
 
@@ -703,7 +747,7 @@ async function editProduct(product) {
     }
 
 
-    const newImages =
+    const images =
         imageText
             .split("\n")
             .map(function (url) {
@@ -714,7 +758,7 @@ async function editProduct(product) {
             });
 
 
-    const isFeatured =
+    const featured =
         featuredText
             .trim()
             .toLowerCase() === "yes";
@@ -726,7 +770,7 @@ async function editProduct(product) {
             await fetch(
                 PRODUCTS_API +
                 "?id=eq." +
-                product.id,
+                encodeURIComponent(product.id),
                 {
 
                     method: "PATCH",
@@ -745,14 +789,20 @@ async function editProduct(product) {
                         name:
                             name.trim(),
 
+                        name_en:
+                            nameEn.trim(),
+
+                        name_ru:
+                            nameRu.trim(),
+
                         price:
                             Number(price),
 
                         image:
-                            JSON.stringify(newImages),
+                            JSON.stringify(images),
 
                         featured:
-                            isFeatured
+                            featured
 
                     })
 
@@ -791,7 +841,6 @@ async function editProduct(product) {
 }
 
 
-
 // =========================
 // START
 // =========================
@@ -816,15 +865,15 @@ document.addEventListener(
         }
 
 
-        const logoutBtn =
+        const logout =
             document.getElementById(
                 "logout-btn"
             );
 
 
-        if (logoutBtn) {
+        if (logout) {
 
-            logoutBtn.addEventListener(
+            logout.addEventListener(
                 "click",
                 logout
             );
@@ -832,15 +881,15 @@ document.addEventListener(
         }
 
 
-        const productForm =
+        const form =
             document.getElementById(
                 "product-form"
             );
 
 
-        if (productForm) {
+        if (form) {
 
-            productForm.addEventListener(
+            form.addEventListener(
                 "submit",
                 addProduct
             );
