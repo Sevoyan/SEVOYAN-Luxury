@@ -2,7 +2,6 @@
 <html lang="hy">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -68,12 +67,6 @@
             resize: vertical;
         }
 
-        .admin-form input:focus,
-        .admin-form textarea:focus {
-            outline: none;
-            border-color: #D4AF37;
-        }
-
         .admin-btn {
             padding: 15px;
             background: #D4AF37;
@@ -85,10 +78,6 @@
             cursor: pointer;
         }
 
-        .admin-btn:hover {
-            opacity: 0.85;
-        }
-
         #logout-btn {
             display: block;
             margin: 0 auto 25px;
@@ -98,28 +87,6 @@
             border: 1px solid #D4AF37;
             border-radius: 8px;
             cursor: pointer;
-        }
-
-        .featured-check {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #181818;
-            border: 1px solid #555;
-            padding: 14px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .featured-check input {
-            width: 20px;
-            height: 20px;
-            accent-color: #D4AF37;
-        }
-
-        .featured-check span {
-            color: #D4AF37;
-            font-weight: bold;
         }
 
         #admin-products {
@@ -168,9 +135,8 @@
             font-weight: bold;
         }
 
-        .featured-status {
-            color: #00d26a !important;
-            font-size: 14px;
+        .admin-product-info small {
+            color: #aaa;
         }
 
         .admin-product-buttons {
@@ -198,10 +164,24 @@
             color: white;
         }
 
-        .loading {
-            text-align: center;
-            color: #aaa;
-            padding: 20px;
+        .featured-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #181818;
+            border: 1px solid #444;
+            border-radius: 8px;
+        }
+
+        .featured-check input {
+            width: 20px;
+            height: 20px;
+        }
+
+        .featured-check span {
+            color: #D4AF37;
+            font-weight: bold;
         }
 
         @media (max-width: 700px) {
@@ -265,6 +245,7 @@
             🔐 Admin մուտք
         </h1>
 
+
         <form
             id="login-form"
             class="admin-form"
@@ -277,12 +258,14 @@
                 required
             >
 
+
             <input
                 type="password"
                 id="admin-password"
                 placeholder="Գաղտնաբառ"
                 required
             >
+
 
             <button
                 type="submit"
@@ -297,7 +280,7 @@
 
 
 
-    <!-- ADMIN PANEL -->
+    <!-- ADMIN -->
 
     <div
         id="admin-panel"
@@ -327,15 +310,33 @@
                 ➕ Ավելացնել ապրանք
             </h2>
 
+
             <form
                 id="product-form"
                 class="admin-form"
             >
 
+
                 <input
                     type="text"
                     id="product-name"
-                    placeholder="Ապրանքի անունը"
+                    placeholder="🇦🇲 Ապրանքի անունը"
+                    required
+                >
+
+
+                <input
+                    type="text"
+                    id="product-name-en"
+                    placeholder="🇬🇧 Product name"
+                    required
+                >
+
+
+                <input
+                    type="text"
+                    id="product-name-ru"
+                    placeholder="🇷🇺 Название товара"
                     required
                 >
 
@@ -351,14 +352,7 @@
 
                 <textarea
                     id="product-image"
-                    placeholder="Նկարների հղումները։
-
-Յուրաքանչյուր նկարը գրիր նոր տողում։
-
-Օրինակ՝
-https://example.com/image1.jpg
-https://example.com/image2.jpg
-https://example.com/image3.jpg"
+                    placeholder="Նկարների հղումները։ Յուրաքանչյուր նկարը գրիր նոր տողում։"
                     required
                 ></textarea>
 
@@ -398,11 +392,10 @@ https://example.com/image3.jpg"
                 📦 Բոլոր ապրանքները
             </h2>
 
+
             <div id="admin-products">
 
-                <div class="loading">
-                    Ապրանքները բեռնվում են...
-                </div>
+                Ապրանքները բեռնվում են...
 
             </div>
 
@@ -432,8 +425,7 @@ https://example.com/image3.jpg"
 </footer>
 
 
-<script src="js/admin.js?v=30"></script>
-
+<script src="js/admin.js?v=40"></script>
 
 </body>
 
