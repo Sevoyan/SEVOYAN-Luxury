@@ -23,6 +23,10 @@
 <body>
 
 
+<!-- =========================
+     HEADER
+========================= -->
+
 <header class="header">
 
     <a
@@ -62,18 +66,52 @@
 
     </nav>
 
+
+    <!-- LANGUAGE -->
+
+    <div class="language-switcher">
+
+        <button
+            id="lang-hy"
+            type="button"
+            onclick="changeLanguage('hy')"
+        >
+            🇦🇲 HY
+        </button>
+
+
+        <button
+            id="lang-en"
+            type="button"
+            onclick="changeLanguage('en')"
+        >
+            🇬🇧 EN
+        </button>
+
+
+        <button
+            id="lang-ru"
+            type="button"
+            onclick="changeLanguage('ru')"
+        >
+            🇷🇺 RU
+        </button>
+
+    </div>
+
+
 </header>
 
 
 
-<!-- ========================= -->
-<!-- PRODUCTS -->
-<!-- ========================= -->
+<!-- =========================
+     SHOP
+========================= -->
 
 <section class="featured">
 
     <h2>
-        🛍 Մեր ապրանքները
+        💎 Մեր ապրանքները
     </h2>
 
 
@@ -92,39 +130,15 @@
 
 
 
-<!-- ========================= -->
-<!-- COLLECTIONS -->
-<!-- ========================= -->
+<!-- =========================
+     SCRIPTS
+========================= -->
 
-<section class="featured">
+<script src="js/language.js?v=20"></script>
 
-    <h2>
-        💎 Հավաքածուներ
-    </h2>
+<script src="js/products.js?v=20"></script>
 
-
-    <div
-        class="products"
-        id="collections"
-    >
-
-        <p>
-            Հավաքածուները բեռնվում են...
-        </p>
-
-    </div>
-
-</section>
-
-
-
-<!-- ========================= -->
-<!-- SCRIPTS -->
-<!-- ========================= -->
-
-<script src="js/cart.js?v=11"></script>
-
-<script src="js/products.js?v=11"></script>
+<script src="js/cart.js?v=20"></script>
 
 
 </body>
