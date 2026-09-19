@@ -186,7 +186,8 @@ function translatePage() {
 
         if (
             node.parentElement &&
-            !["SCRIPT", "STYLE"].includes(node.parentElement.tagName)
+            node.parentElement.tagName !== "SCRIPT" &&
+            node.parentElement.tagName !== "STYLE"
         ) {
             nodes.push(node);
         }
@@ -216,3 +217,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateLanguageButtons();
 });
+Compose
+Write to Artyom Sevoyan
