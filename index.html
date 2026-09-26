@@ -19,9 +19,7 @@
 
 </head>
 
-
 <body>
-
 
 <header class="header">
 
@@ -32,38 +30,64 @@
         SEVOYAN
     </a>
 
-
     <nav>
 
-        <a href="index.html">
+        <a href="index.html" data-i18n="home">
             🏠 Գլխավոր
         </a>
 
-        <a href="shop.html">
+        <a href="shop.html" data-i18n="shop">
             🛍 Խանութ
         </a>
 
-        <a href="favorites.html">
+        <a href="favorites.html" data-i18n="favorites">
             ❤️ Սիրելիներ
         </a>
 
         <a href="cart.html">
-            🛒 Զամբյուղ
+            🛒 <span data-i18n="cart">Զամբյուղ</span>
             <span id="cart-count">0</span>
         </a>
 
-        <a href="about.html">
+        <a href="about.html" data-i18n="about">
             💎 Մեր մասին
         </a>
 
-        <a href="contact.html">
+        <a href="contact.html" data-i18n="contact">
             📞 Կապ
         </a>
 
     </nav>
 
-</header>
+    <div class="language-switcher">
 
+        <button
+            id="lang-hy"
+            type="button"
+            onclick="changeLanguage('hy')"
+        >
+            🇦🇲 HY
+        </button>
+
+        <button
+            id="lang-en"
+            type="button"
+            onclick="changeLanguage('en')"
+        >
+            🇬🇧 EN
+        </button>
+
+        <button
+            id="lang-ru"
+            type="button"
+            onclick="changeLanguage('ru')"
+        >
+            🇷🇺 RU
+        </button>
+
+    </div>
+
+</header>
 
 
 <!-- HERO -->
@@ -76,20 +100,20 @@
             SEVOYAN LUXURY
         </p>
 
-        <h1>
+        <h1 data-i18n="heroTitle">
             Շքեղությունը վերաիմաստավորված
         </h1>
 
-        <p>
+        <p data-i18n="heroText">
             Բացահայտիր նորաձևության նոր մակարդակը
         </p>
-
 
         <div class="hero-buttons">
 
             <a
                 href="shop.html"
                 class="btn-gold"
+                data-i18n="buyNow"
             >
                 Գնել հիմա
             </a>
@@ -97,6 +121,7 @@
             <a
                 href="shop.html"
                 class="btn-outline"
+                data-i18n="viewCollection"
             >
                 Տեսնել հավաքածուն
             </a>
@@ -108,27 +133,27 @@
 </section>
 
 
-
 <!-- PRODUCTS -->
 
 <section class="featured">
 
-    <h2 class="section-title">
+    <h2
+        class="section-title"
+        data-i18n="ourCollection"
+    >
         💎 Մեր հավաքածուն
     </h2>
-
 
     <div
         class="products"
         id="products"
     >
 
-        <p>
+        <p data-i18n="loading">
             Ապրանքները բեռնվում են...
         </p>
 
     </div>
-
 
     <div
         style="
@@ -140,6 +165,7 @@
         <a
             href="shop.html"
             class="btn-gold"
+            data-i18n="allProducts"
         >
             Տեսնել բոլոր ապրանքները →
         </a>
@@ -147,7 +173,6 @@
     </div>
 
 </section>
-
 
 
 <!-- FOOTER -->
@@ -158,24 +183,27 @@
         SEVOYAN Luxury
     </h3>
 
-    <p>
+    <p data-i18n="premiumBrand">
         Premium Fashion Brand
     </p>
 
     <p>
-        © 2026 SEVOYAN Luxury. All rights reserved.
+        © 2026 SEVOYAN Luxury.
+        <span data-i18n="allRights">
+            All rights reserved.
+        </span>
     </p>
 
 </footer>
 
 
-
 <!-- JAVASCRIPT -->
 
-<script src="js/products.js?v=20"></script>
+<script src="js/language.js?v=30"></script>
 
-<script src="js/cart.js?v=20"></script>
+<script src="js/products.js?v=30"></script>
 
+<script src="js/cart.js?v=30"></script>
 
 </body>
 
