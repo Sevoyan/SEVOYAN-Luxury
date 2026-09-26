@@ -1,91 +1,150 @@
 <!DOCTYPE html>
 <html lang="hy">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Պատվեր | SEVOYAN Luxury</title>
 
-    <link rel="stylesheet" href="css/style.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=30">
 </head>
 
 <body>
 
 <header class="header">
 
-    <a href="index.html" class="logo">
-        SEVOYAN
-    </a>
+    <div class="logo">SEVOYAN</div>
 
     <nav>
-        <a href="index.html">🏠 Գլխավոր</a>
-        <a href="shop.html">🛍 Խանութ</a>
-        <a href="favorites.html">❤️ Սիրելիներ</a>
-        <a href="cart.html">🛒 Զամբյուղ</a>
-        <a href="about.html">ℹ️ Մեր մասին</a>
-        <a href="contact.html">📞 Կապ</a>
-        <a href="login.html">👤 Մուտք</a>
+        <a href="index.html" data-i18n="home">Գլխավոր</a>
+        <a href="shop.html" data-i18n="shop">Խանութ</a>
+        <a href="favorites.html" data-i18n="favorites">Սիրելիներ</a>
+
+        <a href="cart.html">
+            🛒 <span data-i18n="cart">Զամբյուղ</span>
+            <span id="cart-count">0</span>
+        </a>
+
+        <a href="about.html" data-i18n="about">Մեր մասին</a>
+        <a href="contact.html" data-i18n="contact">Կապ</a>
     </nav>
+
+    <div class="language-switcher">
+        <button id="lang-hy" onclick="changeLanguage('hy')">🇦🇲</button>
+        <button id="lang-en" onclick="changeLanguage('en')">🇬🇧</button>
+        <button id="lang-ru" onclick="changeLanguage('ru')">🇷🇺</button>
+    </div>
 
 </header>
 
 
-<section class="collections">
-
-    <h2 class="section-title">
-        🛍 Պատվերի ձևավորում
-    </h2>
+<main style="
+    padding-top:140px;
+    min-height:75vh;
+">
 
     <div class="checkout-box">
 
-        <h3>Ձեր տվյալները</h3>
+        <h1 class="section-title" data-i18n="orderTitle">
+            Պատվեր
+        </h1>
+
 
         <form id="checkout-form">
 
             <input
                 type="text"
-                id="fullname"
-                placeholder="Անուն Ազգանուն"
-                required>
+                id="first-name"
+                placeholder="Անուն"
+                data-i18n-placeholder="firstName"
+                required
+            >
+
+
+            <input
+                type="text"
+                id="last-name"
+                placeholder="Ազգանուն"
+                data-i18n-placeholder="lastName"
+                required
+            >
+
 
             <input
                 type="tel"
                 id="phone"
-                placeholder="Հեռախոսահամար"
-                required>
+                placeholder="Հեռախոս"
+                data-i18n-placeholder="phone"
+                required
+            >
+
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Էլ․ փոստ"
+                data-i18n-placeholder="email"
+            >
+
 
             <input
                 type="text"
                 id="address"
                 placeholder="Հասցե"
-                required>
+                data-i18n-placeholder="address"
+                required
+            >
 
-            <button type="submit">
-                ✅ Հաստատել պատվերը
+
+            <button
+                type="submit"
+                class="btn-gold"
+                data-i18n="confirmOrder"
+            >
+                Հաստատել պատվերը
             </button>
 
         </form>
 
+
+        <div
+            id="checkout-message"
+            style="
+                text-align:center;
+                margin-top:20px;
+            "
+        ></div>
+
     </div>
 
-</section>
+</main>
 
 
-<footer class="footer">
+<footer style="
+    text-align:center;
+    padding:30px 20px;
+    border-top:1px solid #D4AF37;
+    background:#0b0b0b;
+">
 
-    <h3>SEVOYAN Luxury</h3>
+    <h3 style="color:#D4AF37;">
+        SEVOYAN Luxury
+    </h3>
 
-    <p>Premium Fashion Brand</p>
+    <p data-i18n="premiumBrand">
+        Premium Fashion Brand
+    </p>
 
-    <p>© 2026 SEVOYAN Luxury. All rights reserved.</p>
+    <p data-i18n="allRights">
+        © 2026 SEVOYAN Luxury. All rights reserved.
+    </p>
 
 </footer>
 
 
-<script src="js/checkout.js"></script>
+<script src="js/language.js?v=30"></script>
+<script src="js/cart.js?v=30"></script>
+<script src="js/checkout.js?v=30"></script>
 
 </body>
 </html>
