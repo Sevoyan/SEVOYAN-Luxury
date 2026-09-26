@@ -1,97 +1,179 @@
 <!DOCTYPE html>
 <html lang="hy">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Մուտք | SEVOYAN Luxury</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=30">
 </head>
 
 <body>
 
 <header class="header">
 
-    <a href="index.html" class="logo">
-        SEVOYAN
-    </a>
+    <div class="logo">SEVOYAN</div>
 
     <nav>
-        <a href="index.html">🏠 Գլխավոր</a>
-        <a href="shop.html">🛍 Խանութ</a>
-        <a href="favorites.html">❤️ Սիրելիներ</a>
-        <a href="cart.html">🛒 Զամբյուղ</a>
-        <a href="about.html">ℹ️ Մեր մասին</a>
-        <a href="contact.html">📞 Կապ</a>
+        <a href="index.html" data-i18n="home">Գլխավոր</a>
+        <a href="shop.html" data-i18n="shop">Խանութ</a>
+        <a href="favorites.html" data-i18n="favorites">Սիրելիներ</a>
+
+        <a href="cart.html">
+            🛒 <span data-i18n="cart">Զամբյուղ</span>
+            <span id="cart-count">0</span>
+        </a>
+
+        <a href="about.html" data-i18n="about">Մեր մասին</a>
+        <a href="contact.html" data-i18n="contact">Կապ</a>
     </nav>
 
-    <div class="header-right">
-
-        <div class="language-switcher">
-            <button onclick="changeLanguage('hy')">🇦🇲</button>
-            <button onclick="changeLanguage('en')">🇬🇧</button>
-       <div id="user-area">
-    <a href="login.html">👤 Մուտք</a>
-</div>
+    <div class="language-switcher">
+        <button id="lang-hy" onclick="changeLanguage('hy')">🇦🇲</button>
+        <button id="lang-en" onclick="changeLanguage('en')">🇬🇧</button>
+        <button id="lang-ru" onclick="changeLanguage('ru')">🇷🇺</button>
+    </div>
 
 </header>
 
 
-<section class="collections">
+<main style="
+    min-height:75vh;
+    padding-top:140px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+">
 
-    <h2 class="section-title">
-        👤 Մուտք
-    </h2>
+    <div style="
+        width:90%;
+        max-width:450px;
+        background:#111;
+        border:1px solid #D4AF37;
+        border-radius:12px;
+        padding:35px;
+        box-sizing:border-box;
+    ">
 
-    <div class="checkout-box">
+        <h1 class="section-title"
+            style="text-align:center; margin-bottom:30px;"
+            data-i18n="loginTitle">
 
-        <h3>Մուտք գործեք հաշիվ</h3>
+            Մուտք գործել
+
+        </h1>
+
 
         <form id="login-form">
 
             <input
-                type="text"
-                id="username"
-                placeholder="Օգտանուն"
+                type="email"
+                id="login-email"
+                placeholder="Էլ․ փոստ"
+                data-i18n-placeholder="email"
                 required
+                style="
+                    width:100%;
+                    padding:14px;
+                    margin-bottom:18px;
+                    background:#181818;
+                    color:#fff;
+                    border:1px solid #555;
+                    border-radius:6px;
+                    box-sizing:border-box;
+                "
             >
+
 
             <input
                 type="password"
-                id="password"
+                id="login-password"
                 placeholder="Գաղտնաբառ"
+                data-i18n-placeholder="password"
                 required
+                style="
+                    width:100%;
+                    padding:14px;
+                    margin-bottom:20px;
+                    background:#181818;
+                    color:#fff;
+                    border:1px solid #555;
+                    border-radius:6px;
+                    box-sizing:border-box;
+                "
             >
 
-            <button type="submit">
-                🔐 Մուտք գործել
+
+            <button
+                type="submit"
+                class="btn-gold"
+                style="width:100%;"
+                data-i18n="loginButton">
+
+                Մուտք գործել
+
             </button>
 
         </form>
 
-        <p id="login-message"></p>
+
+        <p
+            id="login-message"
+            style="
+                text-align:center;
+                margin-top:20px;
+                min-height:24px;
+            "
+        ></p>
+
+
+        <div style="
+            text-align:center;
+            margin-top:20px;
+        ">
+
+            <a
+                href="index.html"
+                style="color:#D4AF37; text-decoration:none;"
+                data-i18n="backHome">
+
+                Վերադառնալ գլխավոր էջ
+
+            </a>
+
+        </div>
 
     </div>
 
-</section>
+</main>
 
 
-<footer class="footer">
+<footer style="
+    text-align:center;
+    padding:30px 20px;
+    border-top:1px solid #D4AF37;
+    background:#0b0b0b;
+">
 
-    <h3>SEVOYAN Luxury</h3>
+    <h3 style="color:#D4AF37;">
+        SEVOYAN Luxury
+    </h3>
 
-    <p>Premium Fashion Brand</p>
+    <p data-i18n="premiumBrand">
+        Premium Fashion Brand
+    </p>
 
-    <p>© 2026 SEVOYAN Luxury. All rights reserved.</p>
+    <p data-i18n="allRights">
+        © 2026 SEVOYAN Luxury. All rights reserved.
+    </p>
 
 </footer>
 
 
-<script src="js/language.js"></script>
-<script src="js/login.js"></script>
-<script src="js/user.js"></script>
+<script src="js/language.js?v=30"></script>
+<script src="js/cart.js?v=30"></script>
+<script src="js/login.js?v=30"></script>
 
 </body>
 </html>
