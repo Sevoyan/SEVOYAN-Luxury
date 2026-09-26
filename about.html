@@ -1,1 +1,153 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Մեր մասին | SEVOYAN Luxury</title>
+
+    <link rel="stylesheet" href="css/style.css?v=30">
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">SEVOYAN</div>
+
+    <nav>
+        <a href="index.html" data-i18n="home">Գլխավոր</a>
+        <a href="shop.html" data-i18n="shop">Խանութ</a>
+        <a href="favorites.html" data-i18n="favorites">Սիրելիներ</a>
+
+        <a href="cart.html">
+            🛒 <span data-i18n="cart">Զամբյուղ</span>
+            <span id="cart-count">0</span>
+        </a>
+
+        <a href="about.html" data-i18n="about">Մեր մասին</a>
+        <a href="contact.html" data-i18n="contact">Կապ</a>
+    </nav>
+
+    <div class="language-switcher">
+        <button id="lang-hy" onclick="changeLanguage('hy')">🇦🇲</button>
+        <button id="lang-en" onclick="changeLanguage('en')">🇬🇧</button>
+        <button id="lang-ru" onclick="changeLanguage('ru')">🇷🇺</button>
+    </div>
+
+</header>
+
+
+<main class="collections" style="padding-top:140px; min-height:70vh;">
+
+    <h1 class="section-title" data-i18n="aboutTitle">
+        Մեր մասին
+    </h1>
+
+
+    <div style="
+        max-width:900px;
+        margin:40px auto;
+        padding:35px;
+        background:#111;
+        border:1px solid #D4AF37;
+        border-radius:12px;
+        line-height:1.9;
+        color:#eee;
+        text-align:center;
+    ">
+
+        <h2 style="
+            color:#D4AF37;
+            margin-bottom:25px;
+            font-family:Cinzel, serif;
+        "
+        data-i18n="aboutHeading">
+
+            SEVOYAN Luxury
+
+        </h2>
+
+
+        <p data-i18n="aboutText1">
+
+            SEVOYAN Luxury-ը նորաձևության և շքեղության
+            ժամանակակից բրենդ է։
+
+            Մեր նպատակն է ստեղծել որակյալ և ոճային
+            ապրանքների ընտրանի, որը կհամապատասխանի
+            ժամանակակից մարդու անհատական ոճին։
+
+        </p>
+
+
+        <p
+            data-i18n="aboutText2"
+            style="margin-top:20px;"
+        >
+
+            Մենք կարևորում ենք որակը, դիզայնը և
+            մանրուքների նկատմամբ ուշադրությունը։
+
+            SEVOYAN Luxury-ում յուրաքանչյուր ապրանք
+            ընտրվում է հատուկ մոտեցմամբ։
+
+        </p>
+
+
+        <p
+            data-i18n="aboutText3"
+            style="margin-top:20px;"
+        >
+
+            Մեր գաղափարն է շքեղությունը դարձնել
+            ավելի հասանելի՝ պահպանելով յուրահատուկ
+            ոճն ու բարձր որակի զգացողությունը։
+
+        </p>
+
+
+        <div style="
+            margin-top:35px;
+            font-size:22px;
+            color:#D4AF37;
+            font-family:Cinzel, serif;
+        "
+        data-i18n="aboutSlogan">
+
+            Շքեղությունը՝ քո ոճով։
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer style="
+    text-align:center;
+    padding:30px 20px;
+    border-top:1px solid #D4AF37;
+    background:#0b0b0b;
+">
+
+    <h3 style="color:#D4AF37;">
+        SEVOYAN Luxury
+    </h3>
+
+    <p data-i18n="premiumBrand">
+        Premium Fashion Brand
+    </p>
+
+    <p data-i18n="allRights">
+        © 2026 SEVOYAN Luxury. All rights reserved.
+    </p>
+
+</footer>
+
+
+<script src="js/language.js?v=30"></script>
+<script src="js/cart.js?v=30"></script>
+
+</body>
+</html>
