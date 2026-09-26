@@ -2,60 +2,152 @@
 <html lang="hy">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Սիրելիներ | SEVOYAN Luxury</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
 </head>
 
 <body>
 
+
 <header class="header">
 
-    <a href="index.html" class="logo">
+    <a
+        href="index.html"
+        class="logo"
+    >
         SEVOYAN
     </a>
 
+
     <nav>
-        <a href="index.html">🏠 Գլխավոր</a>
-        <a href="shop.html">🛍 Խանութ</a>
-        <a href="favorites.html">❤️ Սիրելիներ</a>
-        <a href="cart.html">🛒 Զամբյուղ</a>
-        <a href="about.html">ℹ️ Մեր մասին</a>
-        <a href="contact.html">📞 Կապ</a>
-        <a href="login.html">👤 Մուտք</a>
+
+        <a href="index.html" data-i18n="home">
+            🏠 Գլխավոր
+        </a>
+
+        <a href="shop.html" data-i18n="shop">
+            🛍 Խանութ
+        </a>
+
+        <a href="favorites.html" data-i18n="favorites">
+            ❤️ Սիրելիներ
+        </a>
+
+        <a href="cart.html">
+            🛒 <span data-i18n="cart">Զամբյուղ</span>
+            <span id="cart-count">0</span>
+        </a>
+
+        <a href="about.html" data-i18n="about">
+            💎 Մեր մասին
+        </a>
+
+        <a href="contact.html" data-i18n="contact">
+            📞 Կապ
+        </a>
+
+        <a href="login.html" data-i18n="login">
+            👤 Մուտք
+        </a>
+
     </nav>
+
+
+    <div class="language-switcher">
+
+        <button
+            id="lang-hy"
+            type="button"
+            onclick="changeLanguage('hy')"
+        >
+            🇦🇲 HY
+        </button>
+
+        <button
+            id="lang-en"
+            type="button"
+            onclick="changeLanguage('en')"
+        >
+            🇬🇧 EN
+        </button>
+
+        <button
+            id="lang-ru"
+            type="button"
+            onclick="changeLanguage('ru')"
+        >
+            🇷🇺 RU
+        </button>
+
+    </div>
 
 </header>
 
+
 <section class="collections">
 
-    <h2 class="section-title">
+    <h2
+        class="section-title"
+        data-i18n="myFavorites"
+    >
         ❤️ Իմ սիրելիները
     </h2>
 
+
     <div
         id="favorites"
-        class="products">
+        class="products"
+    >
     </div>
 
 </section>
 
+
 <footer class="footer">
 
-    <h3>SEVOYAN Luxury</h3>
+    <h3>
+        SEVOYAN Luxury
+    </h3>
 
-    <p>Premium Fashion Brand</p>
+    <p data-i18n="premiumBrand">
+        Premium Fashion Brand
+    </p>
 
-    <p>© 2026 SEVOYAN Luxury. All rights reserved.</p>
+    <p>
+        © 2026 SEVOYAN Luxury.
+        <span data-i18n="allRights">
+            All rights reserved.
+        </span>
+    </p>
 
 </footer>
 
-<script src="js/favorites.js"></script>
+
+<script src="js/language.js?v=30"></script>
+
+<script src="js/favorites.js?v=30"></script>
+
+<script src="js/cart.js?v=30"></script>
+
 
 </body>
+
 </html>
