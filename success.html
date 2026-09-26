@@ -1,69 +1,151 @@
 <!DOCTYPE html>
 <html lang="hy">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Պատվերը հաստատված է | SEVOYAN Luxury</title>
 
-    <link rel="stylesheet" href="css/style.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=30">
 </head>
 
 <body>
 
 <header class="header">
 
-    <a href="index.html" class="logo">
-        SEVOYAN
-    </a>
+    <div class="logo">SEVOYAN</div>
 
     <nav>
-        <a href="index.html">🏠 Գլխավոր</a>
-        <a href="shop.html">🛍 Խանութ</a>
-        <a href="favorites.html">❤️ Սիրելիներ</a>
-        <a href="cart.html">🛒 Զամբյուղ</a>
-        <a href="about.html">ℹ️ Մեր մասին</a>
-        <a href="contact.html">📞 Կապ</a>
+        <a href="index.html" data-i18n="home">Գլխավոր</a>
+        <a href="shop.html" data-i18n="shop">Խանութ</a>
+        <a href="favorites.html" data-i18n="favorites">Սիրելիներ</a>
+
+        <a href="cart.html">
+            🛒 <span data-i18n="cart">Զամբյուղ</span>
+            <span id="cart-count">0</span>
+        </a>
+
+        <a href="about.html" data-i18n="about">Մեր մասին</a>
+        <a href="contact.html" data-i18n="contact">Կապ</a>
     </nav>
+
+    <div class="language-switcher">
+        <button id="lang-hy" onclick="changeLanguage('hy')">🇦🇲</button>
+        <button id="lang-en" onclick="changeLanguage('en')">🇬🇧</button>
+        <button id="lang-ru" onclick="changeLanguage('ru')">🇷🇺</button>
+    </div>
 
 </header>
 
-<section class="collections">
 
-    <h2 class="section-title">
-        ✅ Պատվերը հաստատված է
-    </h2>
+<main style="
+    min-height:75vh;
+    padding-top:140px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+">
 
-    <div class="checkout-box">
+    <div style="
+        width:90%;
+        max-width:600px;
+        background:#111;
+        border:1px solid #D4AF37;
+        border-radius:12px;
+        padding:45px 30px;
+        text-align:center;
+        box-sizing:border-box;
+    ">
 
-        <h3>Շնորհակալություն SEVOYAN Luxury-ն ընտրելու համար ❤️</h3>
+        <div style="
+            font-size:60px;
+            margin-bottom:20px;
+        ">
+            ✅
+        </div>
 
-        <div id="order-info"></div>
 
-        <br>
+        <h1
+            style="
+                color:#D4AF37;
+                font-family:Cinzel, serif;
+                margin-bottom:20px;
+            "
+            data-i18n="orderSuccessTitle"
+        >
+            Պատվերը հաջողությամբ հաստատվեց
+        </h1>
 
-        <a href="index.html">
-            <button>🏠 Վերադառնալ գլխավոր էջ</button>
+
+        <p
+            style="
+                color:#eee;
+                line-height:1.8;
+                margin-bottom:30px;
+            "
+            data-i18n="orderSuccessText"
+        >
+            Շնորհակալություն SEVOYAN Luxury-ից գնում կատարելու համար։
+            Մենք կապ կհաստատենք Ձեզ հետ պատվերի մանրամասները հաստատելու համար։
+        </p>
+
+
+        <a
+            href="shop.html"
+            class="btn-gold"
+            style="
+                display:inline-block;
+                text-decoration:none;
+            "
+            data-i18n="continueShopping"
+        >
+            Շարունակել գնումները
+        </a>
+
+
+        <br><br>
+
+
+        <a
+            href="index.html"
+            style="
+                color:#D4AF37;
+                text-decoration:none;
+            "
+            data-i18n="backHome"
+        >
+            Վերադառնալ գլխավոր էջ
         </a>
 
     </div>
 
-</section>
+</main>
 
-<footer class="footer">
 
-    <h3>SEVOYAN Luxury</h3>
+<footer style="
+    text-align:center;
+    padding:30px 20px;
+    border-top:1px solid #D4AF37;
+    background:#0b0b0b;
+">
 
-    <p>Premium Fashion Brand</p>
+    <h3 style="color:#D4AF37;">
+        SEVOYAN Luxury
+    </h3>
 
-    <p>© 2026 SEVOYAN Luxury. All rights reserved.</p>
+    <p data-i18n="premiumBrand">
+        Premium Fashion Brand
+    </p>
+
+    <p data-i18n="allRights">
+        © 2026 SEVOYAN Luxury. All rights reserved.
+    </p>
 
 </footer>
 
-<script src="js/success.js"></script>
+
+<script src="js/language.js?v=30"></script>
+<script src="js/cart.js?v=30"></script>
 
 </body>
 </html>
