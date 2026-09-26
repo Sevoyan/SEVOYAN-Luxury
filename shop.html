@@ -19,13 +19,8 @@
 
 </head>
 
-
 <body>
 
-
-<!-- =========================
-     HEADER
-========================= -->
 
 <header class="header">
 
@@ -39,35 +34,33 @@
 
     <nav>
 
-        <a href="index.html">
+        <a href="index.html" data-i18n="home">
             🏠 Գլխավոր
         </a>
 
-        <a href="shop.html">
+        <a href="shop.html" data-i18n="shop">
             🛍 Խանութ
         </a>
 
-        <a href="favorites.html">
+        <a href="favorites.html" data-i18n="favorites">
             ❤️ Սիրելիներ
         </a>
 
         <a href="cart.html">
-            🛒 Զամբյուղ
+            🛒 <span data-i18n="cart">Զամբյուղ</span>
             <span id="cart-count">0</span>
         </a>
 
-        <a href="about.html">
+        <a href="about.html" data-i18n="about">
             💎 Մեր մասին
         </a>
 
-        <a href="contact.html">
+        <a href="contact.html" data-i18n="contact">
             📞 Կապ
         </a>
 
     </nav>
 
-
-    <!-- LANGUAGE -->
 
     <div class="language-switcher">
 
@@ -79,7 +72,6 @@
             🇦🇲 HY
         </button>
 
-
         <button
             id="lang-en"
             type="button"
@@ -87,7 +79,6 @@
         >
             🇬🇧 EN
         </button>
-
 
         <button
             id="lang-ru"
@@ -99,18 +90,15 @@
 
     </div>
 
-
 </header>
 
 
-
-<!-- =========================
-     SHOP
-========================= -->
-
 <section class="featured">
 
-    <h2>
+    <h2
+        class="section-title"
+        data-i18n="ourProducts"
+    >
         💎 Մեր ապրանքները
     </h2>
 
@@ -120,7 +108,7 @@
         id="products"
     >
 
-        <p>
+        <p data-i18n="loading">
             Ապրանքները բեռնվում են...
         </p>
 
@@ -129,16 +117,11 @@
 </section>
 
 
+<script src="js/language.js?v=30"></script>
 
-<!-- =========================
-     SCRIPTS
-========================= -->
+<script src="js/products.js?v=30"></script>
 
-<script src="js/language.js?v=20"></script>
-
-<script src="js/products.js?v=20"></script>
-
-<script src="js/cart.js?v=20"></script>
+<script src="js/cart.js?v=30"></script>
 
 
 </body>
