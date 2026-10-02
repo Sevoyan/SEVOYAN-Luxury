@@ -1,15 +1,23 @@
+// ==========================================
+// SEVOYAN LUXURY - LANGUAGE SYSTEM
+// HY / EN / RU
+// ==========================================
+
 const LANG_KEY = "language";
 
 const translations = {
 
+    // =========================
+    // ARMENIAN
+    // =========================
     hy: {
-
         home: "Գլխավոր",
         shop: "Խանութ",
         favorites: "Սիրելիներ",
         cart: "Զամբյուղ",
         about: "Մեր մասին",
         contact: "Կապ",
+        login: "👤 Մուտք",
 
         heroTitle: "Շքեղությունը վերաիմաստավորված",
         heroText: "Բացահայտիր նորաձևության նոր մակարդակը",
@@ -18,102 +26,79 @@ const translations = {
 
         ourCollection: "Մեր հավաքածուն",
         ourProducts: "Մեր ապրանքները",
+        allProducts: "Բոլոր ապրանքները",
+
         myFavorites: "Իմ սիրելիները",
         yourCart: "Ձեր զամբյուղը",
-        allProducts: "Տեսնել բոլոր ապրանքները",
 
         loading: "Բեռնվում է...",
+        noProducts: "Ապրանքներ դեռ չկան։",
+        noFeatured: "Գլխավոր էջում ցուցադրվող ապրանքներ դեռ չկան։",
+
+        addToCart: "🛒 Ավելացնել զամբյուղ",
+        addFavorite: "❤️ Ավելացնել սիրելիների մեջ",
+        removeFavorite: "❤️ Հեռացնել սիրելիներից",
+        remove: "Հեռացնել",
+        checkout: "Պատվիրել",
+
         premiumBrand: "Premium Fashion Brand",
         allRights: "© 2026 SEVOYAN Luxury. All rights reserved.",
 
-        aboutTitle: "Մեր մասին",
-        aboutHeading: "SEVOYAN Luxury",
-
-        aboutText1:
-            "SEVOYAN Luxury-ը նորաձևության և շքեղության ժամանակակից բրենդ է։ Մեր նպատակն է ստեղծել որակյալ և ոճային ապրանքների ընտրանի, որը կհամապատասխանի ժամանակակից մարդու անհատական ոճին։",
-
-        aboutText2:
-            "Մենք կարևորում ենք որակը, դիզայնը և մանրուքների նկատմամբ ուշադրությունը։ SEVOYAN Luxury-ում յուրաքանչյուր ապրանք ընտրվում է հատուկ մոտեցմամբ։",
-
-        aboutText3:
-            "Մեր գաղափարն է շքեղությունը դարձնել ավելի հասանելի՝ պահպանելով յուրահատուկ ոճն ու բարձր որակի զգացողությունը։",
-
-        aboutSlogan: "Շքեղությունը՝ քո ոճով։",
-
         contactTitle: "Կապ մեզ հետ",
-
-        contactSubtitle:
-            "Հարցերի կամ պատվերի համար կապ հաստատիր մեզ հետ",
-
-        contactInfo: "Մեր կապերը",
+        contactSubtitle: "Կապվիր մեզ հետ ցանկացած հարցի դեպքում",
+        contactInfo: "Կոնտակտային տվյալներ",
 
         phone: "Հեռախոս",
-
-        telegramText:
-            "Գրիր Telegram-ում",
-
+        telegramText: "Telegram",
         email: "Էլ․ փոստ",
-
         address: "Հասցե",
+        addressText: "Երևան, Հայաստան",
 
-        addressText:
-            "Երևան, Հայաստան",
+        sendMessage: "Ուղարկել հաղորդագրություն",
+        messagePlaceholder: "Գրիր քո հաղորդագրությունը...",
+        send: "Ուղարկել",
 
-        sendMessage:
-            "Ուղարկել հաղորդագրություն",
+        loginTitle: "Մուտք գործել",
+        loginButton: "Մուտք գործել",
+        password: "Գաղտնաբառ",
+        backHome: "← Վերադառնալ գլխավոր էջ",
 
-        messagePlaceholder:
-            "Գրիր հաղորդագրությունը...",
+        noAccount: "Դեռ հաշիվ չունե՞ս։",
+        register: "Գրանցվել",
 
-        message:
-            "Հաղորդագրություն",
+        registerTitle: "Գրանցվել",
+        registerButton: "Գրանցվել",
+        name: "Անուն",
+        confirmPassword: "Կրկնել գաղտնաբառը",
+        alreadyAccount: "Արդեն ունե՞ս հաշիվ։",
+        loginHere: "Մուտք գործել",
 
-        send:
-            "Ուղարկել",
+        productNotFound: "Ապրանքը չի գտնվել։",
+        backShop: "← Վերադառնալ խանութ",
+        productDescription: "SEVOYAN Luxury-ի բացառիկ արտադրանք։",
 
-        loginTitle:
-            "Մուտք գործել",
+        addedToCart: "✅ Ապրանքը ավելացվեց զամբյուղ",
+        addedToFavorites: "❤️ Ապրանքը ավելացվեց սիրելիների մեջ",
+        removedFromFavorites: "❤️ Ապրանքը հեռացվեց սիրելիներից",
 
-        loginButton:
-            "Մուտք գործել",
+        emptyCart: "Ձեր զամբյուղը դատարկ է։",
+        emptyFavorites: "Սիրելիների ցանկը դատարկ է։",
 
-        password:
-            "Գաղտնաբառ",
-
-        backHome:
-            "Վերադառնալ գլխավոր էջ",
-
-        orderTitle:
-            "Պատվեր",
-
-        firstName:
-            "Անուն",
-
-        lastName:
-            "Ազգանուն",
-
-        confirmOrder:
-            "Հաստատել պատվերը",
-
-        orderSuccessTitle:
-            "Պատվերը հաջողությամբ հաստատվեց",
-
-        orderSuccessText:
-            "Շնորհակալություն SEVOYAN Luxury-ից գնում կատարելու համար։ Մենք կապ կհաստատենք Ձեզ հետ պատվերի մանրամասները հաստատելու համար։",
-
-        continueShopping:
-            "Շարունակել գնումները"
+        logout: "Դուրս գալ"
     },
 
 
+    // =========================
+    // ENGLISH
+    // =========================
     en: {
-
         home: "Home",
         shop: "Shop",
         favorites: "Favorites",
         cart: "Cart",
         about: "About",
         contact: "Contact",
+        login: "👤 Login",
 
         heroTitle: "Luxury Reimagined",
         heroText: "Discover a new level of fashion",
@@ -122,396 +107,295 @@ const translations = {
 
         ourCollection: "Our Collection",
         ourProducts: "Our Products",
+        allProducts: "All Products",
+
         myFavorites: "My Favorites",
         yourCart: "Your Cart",
-        allProducts: "View All Products",
 
         loading: "Loading...",
+        noProducts: "No products available yet.",
+        noFeatured: "No featured products available yet.",
+
+        addToCart: "🛒 Add to Cart",
+        addFavorite: "❤️ Add to Favorites",
+        removeFavorite: "❤️ Remove from Favorites",
+        remove: "Remove",
+        checkout: "Checkout",
+
         premiumBrand: "Premium Fashion Brand",
-        allRights:
-            "© 2026 SEVOYAN Luxury. All rights reserved.",
+        allRights: "© 2026 SEVOYAN Luxury. All rights reserved.",
 
-        aboutTitle: "About Us",
-        aboutHeading: "SEVOYAN Luxury",
+        contactTitle: "Contact Us",
+        contactSubtitle: "Contact us for any questions",
+        contactInfo: "Contact Information",
 
-        aboutText1:
-            "SEVOYAN Luxury is a modern fashion and luxury brand. Our goal is to create a selection of high-quality and stylish products that match the individual style of the modern person.",
+        phone: "Phone",
+        telegramText: "Telegram",
+        email: "Email",
+        address: "Address",
+        addressText: "Yerevan, Armenia",
 
-        aboutText2:
-            "We value quality, design and attention to detail. Every product at SEVOYAN Luxury is selected with special care.",
+        sendMessage: "Send Message",
+        messagePlaceholder: "Write your message...",
+        send: "Send",
 
-        aboutText3:
-            "Our idea is to make luxury more accessible while preserving unique style and a premium feeling.",
+        loginTitle: "Login",
+        loginButton: "Login",
+        password: "Password",
+        backHome: "← Back to Home",
 
-        aboutSlogan:
-            "Luxury, your way.",
+        noAccount: "Don't have an account?",
+        register: "Register",
 
-        contactTitle:
-            "Contact Us",
+        registerTitle: "Register",
+        registerButton: "Register",
+        name: "Name",
+        confirmPassword: "Confirm Password",
+        alreadyAccount: "Already have an account?",
+        loginHere: "Login",
 
-        contactSubtitle:
-            "Contact us for questions or orders",
+        productNotFound: "Product not found.",
+        backShop: "← Back to Shop",
+        productDescription: "An exclusive SEVOYAN Luxury product.",
 
-        contactInfo:
-            "Contact Information",
+        addedToCart: "✅ Product added to cart",
+        addedToFavorites: "❤️ Product added to favorites",
+        removedFromFavorites: "❤️ Product removed from favorites",
 
-        phone:
-            "Phone",
+        emptyCart: "Your cart is empty.",
+        emptyFavorites: "Your favorites are empty.",
 
-        telegramText:
-            "Message us on Telegram",
-
-        email:
-            "Email",
-
-        address:
-            "Address",
-
-        addressText:
-            "Yerevan, Armenia",
-
-        sendMessage:
-            "Send a Message",
-
-        messagePlaceholder:
-            "Write your message...",
-
-        message:
-            "Message",
-
-        send:
-            "Send",
-
-        loginTitle:
-            "Login",
-
-        loginButton:
-            "Login",
-
-        password:
-            "Password",
-
-        backHome:
-            "Back to Home",
-
-        orderTitle:
-            "Order",
-
-        firstName:
-            "First Name",
-
-        lastName:
-            "Last Name",
-
-        confirmOrder:
-            "Confirm Order",
-
-        orderSuccessTitle:
-            "Order Successfully Confirmed",
-
-        orderSuccessText:
-            "Thank you for shopping with SEVOYAN Luxury. We will contact you to confirm your order details.",
-
-        continueShopping:
-            "Continue Shopping"
+        logout: "Logout"
     },
 
 
+    // =========================
+    // RUSSIAN
+    // =========================
     ru: {
-
         home: "Главная",
         shop: "Магазин",
         favorites: "Избранное",
         cart: "Корзина",
         about: "О нас",
         contact: "Контакты",
+        login: "👤 Войти",
 
-        heroTitle:
-            "Роскошь в новом прочтении",
+        heroTitle: "Роскошь в новом измерении",
+        heroText: "Откройте новый уровень моды",
+        buyNow: "Купить сейчас",
+        viewCollection: "Посмотреть коллекцию",
 
-        heroText:
-            "Откройте новый уровень моды",
+        ourCollection: "Наша коллекция",
+        ourProducts: "Наши товары",
+        allProducts: "Все товары",
 
-        buyNow:
-            "Купить сейчас",
+        myFavorites: "Мое избранное",
+        yourCart: "Ваша корзина",
 
-        viewCollection:
-            "Посмотреть коллекцию",
+        loading: "Загрузка...",
+        noProducts: "Товаров пока нет.",
+        noFeatured: "На главной странице пока нет товаров.",
 
-        ourCollection:
-            "Наша коллекция",
+        addToCart: "🛒 Добавить в корзину",
+        addFavorite: "❤️ Добавить в избранное",
+        removeFavorite: "❤️ Удалить из избранного",
+        remove: "Удалить",
+        checkout: "Оформить заказ",
 
-        ourProducts:
-            "Наши товары",
+        premiumBrand: "Премиальный модный бренд",
+        allRights: "© 2026 SEVOYAN Luxury. Все права защищены.",
 
-        myFavorites:
-            "Мое избранное",
+        contactTitle: "Свяжитесь с нами",
+        contactSubtitle: "Свяжитесь с нами по любым вопросам",
+        contactInfo: "Контактная информация",
 
-        yourCart:
-            "Ваша корзина",
+        phone: "Телефон",
+        telegramText: "Telegram",
+        email: "Эл. почта",
+        address: "Адрес",
+        addressText: "Ереван, Армения",
 
-        allProducts:
-            "Посмотреть все товары",
+        sendMessage: "Отправить сообщение",
+        messagePlaceholder: "Напишите ваше сообщение...",
+        send: "Отправить",
 
-        loading:
-            "Загрузка...",
+        loginTitle: "Войти",
+        loginButton: "Войти",
+        password: "Пароль",
+        backHome: "← Вернуться на главную",
 
-        premiumBrand:
-            "Премиальный модный бренд",
+        noAccount: "Еще нет аккаунта?",
+        register: "Регистрация",
 
-        allRights:
-            "© 2026 SEVOYAN Luxury. Все права защищены.",
+        registerTitle: "Регистрация",
+        registerButton: "Зарегистрироваться",
+        name: "Имя",
+        confirmPassword: "Повторите пароль",
+        alreadyAccount: "Уже есть аккаунт?",
+        loginHere: "Войти",
 
-        aboutTitle:
-            "О нас",
+        productNotFound: "Товар не найден.",
+        backShop: "← Вернуться в магазин",
+        productDescription: "Эксклюзивный продукт SEVOYAN Luxury.",
 
-        aboutHeading:
-            "SEVOYAN Luxury",
+        addedToCart: "✅ Товар добавлен в корзину",
+        addedToFavorites: "❤️ Товар добавлен в избранное",
+        removedFromFavorites: "❤️ Товар удален из избранного",
 
-        aboutText1:
-            "SEVOYAN Luxury — современный бренд моды и роскоши. Наша цель — создавать подборку качественных и стильных товаров, которые соответствуют индивидуальному стилю современного человека.",
+        emptyCart: "Ваша корзина пуста.",
+        emptyFavorites: "Избранное пусто.",
 
-        aboutText2:
-            "Мы ценим качество, дизайн и внимание к деталям. Каждый товар SEVOYAN Luxury выбирается с особым вниманием.",
-
-        aboutText3:
-            "Наша идея — сделать роскошь более доступной, сохраняя уникальный стиль и ощущение высокого качества.",
-
-        aboutSlogan:
-            "Роскошь — в твоём стиле.",
-
-        contactTitle:
-            "Связаться с нами",
-
-        contactSubtitle:
-            "Свяжитесь с нами по вопросам или заказам",
-
-        contactInfo:
-            "Наши контакты",
-
-        phone:
-            "Телефон",
-
-        telegramText:
-            "Напишите нам в Telegram",
-
-        email:
-            "Электронная почта",
-
-        address:
-            "Адрес",
-
-        addressText:
-            "Ереван, Армения",
-
-        sendMessage:
-            "Отправить сообщение",
-
-        messagePlaceholder:
-            "Напишите сообщение...",
-
-        message:
-            "Сообщение",
-
-        send:
-            "Отправить",
-
-        loginTitle:
-            "Войти",
-
-        loginButton:
-            "Войти",
-
-        password:
-            "Пароль",
-
-        backHome:
-            "Вернуться на главную",
-
-        orderTitle:
-            "Заказ",
-
-        firstName:
-            "Имя",
-
-        lastName:
-            "Фамилия",
-
-        confirmOrder:
-            "Подтвердить заказ",
-
-        orderSuccessTitle:
-            "Заказ успешно подтвержден",
-
-        orderSuccessText:
-            "Спасибо за покупку в SEVOYAN Luxury. Мы свяжемся с вами для подтверждения деталей заказа.",
-
-        continueShopping:
-            "Продолжить покупки"
+        logout: "Выйти"
     }
-
 };
 
 
+// ==========================================
+// GET CURRENT LANGUAGE
+// ==========================================
+
 function getCurrentLanguage() {
-
-    const savedLanguage =
-        localStorage.getItem(LANG_KEY);
-
-    if (
-        savedLanguage === "hy" ||
-        savedLanguage === "en" ||
-        savedLanguage === "ru"
-    ) {
-        return savedLanguage;
-    }
-
-    return "hy";
+    return localStorage.getItem(LANG_KEY) || "hy";
 }
 
 
-function changeLanguage(language) {
+// ==========================================
+// CHANGE LANGUAGE
+// ==========================================
 
-    if (!translations[language]) {
-        language = "hy";
+function changeLanguage(lang) {
+
+    if (!translations[lang]) {
+        lang = "hy";
     }
 
-    localStorage.setItem(
-        LANG_KEY,
-        language
-    );
+    localStorage.setItem(LANG_KEY, lang);
 
-    document.documentElement.lang =
-        language;
+    document.documentElement.lang = lang;
 
     applyTranslations();
 
     updateLanguageButtons();
 
-
+    // Reload products if function exists
     if (typeof loadProducts === "function") {
         loadProducts();
     }
 
+    // Reload favorites if function exists
     if (typeof loadFavorites === "function") {
         loadFavorites();
     }
 
+    // Reload cart if function exists
     if (typeof loadCart === "function") {
         loadCart();
     }
 }
 
 
+// ==========================================
+// APPLY TRANSLATIONS
+// ==========================================
+
 function applyTranslations() {
 
-    const language =
-        getCurrentLanguage();
+    const lang = getCurrentLanguage();
 
-    const dictionary =
-        translations[language] ||
-        translations.hy;
+    const dictionary = translations[lang] || translations.hy;
 
+    // Text
+    document.querySelectorAll("[data-i18n]").forEach(function (element) {
 
-    document.documentElement.lang =
-        language;
+        const key = element.getAttribute("data-i18n");
 
+        if (dictionary[key] !== undefined) {
+            element.textContent = dictionary[key];
+        }
 
-    document
-        .querySelectorAll("[data-i18n]")
-        .forEach(function(element) {
-
-            const key =
-                element.getAttribute(
-                    "data-i18n"
-                );
-
-            if (
-                dictionary[key] !== undefined
-            ) {
-                element.textContent =
-                    dictionary[key];
-            }
-
-        });
+    });
 
 
-    document
-        .querySelectorAll(
-            "[data-i18n-placeholder]"
-        )
-        .forEach(function(element) {
+    // Placeholder
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(function (element) {
 
-            const key =
-                element.getAttribute(
-                    "data-i18n-placeholder"
-                );
+        const key = element.getAttribute("data-i18n-placeholder");
 
-            if (
-                dictionary[key] !== undefined
-            ) {
-                element.placeholder =
-                    dictionary[key];
-            }
+        if (dictionary[key] !== undefined) {
+            element.placeholder = dictionary[key];
+        }
 
-        });
+    });
+
+
+    // Title
+    const titleElement = document.querySelector("[data-i18n-title]");
+
+    if (titleElement) {
+
+        const key = titleElement.getAttribute("data-i18n-title");
+
+        if (dictionary[key] !== undefined) {
+            document.title = dictionary[key];
+        }
+
+    }
 }
 
+
+// ==========================================
+// LANGUAGE BUTTONS
+// ==========================================
 
 function updateLanguageButtons() {
 
-    const language =
-        getCurrentLanguage();
+    const lang = getCurrentLanguage();
 
-
-    const hy =
-        document.getElementById("lang-hy");
-
-    const en =
-        document.getElementById("lang-en");
-
-    const ru =
-        document.getElementById("lang-ru");
-
+    const hy = document.getElementById("lang-hy");
+    const en = document.getElementById("lang-en");
+    const ru = document.getElementById("lang-ru");
 
     if (hy) {
-        hy.style.opacity =
-            language === "hy"
-                ? "1"
-                : "0.5";
+        hy.classList.toggle("active", lang === "hy");
     }
-
 
     if (en) {
-        en.style.opacity =
-            language === "en"
-                ? "1"
-                : "0.5";
+        en.classList.toggle("active", lang === "en");
     }
 
-
     if (ru) {
-        ru.style.opacity =
-            language === "ru"
-                ? "1"
-                : "0.5";
+        ru.classList.toggle("active", lang === "ru");
     }
 }
 
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+// ==========================================
+// GET TRANSLATION
+// ==========================================
 
-        const language =
-            getCurrentLanguage();
+function t(key) {
 
-        document.documentElement.lang =
-            language;
+    const lang = getCurrentLanguage();
 
-        applyTranslations();
+    const dictionary = translations[lang] || translations.hy;
 
-        updateLanguageButtons();
+    return dictionary[key] || key;
+}
 
-    }
-);
+
+// ==========================================
+// START
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const lang = getCurrentLanguage();
+
+    document.documentElement.lang = lang;
+
+    applyTranslations();
+
+    updateLanguageButtons();
+
+});
