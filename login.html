@@ -1,12 +1,134 @@
 <!DOCTYPE html>
 <html lang="hy">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Մուտք | SEVOYAN Luxury</title>
+<title>Մուտք | SEVOYAN Luxury</title>
 
-    <link rel="stylesheet" href="css/style.css?v=30">
+<link rel="stylesheet" href="css/style.css?v=80">
+
+<style>
+.login-page {
+    min-height: calc(100vh - 80px);
+    padding: 130px 20px 70px;
+    background: #0b0b0b;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 520px;
+    background: #111;
+    border: 2px solid #D4AF37;
+    border-radius: 14px;
+    padding: 45px 40px;
+    box-shadow: 0 0 35px rgba(212, 175, 55, 0.12);
+}
+
+.login-title {
+    text-align: center;
+    color: #D4AF37;
+    font-family: Cinzel, serif;
+    font-size: 38px;
+    margin: 0 0 35px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.login-form input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px 18px;
+    background: #181818;
+    color: #fff;
+    border: 1px solid #777;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+}
+
+.login-form input:focus {
+    border-color: #D4AF37;
+}
+
+.login-button {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #D4AF37;
+    border-radius: 8px;
+    background: #D4AF37;
+    color: #111;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.login-button:hover {
+    background: transparent;
+    color: #D4AF37;
+}
+
+.login-message {
+    text-align: center;
+    margin: 20px 0 10px;
+    min-height: 25px;
+    color: #fff;
+}
+
+.register-text {
+    text-align: center;
+    color: #ccc;
+    margin-top: 25px;
+    font-size: 16px;
+}
+
+.register-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #D4AF37;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+.back-home {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: #D4AF37;
+    text-decoration: none;
+}
+
+.back-home:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .login-page {
+        padding: 110px 15px 50px;
+    }
+
+    .login-box {
+        padding: 35px 22px;
+    }
+
+    .login-title {
+        font-size: 30px;
+    }
+}
+</style>
 </head>
 
 <body>
@@ -17,16 +139,30 @@
 
     <nav>
         <a href="index.html" data-i18n="home">Գլխավոր</a>
+
         <a href="shop.html" data-i18n="shop">Խանութ</a>
-        <a href="favorites.html" data-i18n="favorites">Սիրելիներ</a>
+
+        <a href="favorites.html" data-i18n="favorites">
+            Սիրելիներ
+        </a>
 
         <a href="cart.html">
-            🛒 <span data-i18n="cart">Զամբյուղ</span>
+            🛒
+            <span data-i18n="cart">Զամբյուղ</span>
             <span id="cart-count">0</span>
         </a>
 
-        <a href="about.html" data-i18n="about">Մեր մասին</a>
-        <a href="contact.html" data-i18n="contact">Կապ</a>
+        <a href="about.html" data-i18n="about">
+            Մեր մասին
+        </a>
+
+        <a href="contact.html" data-i18n="contact">
+            Կապ
+        </a>
+
+        <a href="login.html" data-i18n="login">
+            👤 Մուտք
+        </a>
     </nav>
 
     <div class="language-switcher">
@@ -38,34 +174,15 @@
 </header>
 
 
-<main style="
-    min-height:75vh;
-    padding-top:140px;
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-">
+<main class="login-page">
 
-    <div style="
-        width:90%;
-        max-width:450px;
-        background:#111;
-        border:1px solid #D4AF37;
-        border-radius:12px;
-        padding:35px;
-        box-sizing:border-box;
-    ">
+    <div class="login-box">
 
-        <h1 class="section-title"
-            style="text-align:center; margin-bottom:30px;"
-            data-i18n="loginTitle">
-
+        <h1 class="login-title" data-i18n="loginTitle">
             Մուտք գործել
-
         </h1>
 
-
-        <form id="login-form">
+        <form id="login-form" class="login-form">
 
             <input
                 type="email"
@@ -73,18 +190,7 @@
                 placeholder="Էլ․ փոստ"
                 data-i18n-placeholder="email"
                 required
-                style="
-                    width:100%;
-                    padding:14px;
-                    margin-bottom:18px;
-                    background:#181818;
-                    color:#fff;
-                    border:1px solid #555;
-                    border-radius:6px;
-                    box-sizing:border-box;
-                "
             >
-
 
             <input
                 type="password"
@@ -92,88 +198,72 @@
                 placeholder="Գաղտնաբառ"
                 data-i18n-placeholder="password"
                 required
-                style="
-                    width:100%;
-                    padding:14px;
-                    margin-bottom:20px;
-                    background:#181818;
-                    color:#fff;
-                    border:1px solid #555;
-                    border-radius:6px;
-                    box-sizing:border-box;
-                "
             >
-
 
             <button
                 type="submit"
-                class="btn-gold"
-                style="width:100%;"
-                data-i18n="loginButton">
-
+                class="login-button"
+                data-i18n="loginButton"
+            >
                 Մուտք գործել
-
             </button>
 
         </form>
 
-
-        <p
+        <div
             id="login-message"
-            style="
-                text-align:center;
-                margin-top:20px;
-                min-height:24px;
-            "
-        ></p>
+            class="login-message"
+        ></div>
 
 
-        <div style="
-            text-align:center;
-            margin-top:20px;
-        ">
+        <!-- ԳՐԱՆՑՈՒՄ -->
+
+        <div class="register-text">
+            <span data-i18n="noAccount">
+                Դեռ հաշիվ չունե՞ս։
+            </span>
+
+            <br>
 
             <a
-                href="index.html"
-                style="color:#D4AF37; text-decoration:none;"
-                data-i18n="backHome">
-
-                Վերադառնալ գլխավոր էջ
-
+                href="register.html"
+                class="register-link"
+                data-i18n="register"
+            >
+                Գրանցվել
             </a>
-
         </div>
+
+
+        <a
+            href="index.html"
+            class="back-home"
+            data-i18n="backHome"
+        >
+            ← Վերադառնալ գլխավոր էջ
+        </a>
 
     </div>
 
 </main>
 
 
-<footer style="
-    text-align:center;
-    padding:30px 20px;
-    border-top:1px solid #D4AF37;
-    background:#0b0b0b;
-">
-
-    <h3 style="color:#D4AF37;">
-        SEVOYAN Luxury
-    </h3>
-
-    <p data-i18n="premiumBrand">
-        Premium Fashion Brand
-    </p>
-
-    <p data-i18n="allRights">
-        © 2026 SEVOYAN Luxury. All rights reserved.
-    </p>
-
+<footer>
+    <div style="text-align:center;padding:30px 20px;">
+        <h3>SEVOYAN Luxury</h3>
+        <p>Premium Fashion Brand</p>
+        <p>© 2026 SEVOYAN Luxury. All rights reserved.</p>
+    </div>
 </footer>
 
 
-<script src="js/language.js?v=30"></script>
-<script src="js/cart.js?v=30"></script>
-<script src="js/login.js?v=30"></script>
+<script src="js/language.js?v=80"></script>
+
+<script src="js/cart.js?v=80"></script>
+
+<script src="js/login.js?v=80"></script>
+
+<script src="js/auth.js?v=80"></script>
 
 </body>
 </html>
