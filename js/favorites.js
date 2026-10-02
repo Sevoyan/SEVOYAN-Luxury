@@ -1,36 +1,76 @@
+// SEVOYAN Luxury - Favorites
+
 function getFavorites() {
-    return JSON.parse(localStorage.getItem("favorites")) || [];
+    try {
+        return JSON.parse(localStorage.getItem("favorites")) || [];
+    } catch (error) {
+        return [];
+    }
 }
 
 function saveFavorites(favorites) {
     localStorage.setItem("favorites", JSON.stringify(favorites));
 }
 
-function addToFavorites(name, price, image = "") {
-    const favorites = getFavorites();
 
-    const index = favorites.findIndex(item => item.name === name);
+// ============================
+// ADD TO FAVORITES
+// ============================
 
-    if (index === -1) {
-        favorites.push({
-            name: name,
-            price: price,
-            image: image
-        });
+function addToFavorites(name, price, image) {
 
-        saveFavorites(favorites);
+    let favorites = getFavorites();
 
-        alert("❤️ Ապրանքը ավելացվեց ընտրյալների մեջ");
-    } else {
-        favorites.splice(index, 1);
+    const exists = favorites.find(function(item) {
+        return item.name === name;
+    });
 
-        saveFavorites(favorites);
+    if (exists) {
 
-        alert("💔 Ապրանքը հեռացվեց ընտրյալներից");
+        const lang =
+            localStorage.getItem("language") || "hy";
+
+        const messages = {
+            hy: "❤️ Այս ապրանքն արդեն Սիրելիներում է",
+            en: "❤️ This product is already in Favorites",
+            ru: "❤️ Этот товар уже в Избранном"
+        };
+
+        alert(messages[lang] || messages.hy);
+
+        return;
     }
+
+    favorites.push({
+        name: name,
+        price: Number(price) || 0,
+        image: image || ""
+    });
+
+    saveFavorites(favorites);
+
+    const lang =
+        localStorage.getItem("language") || "hy";
+
+    const messages = {
+        hy: "❤️ Ապրանքը ավելացվեց Սիրելիներում",
+        en: "❤️ Product added to Favorites",
+        ru: "❤️ Товар добавлен в Избранное"
+    };
+
+    alert(messages[lang] || messages.hy);
+
+    renderFavorites();
 }
+
+
+// ============================
+// REMOVE
+// ============================
+
 function removeFavorite(index) {
-    const favorites = getFavorites();
+
+    let favorites = getFavorites();
 
     favorites.splice(index, 1);
 
@@ -39,52 +79,155 @@ function removeFavorite(index) {
     renderFavorites();
 }
 
+
+// ============================
+// RENDER
+// ============================
+
 function renderFavorites() {
-    const container = document.getElementById("favorites");
 
-    if (!container) return;
+    const container =
+        document.getElementById("favorites");
 
-    const favorites = getFavorites();
-
-    if (favorites.length === 0) {
-        container.innerHTML = `
-            <div class="empty-cart">
-                ❤️ Սիրելիների ցանկը դատարկ է
-            </div>
-        `;
+    if (!container) {
         return;
     }
 
-    let html = "";
+    const favorites = getFavorites();
 
-    favorites.forEach((item, index) => {
+    const lang =
+        localStorage.getItem("language") || "hy";
 
-        html += `
-            <div class="product-card">
 
-                ${item.image ? `
-                    <img
-                        src="${item.image}"
-                        alt="${item.name}"
-                        style="width:100%; max-width:250px;"
-                    >
-                ` : ""}
+    if (favorites.length === 0) {
 
-                <h3>${item.name}</h3>
+        const emptyText = {
+
+            hy: "❤️ Սիրելիներում ապրանքներ դեռ չկան",
+
+            en: "❤️ No favorite products yet",
+
+            ru: "❤️ В Избранном пока нет товаров"
+
+        };
+
+        container.innerHTML = `
+            <div class="favorites-empty">
+                ${emptyText[lang] || emptyText.hy}
+            </div>
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    favorites.forEach(function(item, index) {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "product-card";
+
+
+        card.innerHTML = `
+
+            <div class="product-image">
+
+                <img
+                    src="${item.image || ""}"
+                    alt="${item.name || ""}"
+                >
+
+            </div>
+
+
+            <div class="product-info">
+
+                <h3>
+                    ${item.name || ""}
+                </h3>
 
                 <p>
-                    Գին՝ ${Number(item.price).toLocaleString()} ֏
+                    ${Number(item.price || 0)} ֏
                 </p>
 
-                <button onclick="removeFavorite(${index})">
-                    🗑️ Ջնջել
+                <button
+                    type="button"
+                    class="add-cart favorite-remove"
+                    data-index="${index}"
+                >
+                    ${getFavoriteRemoveText(lang)}
                 </button>
 
             </div>
         `;
+
+
+        container.appendChild(card);
+
     });
 
-    container.innerHTML = html;
+
+    container
+        .querySelectorAll(".favorite-remove")
+        .forEach(function(button) {
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    const index =
+                        Number(button.dataset.index);
+
+                    removeFavorite(index);
+
+                }
+            );
+
+        });
+
 }
 
-document.addEventListener("DOMContentLoaded", renderFavorites);
+
+// ============================
+// TEXT
+// ============================
+
+function getFavoriteRemoveText(lang) {
+
+    const texts = {
+
+        hy: "❌ Հեռացնել",
+
+        en: "❌ Remove",
+
+        ru: "❌ Удалить"
+
+    };
+
+    return texts[lang] || texts.hy;
+}
+
+
+// ============================
+// LANGUAGE CHANGE SUPPORT
+// ============================
+
+function loadFavorites() {
+    renderFavorites();
+}
+
+
+// ============================
+// START
+// ============================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+        renderFavorites();
+    }
+);
