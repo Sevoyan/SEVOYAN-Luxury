@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="hy">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Գրանցվել | SEVOYAN Luxury</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css?v=60"
+    >
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        SEVOYAN
+    </div>
+
+    <nav>
+
+        <a href="index.html">Գլխավոր</a>
+
+        <a href="shop.html">Խանութ</a>
+
+        <a href="favorites.html">Սիրելիներ</a>
+
+        <a href="cart.html">
+            🛒 Զամբյուղ
+            <span id="cart-count">0</span>
+        </a>
+
+        <a href="about.html">
+            Մեր մասին
+        </a>
+
+        <a href="contact.html">
+            Կապ
+        </a>
+
+        <a href="login.html">
+            👤 Մուտք
+        </a>
+
+    </nav>
+
+    <div class="language-switcher">
+
+        <button onclick="changeLanguage('hy')">
+            🇦🇲
+        </button>
+
+        <button onclick="changeLanguage('en')">
+            🇬🇧
+        </button>
+
+        <button onclick="changeLanguage('ru')">
+            🇷🇺
+        </button>
+
+    </div>
+
+</header>
+
+
+<main
+    style="
+        min-height:70vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        padding:120px 20px 70px;
+    "
+
+
+    <div
+        style="
+            width:100%;
+            max-width:540px;
+            padding:40px;
+            border:2px solid #D4AF37;
+            border-radius:18px;
+            background:#111;
+            box-sizing:border-box;
+        "
+    >
+
+        <h1
+            style="
+                text-align:center;
+                color:#D4AF37;
+                margin-bottom:30px;
+            "
+        >
+            Գրանցվել
+        </h1>
+
+
+        <form id="register-form">
+
+            <input
+                type="text"
+                id="register-name"
+                placeholder="Անուն"
+                required
+                style="
+                    width:100%;
+                    padding:15px;
+                    margin-bottom:15px;
+                    box-sizing:border-box;
+                "
+            >
+
+
+            <input
+                type="email"
+                id="register-email"
+                placeholder="Էլ․ փոստ"
+                required
+                style="
+                    width:100%;
+                    padding:15px;
+                    margin-bottom:15px;
+                    box-sizing:border-box;
+                "
+            >
+
+
+            <input
+                type="password"
+                id="register-password"
+                placeholder="Գաղտնաբառ"
+                minlength="6"
+                required
+                style="
+                    width:100%;
+                    padding:15px;
+                    margin-bottom:15px;
+                    box-sizing:border-box;
+                "
+            >
+
+
+            <input
+                type="password"
+                id="register-password-confirm"
+                placeholder="Կրկնել գաղտնաբառը"
+                minlength="6"
+                required
+                style="
+                    width:100%;
+                    padding:15px;
+                    margin-bottom:20px;
+                    box-sizing:border-box;
+                "
+            >
+
+
+            <button
+                type="submit"
+                class="btn-gold"
+                style="
+                    width:100%;
+                    padding:15px;
+                    cursor:pointer;
+                "
+            >
+                Գրանցվել
+            </button>
+
+        </form>
+
+
+        <p
+            id="register-message"
+            style="
+                text-align:center;
+                margin-top:20px;
+                min-height:25px;
+            "
+        ></p>
+
+
+        <p
+            style="
+                text-align:center;
+                margin-top:25px;
+            "
+        >
+            Արդեն ունե՞ք հաշիվ։
+            <a
+                href="login.html"
+                style="color:#D4AF37;"
+            >
+                Մուտք գործել
+            </a>
+        </p>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div style="text-align:center;padding:30px;">
+
+        <h3>SEVOYAN Luxury</h3>
+
+        <p>
+            Premium Fashion Brand
+        </p>
+
+        <p>
+            © 2026 SEVOYAN Luxury.
+            All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<script src="js/language.js?v=60"></script>
+
+<script src="js/cart.js?v=60"></script>
+
+<script src="js/register.js?v=60"></script>
+
+<script src="js/auth.js?v=60"></script>
+
+</body>
+
+</html>
