@@ -14,12 +14,59 @@
 
     <link
         rel="stylesheet"
-        href="css/style.css"
+        href="css/style.css?v=51"
     >
+
+    <style>
+
+        /* =================================
+           HERO IMAGE FIX
+        ================================= */
+
+        .hero {
+
+            min-height: 100vh;
+
+            padding-top: 80px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            background-image:
+                linear-gradient(
+                    rgba(0,0,0,0.25),
+                    rgba(0,0,0,0.35)
+                ),
+                url("https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1800&auto=format&fit=crop");
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+        }
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            padding: 20px;
+        }
+
+    </style>
 
 </head>
 
+
 <body>
+
 
 <header class="header">
 
@@ -30,34 +77,65 @@
         SEVOYAN
     </a>
 
+
     <nav>
 
-        <a href="index.html" data-i18n="home">
+        <a
+            href="index.html"
+            data-i18n="home"
+        >
             🏠 Գլխավոր
         </a>
 
-        <a href="shop.html" data-i18n="shop">
+
+        <a
+            href="shop.html"
+            data-i18n="shop"
+        >
             🛍 Խանութ
         </a>
 
-        <a href="favorites.html" data-i18n="favorites">
+
+        <a
+            href="favorites.html"
+            data-i18n="favorites"
+        >
             ❤️ Սիրելիներ
         </a>
 
+
         <a href="cart.html">
-            🛒 <span data-i18n="cart">Զամբյուղ</span>
-            <span id="cart-count">0</span>
+
+            🛒
+
+            <span data-i18n="cart">
+                Զամբյուղ
+            </span>
+
+            <span id="cart-count">
+                0
+            </span>
+
         </a>
 
-        <a href="about.html" data-i18n="about">
+
+        <a
+            href="about.html"
+            data-i18n="about"
+        >
             💎 Մեր մասին
         </a>
 
-        <a href="contact.html" data-i18n="contact">
+
+        <a
+            href="contact.html"
+            data-i18n="contact"
+        >
             📞 Կապ
         </a>
 
     </nav>
+
 
     <div class="language-switcher">
 
@@ -69,6 +147,7 @@
             🇦🇲 HY
         </button>
 
+
         <button
             id="lang-en"
             type="button"
@@ -76,6 +155,7 @@
         >
             🇬🇧 EN
         </button>
+
 
         <button
             id="lang-ru"
@@ -90,7 +170,10 @@
 </header>
 
 
-<!-- HERO -->
+
+<!-- =========================
+     HERO
+========================= -->
 
 <section class="hero">
 
@@ -100,13 +183,16 @@
             SEVOYAN LUXURY
         </p>
 
+
         <h1 data-i18n="heroTitle">
             Շքեղությունը վերաիմաստավորված
         </h1>
 
+
         <p data-i18n="heroText">
             Բացահայտիր նորաձևության նոր մակարդակը
         </p>
+
 
         <div class="hero-buttons">
 
@@ -117,6 +203,7 @@
             >
                 Գնել հիմա
             </a>
+
 
             <a
                 href="shop.html"
@@ -133,7 +220,10 @@
 </section>
 
 
-<!-- PRODUCTS -->
+
+<!-- =========================
+     PRODUCTS
+========================= -->
 
 <section class="featured">
 
@@ -143,6 +233,7 @@
     >
         💎 Մեր հավաքածուն
     </h2>
+
 
     <div
         class="products"
@@ -154,6 +245,7 @@
         </p>
 
     </div>
+
 
     <div
         style="
@@ -175,7 +267,10 @@
 </section>
 
 
-<!-- FOOTER -->
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer class="footer">
 
@@ -183,28 +278,41 @@
         SEVOYAN Luxury
     </h3>
 
+
     <p data-i18n="premiumBrand">
         Premium Fashion Brand
     </p>
 
+
     <p>
+
         © 2026 SEVOYAN Luxury.
+
         <span data-i18n="allRights">
             All rights reserved.
         </span>
+
     </p>
 
 </footer>
 
 
-<!-- JAVASCRIPT -->
 
-<script src="js/language.js?v=30"></script>
+<!-- =========================
+     JAVASCRIPT
+========================= -->
 
-<script src="js/products.js?v=30"></script>
+<script src="js/language.js?v=51"></script>
 
-<script src="js/cart.js?v=30"></script>
+<script src="js/favorites.js?v=51"></script>
+
+<script src="js/products.js?v=51"></script>
+
+<script src="js/cart.js?v=51"></script>
+
 
 </body>
 
 </html>
+
+photo-1490481651871-ab68de25d43d
