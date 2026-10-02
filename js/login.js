@@ -12,151 +12,102 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!form) return;
 
-
     form.addEventListener("submit", async function (event) {
 
         event.preventDefault();
 
-
-        const emailElement =
+        const emailInput =
             document.getElementById("login-email");
 
-        const passwordElement =
+        const passwordInput =
             document.getElementById("login-password");
 
-
-        if (!emailElement || !passwordElement) {
+        if (!emailInput || !passwordInput) {
             message.textContent =
                 "❌ Մուտքի դաշտերը չեն գտնվել։";
             return;
         }
 
-
         const email =
-            emailElement.value.trim();
+            emailInput.value.trim();
 
         const password =
-            passwordElement.value;
-
+            passwordInput.value;
 
         if (!email || !password) {
-
             message.textContent =
                 "❌ Լրացրեք email-ը և գաղտնաբառը։";
-
             return;
         }
-
 
         message.textContent =
             "⏳ Մուտք է կատարվում...";
 
-
         try {
 
-            const response =
-                await fetch(LOGIN_URL, {
+            const response = await fetch(LOGIN_URL, {
 
-                    method: "POST",
+                method: "POST",
 
-                    headers: {
-                        "apikey": SUPABASE_KEY,
-                        "Content-Type":
-                            "application/json",
-                        "Accept":
-                            "application/json"
-                    },
+                headers: {
+                    "apikey": SUPABASE_KEY,
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
 
-                    body: JSON.stringify({
-                        email: email,
-                        password: password
-                    })
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
 
-                });
+            });
 
-
-            const data =
-                await response.json();
-
+            const data = await response.json();
 
             if (!response.ok) {
 
-                let errorMessage =
-                    "Email-ը կամ գաղտնաբառը սխալ է։";
+                throw new Error(
+                    data.error_description ||
+                    data.msg ||
+                    data.message ||
+                    "Email-ը կամ գաղտնաբառը սխալ է։"
+                );
 
-
-                if (data.error_description) {
-                    errorMessage =
-                        data.error_description;
-                }
-                else if (data.msg) {
-                    errorMessage =
-                        data.msg;
-                }
-                else if (data.message) {
-                    errorMessage =
-                        data.message;
-                }
-
-
-                throw new Error(errorMessage);
             }
-
-
-            // Պահպանում ենք օգտատիրոջ տվյալները
 
             localStorage.setItem(
                 "user",
                 JSON.stringify({
                     id: data.user?.id || "",
-                    email:
-                        data.user?.email || email
+                    email: data.user?.email || email
                 })
             );
-
-
-            // Supabase session
 
             localStorage.setItem(
                 "access_token",
                 data.access_token
             );
 
-
             if (data.refresh_token) {
-
                 localStorage.setItem(
                     "refresh_token",
                     data.refresh_token
                 );
-
             }
-
 
             message.textContent =
                 "✅ Մուտքը հաջողությամբ կատարվեց։";
 
-
             setTimeout(function () {
-
-                window.location.href =
-                    "index.html";
-
+                window.location.href = "index.html";
             }, 700);
 
+        } catch (error) {
 
-        }
-        catch (error) {
-
-            console.error(
-                "LOGIN ERROR:",
-                error
-            );
-
+            console.error("LOGIN ERROR:", error);
 
             message.textContent =
                 "❌ " + error.message;
-
         }
 
     });
