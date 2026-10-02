@@ -1,1 +1,935 @@
+<!DOCTYPE html>
+<html lang="hy">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Ապրանք | SEVOYAN Luxury</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css?v=70"
+    >
+
+    <style>
+
+        .product-page {
+            min-height: 100vh;
+            padding: 140px 20px 80px;
+            background: #0b0b0b;
+        }
+
+        .product-detail {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .product-gallery {
+            width: 100%;
+        }
+
+        .product-main-image {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 1px solid #D4AF37;
+            background: #111;
+            display: block;
+        }
+
+        .product-thumbnails {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .product-thumb {
+            width: 85px;
+            height: 85px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #555;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .product-thumb:hover {
+            border-color: #D4AF37;
+        }
+
+        .product-info {
+            padding: 20px 0;
+        }
+
+        .product-title {
+            color: #D4AF37;
+            font-family: Cinzel, serif;
+            font-size: 42px;
+            margin: 0 0 20px;
+        }
+
+        .product-price {
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .product-description {
+            color: #ddd;
+            font-size: 17px;
+            line-height: 1.8;
+            margin-bottom: 35px;
+        }
+
+        .product-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 420px;
+        }
+
+        .product-action-btn {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .add-cart-btn {
+            background: #D4AF37;
+            color: #111;
+            border: 2px solid #D4AF37;
+        }
+
+        .add-cart-btn:hover {
+            background: transparent;
+            color: #D4AF37;
+        }
+
+        .favorite-btn {
+            background: transparent;
+            color: #D4AF37;
+            border: 2px solid #D4AF37;
+        }
+
+        .favorite-btn:hover {
+            background: #D4AF37;
+            color: #111;
+        }
+
+        .back-shop {
+            display: inline-block;
+            margin-top: 35px;
+            color: #D4AF37;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back-shop:hover {
+            text-decoration: underline;
+        }
+
+        .loading-product {
+            text-align: center;
+            color: #D4AF37;
+            font-size: 22px;
+            padding: 100px 20px;
+        }
+
+        .error-product {
+            text-align: center;
+            color: #fff;
+            font-size: 20px;
+            padding: 100px 20px;
+        }
+
+        @media (max-width: 800px) {
+
+            .product-page {
+                padding: 110px 15px 50px;
+            }
+
+            .product-detail {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .product-main-image {
+                height: 430px;
+            }
+
+            .product-title {
+                font-size: 32px;
+            }
+
+            .product-price {
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="logo">
+        SEVOYAN
+    </div>
+
+
+    <nav>
+
+        <a
+            href="index.html"
+            data-i18n="home"
+        >
+            Գլխավոր
+        </a>
+
+        <a
+            href="shop.html"
+            data-i18n="shop"
+        >
+            Խանութ
+        </a>
+
+        <a
+            href="favorites.html"
+            data-i18n="favorites"
+        >
+            Սիրելիներ
+        </a>
+
+        <a href="cart.html">
+
+            🛒
+
+            <span data-i18n="cart">
+                Զամբյուղ
+            </span>
+
+            <span id="cart-count">
+                0
+            </span>
+
+        </a>
+
+        <a
+            href="about.html"
+            data-i18n="about"
+        >
+            Մեր մասին
+        </a>
+
+        <a
+            href="contact.html"
+            data-i18n="contact"
+        >
+            Կապ
+        </a>
+
+        <a
+            href="login.html"
+            data-i18n="login"
+        >
+            👤 Մուտք
+        </a>
+
+    </nav>
+
+
+    <div class="language-switcher">
+
+        <button
+            id="lang-hy"
+            onclick="changeLanguage('hy')"
+        >
+            🇦🇲
+        </button>
+
+        <button
+            id="lang-en"
+            onclick="changeLanguage('en')"
+        >
+            🇬🇧
+        </button>
+
+        <button
+            id="lang-ru"
+            onclick="changeLanguage('ru')"
+        >
+            🇷🇺
+        </button>
+
+    </div>
+
+</header>
+
+
+
+<main class="product-page">
+
+    <div
+        id="product-loading"
+        class="loading-product"
+    >
+        Բեռնվում է...
+    </div>
+
+
+    <div
+        id="product-error"
+        class="error-product"
+        style="display:none;"
+    >
+        Ապրանքը չի գտնվել։
+    </div>
+
+
+    <div
+        id="product-detail"
+        class="product-detail"
+        style="display:none;"
+    >
+
+
+        <!-- GALLERY -->
+
+        <div class="product-gallery">
+
+            <img
+                id="product-main-image"
+                class="product-main-image"
+                src=""
+                alt="Product"
+            >
+
+
+            <div
+                id="product-thumbnails"
+                class="product-thumbnails"
+            ></div>
+
+        </div>
+
+
+
+        <!-- INFORMATION -->
+
+        <div class="product-info">
+
+            <h1
+                id="product-title"
+                class="product-title"
+            ></h1>
+
+
+            <div
+                id="product-price"
+                class="product-price"
+            ></div>
+
+
+            <p
+                id="product-description"
+                class="product-description"
+            >
+                SEVOYAN Luxury-ի բացառիկ արտադրանք։
+            </p>
+
+
+            <div class="product-actions">
+
+                <button
+                    id="add-cart"
+                    class="product-action-btn add-cart-btn"
+                >
+                    🛒 Ավելացնել զամբյուղ
+                </button>
+
+
+                <button
+                    id="add-favorite"
+                    class="product-action-btn favorite-btn"
+                >
+                    ❤️ Ավելացնել սիրելիների մեջ
+                </button>
+
+            </div>
+
+
+            <a
+                href="shop.html"
+                class="back-shop"
+            >
+                ← Վերադառնալ խանութ
+            </a>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<footer>
+
+    <div style="
+        text-align:center;
+        padding:30px 20px;
+    ">
+
+        <h3>
+            SEVOYAN Luxury
+        </h3>
+
+        <p>
+            Premium Fashion Brand
+        </p>
+
+        <p>
+            © 2026 SEVOYAN Luxury.
+            All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<script src="js/language.js?v=70"></script>
+
+<script src="js/cart.js?v=70"></script>
+
+<script src="js/favorites.js?v=70"></script>
+
+<script src="js/auth.js?v=70"></script>
+
+
+
+<script>
+
+const SUPABASE_URL =
+    "https://ultbqgkrckapevjllqwe.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_N0wWlRo2NFdT_ifDgJhAYQ_Ol5yeIfW";
+
+const PRODUCTS_API =
+    SUPABASE_URL + "/rest/v1/products";
+
+
+
+function getLanguage() {
+
+    return localStorage.getItem("language") || "hy";
+
+}
+
+
+
+function getProductName(product) {
+
+    const lang = getLanguage();
+
+    if (lang === "en") {
+
+        return product.name_en ||
+               product.name ||
+               "";
+
+    }
+
+    if (lang === "ru") {
+
+        return product.name_ru ||
+               product.name ||
+               "";
+
+    }
+
+    return product.name || "";
+
+}
+
+
+
+function getImages(product) {
+
+    if (!product.image) {
+        return [];
+    }
+
+
+    if (Array.isArray(product.image)) {
+        return product.image;
+    }
+
+
+    try {
+
+        const parsed =
+            JSON.parse(product.image);
+
+        if (Array.isArray(parsed)) {
+            return parsed;
+        }
+
+    } catch (error) {
+        // Not JSON
+    }
+
+
+    return String(product.image)
+        .split("\n")
+        .map(function (item) {
+            return item.trim();
+        })
+        .filter(function (item) {
+            return item !== "";
+        });
+
+}
+
+
+
+function formatPrice(price) {
+
+    const number =
+        Number(price) || 0;
+
+    return number.toLocaleString("en-US") +
+           " ֏";
+
+}
+
+
+
+async function loadProduct() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const productId =
+        params.get("id");
+
+
+    if (!productId) {
+
+        showProductError();
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                PRODUCTS_API +
+                "?id=eq." +
+                encodeURIComponent(productId) +
+                "&select=*",
+                {
+                    headers: {
+                        "apikey":
+                            SUPABASE_KEY,
+
+                        "Authorization":
+                            "Bearer " +
+                            SUPABASE_KEY
+                    }
+                }
+            );
+
+
+        if (!response.ok) {
+            throw new Error(
+                "Product request failed"
+            );
+        }
+
+
+        const products =
+            await response.json();
+
+
+        if (
+            !products ||
+            products.length === 0
+        ) {
+
+            showProductError();
+            return;
+
+        }
+
+
+        renderProduct(
+            products[0]
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "PRODUCT ERROR:",
+            error
+        );
+
+        showProductError();
+
+    }
+
+}
+
+
+
+function renderProduct(product) {
+
+    const loading =
+        document.getElementById(
+            "product-loading"
+        );
+
+    const detail =
+        document.getElementById(
+            "product-detail"
+        );
+
+
+    const title =
+        document.getElementById(
+            "product-title"
+        );
+
+    const price =
+        document.getElementById(
+            "product-price"
+        );
+
+    const description =
+        document.getElementById(
+            "product-description"
+        );
+
+    const mainImage =
+        document.getElementById(
+            "product-main-image"
+        );
+
+    const thumbnails =
+        document.getElementById(
+            "product-thumbnails"
+        );
+
+
+    const productName =
+        getProductName(product);
+
+
+    const images =
+        getImages(product);
+
+
+    title.textContent =
+        productName;
+
+
+    price.textContent =
+        formatPrice(product.price);
+
+
+    description.textContent =
+        product.description ||
+        "SEVOYAN Luxury-ի բացառիկ արտադրանք։";
+
+
+    if (images.length > 0) {
+
+        mainImage.src =
+            images[0];
+
+        mainImage.alt =
+            productName;
+
+
+        thumbnails.innerHTML = "";
+
+
+        images.forEach(function (image) {
+
+            const thumb =
+                document.createElement("img");
+
+
+            thumb.src = image;
+
+            thumb.alt = productName;
+
+            thumb.className =
+                "product-thumb";
+
+
+            thumb.addEventListener(
+                "click",
+                function () {
+
+                    mainImage.src =
+                        image;
+
+                }
+            );
+
+
+            thumbnails.appendChild(
+                thumb
+            );
+
+        });
+
+    } else {
+
+        mainImage.style.display =
+            "none";
+
+    }
+
+
+
+    document
+        .getElementById("add-cart")
+        .onclick = function () {
+
+            if (
+                typeof addToCart ===
+                "function"
+            ) {
+
+                addToCart(
+                    productName,
+                    product.price,
+                    images[0] || ""
+                );
+
+            } else {
+
+                addProductToCart(
+                    productName,
+                    product.price,
+                    images[0] || ""
+                );
+
+            }
+
+        };
+
+
+
+    document
+        .getElementById("add-favorite")
+        .onclick = function () {
+
+            if (
+                typeof addToFavorites ===
+                "function"
+            ) {
+
+                addToFavorites(
+                    productName,
+                    product.price,
+                    images[0] || ""
+                );
+
+            }
+
+        };
+
+
+
+    loading.style.display =
+        "none";
+
+
+    detail.style.display =
+        "grid";
+
+}
+
+
+
+function addProductToCart(
+    name,
+    price,
+    image
+) {
+
+    let cart = [];
+
+
+    try {
+
+        cart =
+            JSON.parse(
+                localStorage.getItem("cart")
+            ) || [];
+
+    } catch (error) {
+
+        cart = [];
+
+    }
+
+
+    const existing =
+        cart.find(function (item) {
+
+            return item.name === name;
+
+        });
+
+
+    if (existing) {
+
+        existing.qty =
+            (existing.qty || 1) + 1;
+
+    } else {
+
+        cart.push({
+            name: name,
+            price: price,
+            image: image,
+            qty: 1
+        });
+
+    }
+
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+
+    updateCartCountLocal();
+
+
+    alert(
+        getLanguage() === "en"
+            ? "✅ Added to cart"
+            : getLanguage() === "ru"
+                ? "✅ Товар добавлен в корзину"
+                : "✅ Ապրանքը ավելացվեց զամբյուղ"
+    );
+
+}
+
+
+
+function updateCartCountLocal() {
+
+    const cartCount =
+        document.getElementById(
+            "cart-count"
+        );
+
+
+    if (!cartCount) return;
+
+
+    let cart = [];
+
+
+    try {
+
+        cart =
+            JSON.parse(
+                localStorage.getItem("cart")
+            ) || [];
+
+    } catch (error) {
+
+        cart = [];
+
+    }
+
+
+    const count =
+        cart.reduce(
+            function (total, item) {
+
+                return total +
+                    Number(item.qty || 1);
+
+            },
+            0
+        );
+
+
+    cartCount.textContent =
+        count;
+
+}
+
+
+
+function showProductError() {
+
+    document.getElementById(
+        "product-loading"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "product-error"
+    ).style.display = "block";
+
+}
+
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadProduct();
+
+        updateCartCountLocal();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
