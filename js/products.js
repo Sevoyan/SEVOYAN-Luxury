@@ -1,64 +1,13 @@
-const SUPABASE_URL =
-    "https://ultbqgkrckapevjllqwe.supabase.co";
+const SUPABASE_URL = "https://ultbqgkrckapevjllqwe.supabase.co";
+const SUPABASE_KEY = "sb_publishable_N0wWlRo2NFdT_ifDgJhAYQ_Ol5yeIfW";
 
-const SUPABASE_KEY =
-    "sb_publishable_N0wWlRo2NFdT_ifDgJhAYQ_Ol5yeIfW";
+const PRODUCTS_API = SUPABASE_URL + "/rest/v1/products";
 
-const PRODUCTS_API =
-    SUPABASE_URL + "/rest/v1/products";
-
-
-// =========================
-// CURRENT LANGUAGE
-// =========================
 
 function getCurrentLanguage() {
-
     return localStorage.getItem("language") || "hy";
-
 }
 
-
-// =========================
-// PRODUCT NAME
-// =========================
-
-function getProductName(product) {
-
-    const language =
-        getCurrentLanguage();
-
-
-    if (
-        language === "en" &&
-        product.name_en &&
-        product.name_en.trim() !== ""
-    ) {
-
-        return product.name_en;
-
-    }
-
-
-    if (
-        language === "ru" &&
-        product.name_ru &&
-        product.name_ru.trim() !== ""
-    ) {
-
-        return product.name_ru;
-
-    }
-
-
-    return product.name || "";
-
-}
-
-
-// =========================
-// GET IMAGES
-// =========================
 
 function getImages(product) {
 
@@ -66,126 +15,101 @@ function getImages(product) {
         return [];
     }
 
-
     if (Array.isArray(product.image)) {
         return product.image;
     }
 
-
     try {
-
-        const parsed =
-            JSON.parse(product.image);
+        const parsed = JSON.parse(product.image);
 
         if (Array.isArray(parsed)) {
             return parsed;
         }
 
-    }
-
-    catch (error) {
-    }
-
+    } catch (error) {}
 
     return String(product.image)
         .split("\n")
-        .map(function (item) {
+        .map(function(item) {
             return item.trim();
         })
-        .filter(function (item) {
+        .filter(function(item) {
             return item !== "";
         });
-
 }
 
 
-// =========================
-// TRANSLATED TEXT
-// =========================
+function getProductName(product) {
 
-function getText(key) {
+    const language = getCurrentLanguage();
 
-    const language =
-        getCurrentLanguage();
+    if (language === "en") {
+        return product.name_en || product.name || "";
+    }
 
+    if (language === "ru") {
+        return product.name_ru || product.name || "";
+    }
+
+    return product.name || "";
+}
+
+
+function getProductText(key) {
+
+    const language = getCurrentLanguage();
 
     const texts = {
 
         hy: {
-
-            addCart:
-                "🛒 Ավելացնել զամբյուղ",
-
-            noProducts:
-                "Ապրանքներ դեռ չկան։",
-
-            noHomeProducts:
-                "Գլխավոր էջում ցուցադրվող ապրանքներ դեռ չկան։"
-
+            addToCart: "🛒 Ավելացնել զամբյուղ",
+            noProducts: "Ապրանքներ դեռ չկան։",
+            noFeatured: "Գլխավոր էջում ցուցադրվող ապրանքներ դեռ չկան։",
+            loadError: "❌ Չհաջողվեց բեռնել ապրանքները"
         },
-
 
         en: {
-
-            addCart:
-                "🛒 Add to cart",
-
-            noProducts:
-                "No products yet.",
-
-            noHomeProducts:
-                "No featured products yet."
-
+            addToCart: "🛒 Add to Cart",
+            noProducts: "No products available yet.",
+            noFeatured: "No featured products available yet.",
+            loadError: "❌ Failed to load products"
         },
 
-
         ru: {
-
-            addCart:
-                "🛒 Добавить в корзину",
-
-            noProducts:
-                "Товаров пока нет.",
-
-            noHomeProducts:
-                "Избранных товаров пока нет."
-
+            addToCart: "🛒 Добавить в корзину",
+            noProducts: "Товаров пока нет.",
+            noFeatured: "На главной странице пока нет товаров.",
+            loadError: "❌ Не удалось загрузить товары"
         }
 
     };
 
-
-    return texts[language][key] ||
-           texts.hy[key];
-
+    return (texts[language] || texts.hy)[key];
 }
 
 
-// =========================
-// LOAD PRODUCTS
-// =========================
-
 async function loadProducts() {
 
-    const container =
-        document.getElementById("products");
-
+    const container = document.getElementById("products");
 
     if (!container) {
         return;
     }
 
+    container.innerHTML = `
+        <p style="text-align:center;">
+            ${getProductLoadingText()}
+        </p>
+    `;
 
     try {
 
+        const path = window.location.pathname.toLowerCase();
+
         const isHome =
-            window.location.pathname
-                .toLowerCase()
-                .includes("index.html") ||
-            window.location.pathname === "/" ||
-            window.location.pathname.endsWith(
-                "/SEVOYAN-Luxury/"
-            );
+            path.endsWith("/") ||
+            path.endsWith("/index.html") ||
+            path.includes("/index.html");
 
 
         let url =
@@ -202,292 +126,266 @@ async function loadProducts() {
         }
 
 
-        const response =
-            await fetch(
-                url,
-                {
-                    headers: {
-                        "apikey":
-                            SUPABASE_KEY
-                    }
-                }
-            );
+        const response = await fetch(url, {
+
+            method: "GET",
+
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": "Bearer " + SUPABASE_KEY
+            }
+
+        });
 
 
         if (!response.ok) {
 
-            const error =
-                await response.text();
+            const errorText = await response.text();
 
-            throw new Error(error);
+            throw new Error(errorText);
 
         }
 
 
-        const products =
-            await response.json();
+        const products = await response.json();
 
 
         container.innerHTML = "";
 
 
-        if (products.length === 0) {
+        if (!products || products.length === 0) {
 
-            container.innerHTML =
-                "<p>" +
-                (
-                    isHome
-                        ? getText("noHomeProducts")
-                        : getText("noProducts")
-                ) +
-                "</p>";
+            const message =
+                isHome
+                    ? getProductText("noFeatured")
+                    : getProductText("noProducts");
+
+            container.innerHTML = `
+                <p style="
+                    width:100%;
+                    text-align:center;
+                    color:#D4AF37;
+                    font-size:18px;
+                ">
+                    ${message}
+                </p>
+            `;
 
             return;
-
         }
 
 
-        products.forEach(function (product) {
+        products.forEach(function(product) {
 
-            const card =
-                document.createElement("div");
-
-            card.className =
-                "product-card";
-
-
-            const images =
-                getImages(product);
-
-
-            let currentImage = 0;
-
-
-            const imageBox =
-                document.createElement("div");
-
-            imageBox.className =
-                "product-image";
-
-
-            const image =
-                document.createElement("img");
-
-            image.src =
-                images[0] || "";
-
-            image.alt =
-                getProductName(product);
-
-
-            imageBox.appendChild(image);
-
-
-            // =========================
-            // GALLERY
-            // =========================
-
-            if (images.length > 1) {
-
-                const left =
-                    document.createElement("button");
-
-                left.className =
-                    "gallery-arrow gallery-left";
-
-                left.type =
-                    "button";
-
-                left.textContent =
-                    "‹";
-
-
-                const right =
-                    document.createElement("button");
-
-                right.className =
-                    "gallery-arrow gallery-right";
-
-                right.type =
-                    "button";
-
-                right.textContent =
-                    "›";
-
-
-                const counter =
-                    document.createElement("span");
-
-                counter.className =
-                    "gallery-counter";
-
-                counter.textContent =
-                    "1/" + images.length;
-
-
-                left.addEventListener(
-                    "click",
-                    function () {
-
-                        currentImage--;
-
-                        if (currentImage < 0) {
-
-                            currentImage =
-                                images.length - 1;
-
-                        }
-
-
-                        image.src =
-                            images[currentImage];
-
-
-                        counter.textContent =
-                            (currentImage + 1) +
-                            "/" +
-                            images.length;
-
-                    }
-                );
-
-
-                right.addEventListener(
-                    "click",
-                    function () {
-
-                        currentImage++;
-
-                        if (
-                            currentImage >=
-                            images.length
-                        ) {
-
-                            currentImage = 0;
-
-                        }
-
-
-                        image.src =
-                            images[currentImage];
-
-
-                        counter.textContent =
-                            (currentImage + 1) +
-                            "/" +
-                            images.length;
-
-                    }
-                );
-
-
-                imageBox.appendChild(left);
-                imageBox.appendChild(right);
-                imageBox.appendChild(counter);
-
-            }
-
-
-            // =========================
-            // INFO
-            // =========================
-
-            const info =
-                document.createElement("div");
-
-            info.className =
-                "product-info";
-
-
-            const name =
-                document.createElement("h3");
-
-            name.textContent =
-                getProductName(product);
-
-
-            const price =
-                document.createElement("p");
-
-            price.textContent =
-                Number(
-                    product.price || 0
-                ) +
-                " ֏";
-
-
-            const button =
-                document.createElement("button");
-
-            button.type =
-                "button";
-
-            button.className =
-                "add-cart";
-
-            button.textContent =
-                getText("addCart");
-
-
-            button.addEventListener(
-                "click",
-                function () {
-
-                    if (
-                        typeof addToCart ===
-                        "function"
-                    ) {
-
-                        addToCart(
-                            getProductName(product),
-                            Number(
-                                product.price || 0
-                            ),
-                            images[0] || ""
-                        );
-
-                    }
-
-                }
-            );
-
-
-            info.appendChild(name);
-            info.appendChild(price);
-            info.appendChild(button);
-
-
-            card.appendChild(imageBox);
-            card.appendChild(info);
-
-
-            container.appendChild(card);
+            createProductCard(product, container);
 
         });
 
-    }
 
-    catch (error) {
+    } catch (error) {
 
-        console.error(
-            "PRODUCT LOAD ERROR:",
-            error
-        );
+        console.error("PRODUCT LOAD ERROR:", error);
 
-
-        container.innerHTML =
-            "<p>❌ Չհաջողվեց բեռնել ապրանքները</p>";
+        container.innerHTML = `
+            <p style="
+                width:100%;
+                text-align:center;
+                color:#D4AF37;
+                font-size:18px;
+            ">
+                ${getProductText("loadError")}
+            </p>
+        `;
 
     }
 
 }
 
 
-// =========================
-// START
-// =========================
+function getProductLoadingText() {
+
+    const language = getCurrentLanguage();
+
+    if (language === "en") {
+        return "Loading...";
+    }
+
+    if (language === "ru") {
+        return "Загрузка...";
+    }
+
+    return "Բեռնվում է...";
+}
+
+
+function createProductCard(product, container) {
+
+    const card = document.createElement("div");
+
+    card.className = "product-card";
+
+
+    const images = getImages(product);
+
+
+    let currentImage = 0;
+
+
+    const imageBox = document.createElement("div");
+
+    imageBox.className = "product-image";
+
+
+    const image = document.createElement("img");
+
+    image.src = images[0] || "";
+
+    image.alt = getProductName(product);
+
+
+    imageBox.appendChild(image);
+
+
+    if (images.length > 1) {
+
+        const left = document.createElement("button");
+
+        left.type = "button";
+        left.className = "gallery-arrow gallery-left";
+        left.textContent = "‹";
+
+
+        const right = document.createElement("button");
+
+        right.type = "button";
+        right.className = "gallery-arrow gallery-right";
+        right.textContent = "›";
+
+
+        const counter = document.createElement("span");
+
+        counter.className = "gallery-counter";
+
+        counter.textContent =
+            "1/" + images.length;
+
+
+        left.addEventListener("click", function(event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            currentImage--;
+
+            if (currentImage < 0) {
+                currentImage = images.length - 1;
+            }
+
+            image.src = images[currentImage];
+
+            counter.textContent =
+                (currentImage + 1) + "/" + images.length;
+
+        });
+
+
+        right.addEventListener("click", function(event) {
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            currentImage++;
+
+            if (currentImage >= images.length) {
+                currentImage = 0;
+            }
+
+            image.src = images[currentImage];
+
+            counter.textContent =
+                (currentImage + 1) + "/" + images.length;
+
+        });
+
+
+        imageBox.appendChild(left);
+        imageBox.appendChild(right);
+        imageBox.appendChild(counter);
+
+    }
+
+
+    const info = document.createElement("div");
+
+    info.className = "product-info";
+
+
+    const name = document.createElement("h3");
+
+    name.textContent = getProductName(product);
+
+
+    const price = document.createElement("p");
+
+    price.textContent =
+        Number(product.price || 0).toLocaleString("hy-AM") + " ֏";
+
+
+    const button = document.createElement("button");
+
+    button.type = "button";
+
+    button.className = "add-cart";
+
+    button.textContent =
+        getProductText("addToCart");
+
+
+    button.addEventListener("click", function() {
+
+        const productName = getProductName(product);
+
+        const productPrice = Number(product.price || 0);
+
+        const productImage = images[0] || "";
+
+
+        if (typeof addToCart === "function") {
+
+            addToCart(
+                productName,
+                productPrice,
+                productImage
+            );
+
+        } else {
+
+            console.error(
+                "addToCart function is not available"
+            );
+
+        }
+
+    });
+
+
+    info.appendChild(name);
+    info.appendChild(price);
+    info.appendChild(button);
+
+
+    card.appendChild(imageBox);
+    card.appendChild(info);
+
+
+    container.appendChild(card);
+
+}
+
 
 document.addEventListener(
     "DOMContentLoaded",
-    loadProducts
+    function() {
+        loadProducts();
+    }
 );
